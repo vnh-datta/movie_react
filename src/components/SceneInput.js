@@ -118,10 +118,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+function createSceneData(sceneNo, shootTown, est) {
+  return { sceneNo, shootTown, est };
+}
+
 const SceneInputComponent = ({ onSubmit }) => {
-  const [inputValue, setInputValue] = React.useState('shootDuration');
   const [selectedFile, setSelectedFile] = React.useState(null);
+  const [scenesDataList, setScenesDataList] = React.useState([]);
   const [state, setState] = React.useState({
+    sceneNo: '',
+    shootTown: '',
     shootTime: ''
   });
   const classes = useStyles();
@@ -140,12 +146,14 @@ const SceneInputComponent = ({ onSubmit }) => {
   }];
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit(inputValue);
+    onSubmit('shootDuration');
   };
-  const handleFileUpload = () => {
-    console.log(selectedFile);
-    setShowAccordion(true);
-    // Implement your file upload logic here
+  const handleTownChange = (event) => {
+    setState({
+      ...state,
+      shootTown: event.target.value
+    });
+    setScenesDataList([...scenesDataList, state]);
   };
   const handleRemoveFile = () => {
     setSelectedFile(null);
@@ -154,13 +162,13 @@ const SceneInputComponent = ({ onSubmit }) => {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  const handleChangeSelect = (event) => {
-    const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
-  };
+  // const handleChangeSelect = (event) => {
+  //   const name = event.target.name;
+  //   setState({
+  //     ...state,
+  //     [name]: event.target.value,
+  //   });
+  // };
   const handleFileInput = (e) => {
     setSelectedFile(e.target.files[0]);
   };
@@ -224,7 +232,6 @@ const SceneInputComponent = ({ onSubmit }) => {
                               </div>
                             </AccordionSummary>
                             <AccordionDetails className={classes.details}>
-
                               <Grid
                                 container
                                 direction="row">
@@ -236,7 +243,9 @@ const SceneInputComponent = ({ onSubmit }) => {
                                       id="Town"
                                       label="Town"
                                       variant="outlined"
-                                      fullWidth />
+                                      fullWidth 
+                                      className={classes.selectEmpty}
+                                      onChange={handleTownChange} />
                                   </Typography>
                                 </Grid>
                                 <Grid item sx={1}>
@@ -246,12 +255,10 @@ const SceneInputComponent = ({ onSubmit }) => {
                                   <Typography>
                                     EST Shoot Time:
                                     <br />
-                                    <FormControl variant="outlined" fullWidth>
+                                    <FormControl variant="outlined" fullWidth className={classes.selectEmpty}>
                                       <InputLabel htmlFor="outlined-age-native-simple">Shoot Time</InputLabel>
                                       <Select
                                         native
-                                        value={state.shootTime}
-                                        onChange={handleChangeSelect}
                                         label={`${item.name}-ShootTime`}
                                         autoWidth
                                         inputProps={{
@@ -272,13 +279,13 @@ const SceneInputComponent = ({ onSubmit }) => {
                               </Grid>
                               {/* </div> */}
                             </AccordionDetails>
-                            <Divider />
+                            {/* <Divider />
                             <AccordionActions>
                               <Button size="small">Cancel</Button>
                               <Button size="small" color="primary">
                                 Save
                               </Button>
-                            </AccordionActions>
+                            </AccordionActions> */}
                           </Accordion>
                         ))}
                       </div>
@@ -292,7 +299,7 @@ const SceneInputComponent = ({ onSubmit }) => {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                disabled={!selectedFile}
+                //disabled={(scenesDataList.length != data.length)}
                 type="submit">
                 Submit
               </Button>

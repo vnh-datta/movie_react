@@ -34,6 +34,7 @@ import SceneInputComponent from './SceneInput';
 import ShootDurationComponent from './ShootDuration';
 import CharacterInputComponent from './CharacterInput';
 import ScheduleOutputComponent from './ScheduleOutput';
+import LocationInputComponent from './LocationInput';
 
 function Content() {
   return (
@@ -194,6 +195,7 @@ export default function Dashboard() {
       {selectedItem === 'sceneInput' && <SceneInputComponent onSubmit={handleFormSubmit} />}
       {selectedItem === 'shootDuration' && <ShootDurationComponent  onSubmit={handleFormSubmit} />}
       {selectedItem === 'characterInput' && <CharacterInputComponent  onSubmit={handleFormSubmit} />}
+      {selectedItem === 'locationInput' && <LocationInputComponent  onSubmit={handleFormSubmit} />}
       {selectedItem === 'scheduleOutput' && <ScheduleOutputComponent />}
       </main>
     </div>

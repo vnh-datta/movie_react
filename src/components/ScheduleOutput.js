@@ -25,66 +25,77 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const columns = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+    { id: 'sNo', label: 'S.No', minWidth: 25 },
+    { id: 'schedule', label: 'Schedule', minWidth: 50 },
+    { id: 'shootTown', label: 'Shoot\u00a0Town', minWidth: 100 },
     {
-      id: 'population',
-      label: 'Population',
-      minWidth: 170,
-      align: 'right',
-      format: (value) => value.toLocaleString('en-US'),
+        id: 'sceneNum',
+        label: 'Scene\u00a0Number',
+        minWidth: 50,
     },
     {
-      id: 'size',
-      label: 'Size\u00a0(km\u00b2)',
-      minWidth: 170,
-      align: 'right',
-      format: (value) => value.toLocaleString('en-US'),
+        id: 'location',
+        label: 'Location',
+        minWidth: 170,
     },
     {
-      id: 'density',
-      label: 'Density',
-      minWidth: 170,
-      align: 'right',
-      format: (value) => value.toFixed(2),
+        id: 'actor',
+        label: 'Actor',
+        minWidth: 100,
     },
-  ];
-  
-  function createData(name, code, population, size) {
-    const density = population / size;
-    return { name, code, population, size, density };
-  }
-  
-  const rows = [
-    createData('India', 'IN', 1324171354, 3287263),
-    createData('China', 'CN', 1403500365, 9596961),
-    createData('Italy', 'IT', 60483973, 301340),
-    createData('United States', 'US', 327167434, 9833520),
-    createData('Canada', 'CA', 37602103, 9984670),
-    createData('Australia', 'AU', 25475400, 7692024),
-    createData('Germany', 'DE', 83019200, 357578),
-    createData('Ireland', 'IE', 4857000, 70273),
-    createData('Mexico', 'MX', 126577691, 1972550),
-    createData('Japan', 'JP', 126317000, 377973),
-    createData('France', 'FR', 67022000, 640679),
-    createData('United Kingdom', 'GB', 67545757, 242495),
-    createData('Russia', 'RU', 146793744, 17098246),
-    createData('Nigeria', 'NG', 200962417, 923768),
-    createData('Brazil', 'BR', 210147125, 8515767),
-  ];
+    {
+        id: 'date',
+        label: 'Date',
+        minWidth: 100,
+    },
+    {
+        id: 'd_ID',
+        label: 'D_ID',
+        minWidth: 50,
+    },
+    {
+        id: 'fromDate',
+        label: 'From\u00a0Date',
+        minWidth: 100,
+    },
+    {
+        id: 'toDate',
+        label: 'To\u00a0Date',
+        minWidth: 100,
+    },
+];
+
+function createData(sNo, schedule, shootTown, sceneNum, location, actor, date, d_ID, fromDate, toDate) {
+    return { sNo, schedule, shootTown, sceneNum, location, actor, date, d_ID, fromDate, toDate };
+}
+
+const rows = [
+    createData('1','1','Ramoji', '5', 'Ramoji', 'Gopi', '2023-06-09', '1', '2023-06-09', '2023-06-09'),
+    createData('2','1','Ramoji', '50', 'Ramoji', 'Vijay', '2023-06-09', '1', '2023-06-09', '2023-06-09'),
+    createData('3','1','Ramoji', '97', 'Ramoji', 'Gopi', '2023-06-09', '1', '2023-06-09', '2023-06-09'),
+    createData('4','2','Ramoji', '76', 'Ramoji', 'Gopi', '2023-06-09', '4', '2023-06-09', '2023-06-09'),
+    createData('5','3','S.R.Nagar', '87', 'Bhashyam', 'Suresh', '2023-06-09', '16', '2023-06-09', '2023-06-09'),
+    createData('6','4','Vizag', '4', 'Bhashyam', 'Ramu', '2023-06-09', '16', '2023-06-09', '2023-06-09'),
+    createData('7','4','Vizag', '34', 'Lotus Pound', 'Ramu', '2023-06-09', '4', '2023-06-09', '2023-06-09'),
+    createData('8','4','Madhapur', '54', 'Lotus Pound', 'Suresh', '2023-06-09', '8', '2023-06-09', '2023-06-09'),
+    createData('9','5','Vizag', '96', 'Lotus Pound', 'Ravi', '2023-06-09', '7', '2023-06-09', '2023-06-09'),
+    createData('10','6','Vizag', '107', 'Ikea', 'Sundar', '2023-06-09', '9', '2023-06-09', '2023-06-09'),
+    createData('11','7','Kukatpally', '106', 'Ikea', 'Gopi', '2023-06-09', '5', '2023-06-09', '2023-06-09'),
+    createData('12','7','Kukatpally', '105', 'Sarath City', 'Gopi', '2023-06-09', '5', '2023-06-09', '2023-06-09'),
+];
 
 const ScheduleOutputComponent = () => {
     const styles = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  
+
     const handleChangePage = (event, newPage) => {
-      setPage(newPage);
+        setPage(newPage);
     };
-  
+
     const handleChangeRowsPerPage = (event) => {
-      setRowsPerPage(+event.target.value);
-      setPage(0);
+        setRowsPerPage(+event.target.value);
+        setPage(0);
     };
     return (
         <div>
