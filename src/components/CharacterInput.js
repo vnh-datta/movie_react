@@ -92,7 +92,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
                         <Stack spacing={2}>
                             <Box sx={{ mt: 2 }}>
                             {data.map((item, index) => (
-                                <Accordion key={item.name} expanded={expanded === item.name} onChange={handleChange(item.name)}>
+                                <Accordion key={index} expanded={expanded === item.name} onChange={handleChange(item.name)}>
                                     <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls={`${item.name}-content`}
@@ -196,7 +196,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
                                                         </AccordionSummary>
                                                         <AccordionDetails className={styles.accordianDetails}>
                                                             {timeSlots.map((item, index) => (
-                                                                <Box sx={{ p: 2 }}>
+                                                                <Box  key={index} sx={{ p: 2 }}>
                                                                     <Grid container
                                                                         direction="row"
                                                                         overflow="unset">

@@ -167,7 +167,7 @@ export default function Dashboard() {
             Dashboard
           </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
+            <Badge overlap="rectangular" badgeContent={4} color="secondary">
               <NotificationsIcon />
             </Badge>
           </IconButton>

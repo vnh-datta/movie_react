@@ -133,19 +133,56 @@ const SceneInputComponent = ({ onSubmit }) => {
   const classes = useStyles();
   const [showAccordion, setShowAccordion] = React.useState(false);
   const [expanded, setExpanded] = React.useState(true);
-  const data = [{
-    name: "panel1"
-  }, {
-    name: "panel2"
-  }, {
-    name: "panel3"
-  }, {
-    name: "panel4"
-  }, {
-    name: "panel5"
-  }];
+  const [formData, setFormData] = React.useState([]);
+  // const data = [{
+  //   name: "panel1"
+  // }, {
+  //   name: "panel2"
+  // }, {
+  //   name: "panel3"
+  // }, {
+  //   name: "panel4"
+  // }, {
+  //   name: "panel5"
+  // }];
+  const data = [];
+
+  for (let i = 1; i <= 100; i++) {
+    const obj = {
+      name: `panel${i}`,
+    };
+    data.push(obj);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
+     // Prepare the data to be sent in the request body
+  const requestBody = formData.map((item, index) => ({
+    sceneNo: index + 1,
+    shootTown: item.shootTown,
+    shootTime: item.shootTime
+  }));
+  console.log(requestBody);
+
+  // Make the POST request to the API endpoint
+  // fetch('http://127.0.0.1:3000/duration', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(requestBody)
+  // })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     // Handle the response from the API
+  //     console.log(data);
+  //     // Perform any additional actions based on the response
+  //   })
+  //   .catch(error => {
+  //     // Handle any errors that occur during the request
+  //     console.error(error);
+  //     // Perform any error handling
+  //   });
     onSubmit('shootDuration');
   };
   const handleTownChange = (event) => {
@@ -155,6 +192,16 @@ const SceneInputComponent = ({ onSubmit }) => {
     });
     setScenesDataList([...scenesDataList, state]);
   };
+  const handleDataChange = (index) => (event) => {
+    const { name, value } = event.target;
+    const updatedData = [...formData];
+    updatedData[index] = { ...updatedData[index], [name]: value };
+    setFormData(updatedData);
+    // console.log("Before Prateek")
+    // console.log(formData);
+    // console.log("After prateek")
+  };
+
   const handleRemoveFile = () => {
     setSelectedFile(null);
     setShowAccordion(false);
@@ -226,7 +273,8 @@ const SceneInputComponent = ({ onSubmit }) => {
                             <AccordionSummary
                               expandIcon={<ExpandMoreIcon />}
                               aria-controls={`${item.name}-content`}
-                              id={`${item.name}-header`}>
+                              id={`${item.name}-header`}
+                              overlap="rectangular">
                               <div className={classes.column}>
                                 <Typography className={classes.heading}>Scene{index + 1}</Typography>
                               </div>
@@ -240,12 +288,15 @@ const SceneInputComponent = ({ onSubmit }) => {
                                     Shoot Town
                                     <br />
                                     <TextField
-                                      id="Town"
                                       label="Town"
                                       variant="outlined"
+                                      inputProps={{
+                                        name: 'shootTown',
+                                        id: item.name + 'Town',
+                                      }}
                                       fullWidth 
                                       className={classes.selectEmpty}
-                                      onChange={handleTownChange} />
+                                      onChange={handleDataChange(index)} />
                                   </Typography>
                                 </Grid>
                                 <Grid item sx={1}>
@@ -264,7 +315,8 @@ const SceneInputComponent = ({ onSubmit }) => {
                                         inputProps={{
                                           name: 'shootTime',
                                           id: item.name + 'outlined-age-native-simple',
-                                        }}>
+                                        }}
+                                        onChange={handleDataChange(index)}>
                                         <option aria-label="None" value="" />
                                         <option value={1}>1</option>
                                         <option value={2}>2</option>

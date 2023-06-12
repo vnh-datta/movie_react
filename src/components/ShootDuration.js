@@ -28,8 +28,33 @@ const ShootDurationComponent = ({ onSubmit }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        const formData = {
+            startDate: startDate?.toISOString(),
+            endDate: endDate?.toISOString(),
+          };
+          console.log("Duration Prateek Changes")
+          console.log(formData);
         onSubmit('characterInput');
     };
+    
+
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+  };
+
+  const handleEndDateChange = (date) => {
+    setEndDate(date);
+  };
+
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+    
+//     // Perform any other actions with the form data
+//   };
+  //};
 
     return (
         <div>
@@ -40,6 +65,7 @@ const ShootDurationComponent = ({ onSubmit }) => {
                     </Typography>
                     <form onSubmit={handleSubmit}>
                         <Grid container
+                            spacing={2}
                             direction="row"
                             justifyContent="center"
                             alignItems="center">
@@ -48,7 +74,9 @@ const ShootDurationComponent = ({ onSubmit }) => {
                                     From
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DemoContainer components={['DatePicker']}>
-                                            <DatePicker />
+                                            <DatePicker
+                                            value={startDate}
+                                            onChange={handleStartDateChange} />
                                         </DemoContainer>
                                     </LocalizationProvider>
                                 </Typography>
@@ -59,7 +87,9 @@ const ShootDurationComponent = ({ onSubmit }) => {
                                     To
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                         <DemoContainer components={['DatePicker']}>
-                                            <DatePicker />
+                                            <DatePicker 
+                                            value={endDate}
+                                            onChange={handleEndDateChange}/>
                                         </DemoContainer>
                                     </LocalizationProvider>
                                 </Typography>
