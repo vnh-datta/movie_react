@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +8,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import ResponseContext from './ResponseContext';
 
 const useStyles = makeStyles((theme) => ({
     appBarSpacer: theme.mixins.toolbar,
@@ -25,6 +26,13 @@ const useStyles = makeStyles((theme) => ({
 const ShootDurationComponent = ({ onSubmit }) => {
     const styles = useStyles();
     const [email, setEmail] = useState('');
+    const responseContext = useContext(ResponseContext);
+    //const sceneData  = responseContext.sceneData;
+    const responseData  = responseContext;
+    const sceneData = responseContext.responseData?.sceneData;
+    console.log("reyy it is working down from one to another");
+    console.log(sceneData);
+    console.log(responseData);
 
     const handleSubmit = (event) => {
         event.preventDefault();

@@ -5,10 +5,12 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
 import Director from './components/Director';
+import ResponseContext from './components/ResponseContext';
 
 
 function App() {
   return (
+    <ResponseContext.Provider value={{ responseData: null, setResponseData: () => {} }}>
     <Router>
       <Routes>
       <Route path="/" element={<Login />} />
@@ -17,6 +19,7 @@ function App() {
         <Route path="/director" element={<Director />} />
       </Routes>
     </Router>
+    </ResponseContext.Provider>
   );
 }
 

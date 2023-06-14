@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{ useState , useContext } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -18,6 +18,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Link from '@material-ui/core/Link';
+import ResponseContext from './ResponseContext';
 import { makeStyles } from '@material-ui/core/styles';
 
 function Copyright() {
@@ -123,17 +124,19 @@ function createSceneData(sceneNo, shootTown, est) {
 }
 
 const SceneInputComponent = ({ onSubmit }) => {
-  const [selectedFile, setSelectedFile] = React.useState(null);
-  const [scenesDataList, setScenesDataList] = React.useState([]);
-  const [state, setState] = React.useState({
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [scenesDataList, setScenesDataList] = useState([]);
+  const [state, setState] = useState({
     sceneNo: '',
     shootTown: '',
     shootTime: ''
   });
   const classes = useStyles();
-  const [showAccordion, setShowAccordion] = React.useState(false);
-  const [expanded, setExpanded] = React.useState(true);
-  const [formData, setFormData] = React.useState([]);
+  const [showAccordion, setShowAccordion] = useState(false);
+ // const responseContext = useContext(ResponseContext);
+ const { setResponseData } = useContext(ResponseContext);
+  const [expanded, setExpanded] = useState(true);
+  const [formData, setFormData] = useState([]);
   // const data = [{
   //   name: "panel1"
   // }, {
@@ -157,12 +160,23 @@ const SceneInputComponent = ({ onSubmit }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
      // Prepare the data to be sent in the request body
-  const requestBody = formData.map((item, index) => ({
+  const sceneData = formData.map((item, index) => ({
     sceneNo: index + 1,
     shootTown: item.shootTown,
     shootTime: item.shootTime
   }));
-  console.log(requestBody);
+  console.log(sceneData);
+  //const sceneData = {responseData:requestBody};
+  console.log("sceneData");
+  //console.log(...responseContext.sceneData)
+  // Set the sceneData in responseData with a specific key
+  //responseContext.setResponseData({ ...responseContext.sceneData, sceneData });
+  //responseContext.setResponseData({ ...responseContext.responseData, sceneData: requestBody });
+  //responseContext.setResponseData({ sceneData: requestBody });
+  setResponseData({ sceneData });
+
+  //responseContext.setResponseData(sceneData);
+  
 
   // Make the POST request to the API endpoint
   // fetch('http://127.0.0.1:3000/duration', {
