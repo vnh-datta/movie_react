@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Login from './components/Login';
@@ -9,8 +9,11 @@ import ResponseContext from './components/ResponseContext';
 
 
 function App() {
+  const [sceneshootData, setsceneshootData]=useState({});
   return (
-    <ResponseContext.Provider value={{ responseData: null, setResponseData: () => {} }}>
+    <ResponseContext.Provider value={{ responseData: sceneshootData , setResponseData: (obj) => {
+      setsceneshootData(obj);
+    } }}>
     <Router>
       <Routes>
       <Route path="/" element={<Login />} />

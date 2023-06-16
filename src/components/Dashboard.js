@@ -11,7 +11,7 @@
 // export default Dashboard;
 
 
-import React from 'react';
+import React, { useContext } from 'react';
 import clsx from 'clsx';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -35,6 +35,7 @@ import ShootDurationComponent from './ShootDuration';
 import CharacterInputComponent from './CharacterInput';
 import ScheduleOutputComponent from './ScheduleOutput';
 import LocationInputComponent from './LocationInput';
+import ResponseContext from './ResponseContext';
 
 function Content() {
   return (
@@ -130,6 +131,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
+  const {responseData} = useContext(ResponseContext)
+  console.log('test---', responseData);
   const [selectedItem, setSelectedItem] = React.useState('sceneInput');
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {

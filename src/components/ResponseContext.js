@@ -1,7 +1,5 @@
 import React from 'react';
 
-const ResponseContext = React.createContext({responseData: null,
-    setResponseData: () => {}
-  });
+const ResponseContext = React.createContext();
 
 export default ResponseContext;

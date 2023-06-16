@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -70,6 +70,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
     // }];
 
     //new code start
+    //const [result,setresult]=useState([]);
    const data1 = {
         "char_dict": {
             "BATHROOM": [29, 30, 31, 33, 52, 59, 73, 74, 77, 93, 94],
@@ -189,7 +190,29 @@ const CharacterInputComponent = ({ onSubmit }) => {
     };
     
     // Convert data to the desired format
-    const result = [];
+    let data;
+    let result = [];
+
+    // useEffect(() => {
+    //     for (const character of data1.characters) {
+    //         const scenes = data1.char_dict[character];
+    //         // result = {
+    //         //     name:character,noOfScenes: scenes.length.toString(), scenes : scenes 
+    //         // }
+
+    //         result.push({
+    //             name: character,
+    //             noOfScenes: scenes.length.toString(),
+    //             scenes:scenes
+    //         });
+    //     }
+    //     setresult(result);
+    // }, [])
+
+
+    // useEffect(() => {
+    //     console.log(result)
+    // }, [result]);
     for (const character of data1.characters) {
         const scenes = data1.char_dict[character];
         result.push({
@@ -198,8 +221,8 @@ const CharacterInputComponent = ({ onSubmit }) => {
             scenes:scenes
         });
     }
-    // console.log("prateekkk")
-    // console.log(result);
+     console.log("prateekkk")
+     console.log(result);
     const [formData, setFormData] = useState([]);
     const [resultData, setResult] = useState([]);
     const handleDataChange = (index,item) => (event) => {

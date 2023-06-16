@@ -1,4 +1,4 @@
-import React ,{ useState , useContext } from 'react';
+import React ,{ useState , useContext, useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -124,6 +124,8 @@ function createSceneData(sceneNo, shootTown, est) {
 }
 
 const SceneInputComponent = ({ onSubmit }) => {
+
+
   const [selectedFile, setSelectedFile] = useState(null);
   const [scenesDataList, setScenesDataList] = useState([]);
   const [state, setState] = useState({
@@ -134,9 +136,13 @@ const SceneInputComponent = ({ onSubmit }) => {
   const classes = useStyles();
   const [showAccordion, setShowAccordion] = useState(false);
  // const responseContext = useContext(ResponseContext);
- const { setResponseData } = useContext(ResponseContext);
+ const { setResponseData, responseData } = useContext(ResponseContext);
   const [expanded, setExpanded] = useState(true);
   const [formData, setFormData] = useState([]);
+
+  useEffect(() => {
+    console.log('reached', responseData)
+      }, [responseData])
   // const data = [{
   //   name: "panel1"
   // }, {
