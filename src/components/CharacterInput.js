@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { formatMs, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
@@ -44,7 +44,20 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: theme.typography.fontWeightBold
     },
     accordianDetails: {
-        flex: 'block',
+        display: 'block',
+        width: '100%',
+    },
+    accordionContainer: {
+        display: 'block',
+        alignItems: 'center',
+    },
+    details: {
+        padding: '0px',
+        display: 'block',
+        alignItems: 'center',
+    },
+    datePicker: {
+        overflow: 'unset'
     }
 }));
 
@@ -52,26 +65,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
     const styles = useStyles();
     const [email, setEmail] = useState('');
     const [expanded, setExpanded] = React.useState(true);
-    // const data = [{
-    //     name: "Young Man",
-    //     noOfScenes: "2"
-    // }, {
-    //     name: "Young Women",
-    //     noOfScenes: "1"
-    // }, {
-    //     name: "Waitress",
-    //     noOfScenes: "5"
-    // }, {
-    //     name: "Doctor",
-    //     noOfScenes: "3"
-    // }, {
-    //     name: "Police",
-    //     noOfScenes: "7"
-    // }];
-
-    //new code start
-    //const [result,setresult]=useState([]);
-   const data1 = {
+    const [data1, setData] = useState({
         "char_dict": {
             "BATHROOM": [29, 30, 31, 33, 52, 59, 73, 74, 77, 93, 94],
             "BRETT": [8, 72],
@@ -187,11 +181,33 @@ const CharacterInputComponent = ({ onSubmit }) => {
             ]
         ],
         "status_code": 200
-    };
+    })
+    // const [result, setResultData] = React.useState([]);
+    // const data = [{
+    //     name: "Young Man",
+    //     noOfScenes: "2"
+    // }, {
+    //     name: "Young Women",
+    //     noOfScenes: "1"
+    // }, {
+    //     name: "Waitress",
+    //     noOfScenes: "5"
+    // }, {
+    //     name: "Doctor",
+    //     noOfScenes: "3"
+    // }, {
+    //     name: "Police",
+    //     noOfScenes: "7"
+    // }];
+
+    //new code start
+    const [result,setresult]=useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+//    const data1 = ;
     
     // Convert data to the desired format
     let data;
-    let result = [];
+   // let result = [];
 
     // useEffect(() => {
     //     for (const character of data1.characters) {
@@ -213,38 +229,54 @@ const CharacterInputComponent = ({ onSubmit }) => {
     // useEffect(() => {
     //     console.log(result)
     // }, [result]);
-    for (const character of data1.characters) {
-        const scenes = data1.char_dict[character];
-        result.push({
-            name: character,
-            noOfScenes: scenes.length.toString(),
-            scenes:scenes
-        });
-    }
+
+    // for the use effect implementation start
+    useEffect(() => {
+        // Code to fetch a new quote from the API
+        // Update the quote state with the fetched quote
+        for (const character of data1.characters) {
+            const scenes = data1.char_dict[character];
+            result.push({
+                name: character,
+                noOfScenes: scenes.length.toString(),
+                scenes:scenes
+            });
+        }
+        setresult(result);
+        console.log("Use Effect is called and done")
+        setIsLoaded(true);
+        console.log(result)
+      }, []); 
+    //end
+    
      console.log("prateekkk")
-     console.log(result);
+    //  console.log(result);
     const [formData, setFormData] = useState([]);
     const [resultData, setResult] = useState([]);
+    const handleStartDateChange = (index, index1, item) => (event) => {
+const updatedData = [...formData];
+    updatedData[index] = { ...updatedData[index], [item]: event };
+    setFormData(updatedData);
+  // Append formData to the corresponding item in result
+//   const updatedResult = [...result];
+//   updatedResult[index] = { ...updatedResult[index], formData: updatedData[index] };
+//   setResult(updatedResult);
+  console.log("After prateek date");
+  console.log(formData);
+//   console.log(updatedResult);
+      };
     const handleDataChange = (index,item) => (event) => {
         const { name, value } = event.target;
-       
-
-
-//   // Check if formData at the given index exists
-//   if (updatedData[index]) {
-//     updatedData[index] = { ...updatedData[index], [name]: value };
-//   } else {
-//     updatedData[index] = { [name]: value };
-//   }
-
-//   setFormData(updatedData);
 const updatedData = [...formData];
     updatedData[index] = { ...updatedData[index], [name]: value };
     setFormData(updatedData);
   // Append formData to the corresponding item in result
-  const updatedResult = [...result];
-  updatedResult[index] = { ...updatedResult[index], formData: updatedData[index] };
-  setResult(updatedResult);
+//   const updatedResult = [...result];
+//   updatedResult[index] = { ...updatedResult[index], formData: updatedData[index] };
+//   setResult(updatedResult);
+  console.log("After prateek data")
+  console.log(formData);
+//   console.log(updatedResult);
 
   
       };
@@ -257,14 +289,21 @@ const updatedData = [...formData];
     }];
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(resultData);
+        // console.log(resultData);
+     // Prepare the data to be sent in the request body
+//   const sceneData = formData.map((item, index) => ({
+//     sceneNo: index + 1,
+//     shootTown: item.shootTown,
+//     shootTime: item.shootTime
+//   }));
+//   console.log(sceneData);
         console.log(formData);
-        onSubmit('locationInput');
+       // onSubmit('locationInput');
     };
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-    return (
+    return isLoaded ? (
         <div>
             <div className={styles.appBarSpacer}>
                 <Container maxWidth="xl" className={styles.container}>
@@ -274,6 +313,7 @@ const updatedData = [...formData];
                     <form onSubmit={handleSubmit}>
                         <Stack spacing={2}>
                             <Box sx={{ mt: 2 }}>
+                            <div className={styles.accordianDetails}>
                             {result.map((item, index) => (
                                 <Accordion key={index} expanded={expanded === item.name} onChange={handleChange(item.name)}>
                                     <AccordionSummary
@@ -284,7 +324,7 @@ const updatedData = [...formData];
                                             <Typography>{item.name}</Typography>
                                         </div>
                                     </AccordionSummary>
-                                    <AccordionDetails>
+                                    <AccordionDetails className={styles.accordionContainer}>
                                         <CharacterItem>
                                             <Typography variant="body1" className={styles.heading}>
                                                 Character Details
@@ -356,7 +396,12 @@ const updatedData = [...formData];
                                                         <Grid item sm={2}>
                                                             <FormControl variant="outlined">
                                                                 <Select
-                                                                    native>
+                                                                    native
+                                                                    inputProps={{
+                                                                        name: 'sceneNo',
+                                                                        id: item.name + 'sceneNo',
+                                                                      }}
+                                                                    onChange={handleDataChange(index)}>
                                                                     <option aria-label="None" value="" />
                                                                     {item.scenes.map((value) => (
       <option key={value} value={value}>{value}</option>
@@ -370,7 +415,7 @@ const updatedData = [...formData];
                                                     <Typography variant="body2">
                                                         Available Dates:
                                                     </Typography>
-                                                    <Box sx={{ mt: 1 }}>
+                                                    <Box sx={{ mt: 1 }} fullWidth>
                                                     <Accordion>
                                                         <AccordionSummary
                                                             expandIcon={<ExpandMoreIcon />}>
@@ -378,34 +423,44 @@ const updatedData = [...formData];
                                                                 <Typography variant="body2">Time Slots</Typography>
                                                             </div>
                                                         </AccordionSummary>
-                                                        <AccordionDetails className={styles.accordianDetails}>
-                                                            {timeSlots.map((item, index) => (
-                                                                <Box  key={index} sx={{ p: 2 }}>
+                                                        <AccordionDetails className={styles.details}>                                                          
+                                                            {timeSlots.map((item, index1) => (
+                                                                <Box  key={index1} sx={{ p: 2 }}>
                                                                     <Grid container
                                                                         direction="row"
                                                                         overflow="unset">
                                                                         <Grid item sm={2}>
                                                                             <Typography variant='caption'>
-                                                                                Time Slot {index + 1}:
+                                                                                Time Slot {index1 + 1}:
                                                                             </Typography>
                                                                         </Grid>
-                                                                        <Grid item sm={2}>
+                                                                        <Grid item sm={3}>
                                                                             <Typography variant='caption'>
                                                                                 From
                                                                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                                                     <DemoContainer components={['DatePicker']}>
-                                                                                        <DatePicker />
+                                                                                        <DatePicker 
+                                                                                        inputProps={{
+                                                                                            name: 'fromDate',
+                                                                                            id: item.name + 'fromDate',
+                                                                                          }}
+                                                                                        onChange={handleStartDateChange(index, index1, 'fromDate')}/>
                                                                                     </DemoContainer>
                                                                                 </LocalizationProvider>
                                                                             </Typography>
                                                                         </Grid>
                                                                         <Grid item sm={1}/>
-                                                                        <Grid item sm={2}>
+                                                                        <Grid item sm={3}>
                                                                             <Typography variant='caption'>
                                                                                 To
                                                                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                                                     <DemoContainer components={['DatePicker']}>
-                                                                                        <DatePicker />
+                                                                                        <DatePicker 
+                                                                                        inputProps={{
+                                                                                            name: 'toDate',
+                                                                                            id: item.name + 'toDate',
+                                                                                          }}
+                                                                                        onChange={handleStartDateChange(index, index1, 'toDate')}/>
                                                                                     </DemoContainer>
                                                                                 </LocalizationProvider>
                                                                             </Typography>
@@ -453,6 +508,7 @@ const updatedData = [...formData];
                                     </AccordionDetails>
                                 </Accordion>
                             ))}
+                            </div>
                             </Box>
                             <Item>
                                 <Button
@@ -467,7 +523,7 @@ const updatedData = [...formData];
                 </Container>
             </div>
         </div>
-    );
+    ):null;
 };
 
 export default CharacterInputComponent;
