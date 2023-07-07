@@ -132,7 +132,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
   const {responseData} = useContext(ResponseContext)
-  console.log('test---', responseData);
   const [selectedItem, setSelectedItem] = React.useState('sceneInput');
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {

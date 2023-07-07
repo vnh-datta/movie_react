@@ -26,22 +26,24 @@ const useStyles = makeStyles((theme) => ({
 const ShootDurationComponent = ({ onSubmit }) => {
     const styles = useStyles();
     const [email, setEmail] = useState('');
-    const responseContext = useContext(ResponseContext);
+    const responseContexts = useContext(ResponseContext);
+    const { setResponseData, responseContext } = useContext(ResponseContext);
     //const sceneData  = responseContext.sceneData;
-    const responseData  = responseContext;
-    const sceneData = responseContext.responseData?.sceneData;
+    const responseData  = responseContexts;
+    const sceneData = responseContexts.responseData?.sceneData;
     console.log("reyy it is working down from one to another");
     console.log(sceneData);
     console.log(responseData);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const formData = {
+        const shootData = {
             startDate: startDate?.toISOString(),
             endDate: endDate?.toISOString(),
           };
           console.log("Duration Prateek Changes")
-          console.log(formData);
+          console.log(shootData);
+          setResponseData({ shootData });
         onSubmit('characterInput');
     };
     

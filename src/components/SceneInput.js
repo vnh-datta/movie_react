@@ -140,9 +140,9 @@ const SceneInputComponent = ({ onSubmit }) => {
   const [expanded, setExpanded] = useState(true);
   const [formData, setFormData] = useState([]);
 
-  useEffect(() => {
-    console.log('reached', responseData)
-      }, [responseData])
+  // useEffect(() => {
+  //   console.log('reached', responseData)
+  //     }, [responseData])
   // const data = [{
   //   name: "panel1"
   // }, {
