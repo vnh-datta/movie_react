@@ -1,5 +1,5 @@
-import React, { useEffect, useState ,useContext} from "react";
-import { formatMs, makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useState,useContext } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
@@ -63,154 +63,27 @@ const useStyles = makeStyles((theme) => ({
 
 const CharacterInputComponent = ({ onSubmit }) => {
   const styles = useStyles();
-  const [email, setEmail] = useState("");
   const [expanded, setExpanded] = React.useState(true);
-  const [data1, setData] = useState({
-    char_dict: {
-      BATHROOM: [29, 30, 31, 33, 52, 59, 73, 74, 77, 93, 94],
-      BRETT: [8, 72],
-      BUDDY: [7, 29, 31, 76],
-      BUTCH: [
-        8, 11, 41, 42, 45, 46, 48, 49, 50, 51, 52, 53, 55, 56, 57, 58, 59, 60,
-        61, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72,
-      ],
-      "BUTCH'S POV": [],
-      "CAPT. KOONS": [],
-      "ED SULLIVAN": [31],
-      "ENGLISH DAVE": [10, 11, 48],
-      ESMARELDA: [44, 45, 46, 49, 51],
-      FABIENNE: [50, 52, 63, 70, 72],
-      "FADE UP": [8, 41, 52, 64, 72, 89],
-      "FOURTH MAN": [73, 74],
-      GAWKER: [63],
-      "HONEY BUNNY": [92, 94],
-      JIMMIE: [72, 76, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90],
-      JODY: [12, 13, 36, 38, 39],
-      JULES: [
-        2, 3, 4, 5, 6, 7, 8, 10, 72, 73, 74, 76, 77, 78, 80, 81, 83, 84, 85, 87,
-        88, 89, 90, 91, 92, 94,
-      ],
-      "JULES ANDVINCENT": [89],
-      KLONDIKE: [42],
-      LANCE: [11, 12, 13, 32, 35, 36, 37, 38, 39, 56, 59, 63, 85],
-      "LANCE ANDVINCENT": [38],
-      "LIVING ROOM": [15, 17, 19, 21, 22, 23, 25, 27, 33, 38, 39, 41],
-      "LOOKYLOO WOMAN": [63],
-      MANAGER: [92, 94],
-      MARSELLUS: [
-        4, 5, 6, 7, 8, 10, 11, 14, 29, 31, 32, 37, 41, 48, 63, 64, 65, 66, 68,
-        76, 79, 80, 86, 92,
-      ],
-      MARVIN: [8, 73, 74, 76, 77, 90],
-      MAYNARD: [64, 65, 68],
-      MIA: [
-        4, 7, 11, 14, 16, 17, 18, 19, 20, 21, 22, 26, 27, 28, 29, 30, 31, 32,
-        33, 35, 37, 38, 39, 40, 41, 48,
-      ],
-      "MOTEL ROOM": [52, 71, 72],
-      MOTHER: [7, 8, 41, 48, 52, 76, 80, 84, 87, 89, 92, 94],
-      PATRON: [29, 31, 92, 94],
-      PEDESTRIAN: [63],
-      PREACHER: [16, 36],
-      PUMPKIN: [92, 94],
-      RAQUEL: [90, 91],
-      ROGER: [8],
-      SPORTSCASTER: [42, 43, 44],
-      "THE GIMP": [65],
-      "THE WOLF": [28, 72, 80, 81, 83, 84, 85, 86, 88, 89, 90, 91],
-      "THROUGH THE WINDSHIELD": [63],
-      TRUDI: [12, 13],
-      VINCENT: [
-        2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 21, 22, 23,
-        25, 27, 28, 29, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 48, 59, 72,
-        73, 74, 76, 77, 78, 81, 83, 85, 87, 88, 89, 90, 91, 92, 93, 94,
-      ],
-      WAITRESS: [28, 29, 31, 92, 94],
-      WHITE: [2, 8, 10, 11, 13, 14, 29, 31, 32, 42, 44, 52, 77, 85, 86],
-      WINSTON: [81, 83, 86, 91],
-      "WOMAN'S VOICE": [],
-      YOLANDA: [94],
-      "YOUNG MAN": [8, 13, 78],
-      "YOUNG WOMAN": [12, 44],
-      ZED: [8, 59, 63, 64, 65, 68, 69, 72, 78, 94],
-    },
-    characters: [
-      "YOUNG MAN",
-      "YOUNG WOMAN",
-      "WAITRESS",
-      "PUMPKIN",
-      "HONEY BUNNY",
-      "JULES",
-      "VINCENT",
-      "BRETT",
-      "MARVIN",
-      "ROGER",
-      "MARSELLUS",
-      "BUTCH",
-      "ENGLISH DAVE",
-      "JODY",
-      "TRUDI",
-      "LANCE",
-      "MIA",
-      "WHITE",
-      "BUDDY",
-      "ED SULLIVAN",
-      "LIVING ROOM",
-      "BATHROOM",
-      "PREACHER",
-      "LANCE ANDVINCENT",
-      "FADE UP",
-      "WOMAN'S VOICE",
-      "BUTCH'S POV",
-      "MOTHER",
-      "CAPT. KOONS",
-      "KLONDIKE",
-      "SPORTSCASTER",
-      "ESMARELDA",
-      "FABIENNE",
-      "MOTEL ROOM",
-      "THROUGH THE WINDSHIELD",
-      "PEDESTRIAN",
-      "GAWKER",
-      "LOOKYLOO WOMAN",
-      "MAYNARD",
-      "ZED",
-      "THE GIMP",
-      "FOURTH MAN",
-      "JIMMIE",
-      "THE WOLF",
-      "JULES ANDVINCENT",
-      "WINSTON",
-      "RAQUEL",
-      "PATRON",
-      "MANAGER",
-      "YOLANDA",
-    ],
-    length: 50,
-    message: "success",
-    shoot_time: [["2023-06-01"], ["2023-06-27"]],
-    status_code: 200,
-  });
   //new code start
-  const responseContexts = useContext(ResponseContext);
-  const { setResponseData, responseContext } = useContext(ResponseContext);
   const [result, setresult] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [selectedTimeSlots, setSelectedTimeSlots] = useState([[]]);
-  let data;
+  const responseContexts = useContext(ResponseContext);
+  const { setResponseData, responseContext } = useContext(ResponseContext);
+ 
   useEffect(() => {
     // Code to fetch a new quote from the API
     // Update the quote state with the fetched quote
-    // const responseContext = useContext(ResponseContext);
     
-    //const sceneData  = responseContext.sceneData;
+    
+    
     const responseData  = responseContexts;
-    const shootData = responseContexts.responseData?.shootData;
+    const charData = responseContexts.responseData?.charData;
     console.log("reyy it is working down from one to another in character");
-    console.log(shootData);
+    console.log(charData);
     console.log(responseData);
-    for (const character of data1.characters) {
-      const scenes = data1.char_dict[character];
+    
+    for (const character of charData.characters) {
+      const scenes = charData.char_dict[character];
       result.push({
         name: character,
         noOfScenes: scenes.length.toString(),
@@ -218,59 +91,351 @@ const CharacterInputComponent = ({ onSubmit }) => {
       });
     }
     setresult(result);
-    console.log("Use Effect is called and done");
     setIsLoaded(true);
-    console.log(result);
-  }, []);
+  }, [responseContexts]);
   //end
-  console.log("prateekkk");
-  //  console.log(result);
+
   const [formData, setFormData] = useState([]);
   const [fromDate, setFromDate] = useState(null);
-  const [toDate, setToDate] = useState(null);
-  const [resultData, setResult] = useState([]);
-  const handleDateChange = (index, index1, item) => (event) => {
+  const handleDateChange = (index, index1, item, key, event)  => {
     const updatedData = [...formData];
 
-
-     selectedTimeSlots[index][index1] = {
-       ...selectedTimeSlots[index][index1],
-       [item]: event.toDate(),
-     };
-     updatedData[index] = { ...updatedData[index], selectedTimeSlots };
-     console.log(updatedData);
+     updatedData[index] = { ...formData[index], [key]: { ...formData[index][key], [item]: event?.toLocaleString()}}
      setFormData(updatedData);
-   
-    console.log(index);
-    console.log(index1);
-    console.log(item);
-    console.log("After prateek date");
-    console.log(formData);
   };
   const handleDataChange = (index, item) => (event) => {
     const { name, value } = event.target;
-    const updatedData = [...formData];
-    updatedData[index] = { ...updatedData[index], [name]: value };
+    let updatedData = formData;
+    if(formData.some((show) => show.id === index)) {
+       updatedData = updatedData.map((record) => record.id === index ? ({...record, [name]: value}): record);
+    } else {
+      updatedData.push({id: index, [name]: value})
+    }
     setFormData(updatedData);
-    console.log("After prateek data");
-    console.log(formData);
   };
-  const timeSlots = [
-    {
-      name: "Time Slot 1:",
-    },
-    {
-      name: "Time Slot 2:",
-    },
-  ];
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formData);
-    // onSubmit('locationInput');
+    const locationData={
+        "loc_dict": {
+            " '74 CHEVY (MOVING)": [
+                2
+            ],
+            " ALLEY": [
+                56
+            ],
+            " ALLEY (RAINING)": [
+                43
+            ],
+            " APARTMENT": [
+                74
+            ],
+            " APARTMENT (ROOM 49)": [
+                8
+            ],
+            " APARTMENT BUILDING COURTYARD": [
+                4
+            ],
+            " APARTMENT BUILDING HALLWAY": [
+                7
+            ],
+            " APARTMENT BUILDING STREET": [
+                62
+            ],
+            " APARTMENT COURTYARD": [
+                60
+            ],
+            " BATHROOM": [
+                73
+            ],
+            " BATHROOM (MARSELLUS WALLACE'S HOUSE)": [
+                33
+            ],
+            " BOXING AUDITORIUM (RAINING)": [
+                45,
+                47
+            ],
+            " BUTCH AND FABIENNE'S HOTEL ROOM": [
+                70
+            ],
+            " BUTCH'S APARTMENT": [
+                59
+            ],
+            " BUTCH'S APARTMENT COURTYARD": [
+                58
+            ],
+            " CAB (MOVING / RAINING)": [
+                49
+            ],
+            " CAR (MOVING)": [
+                9
+            ],
+            " CHEVY (TRUNK)": [
+                3
+            ],
+            " CHEVY NOVA": [
+                88
+            ],
+            " CITY STREET": [
+                54,
+                71
+            ],
+            " COFFEE SHOP": [
+                92,
+                94
+            ],
+            " COFFEE SHOP BATHROOM": [
+                93
+            ],
+            " ELEVATOR": [
+                6
+            ],
+            " FRONT OF MARSELLUS WALLACE'S HOUSE": [
+                41
+            ],
+            " GARAGE": [
+                87
+            ],
+            " HOLLYWOOD APARTMENT BUILDING": [
+                75
+            ],
+            " HONDA": [
+                61,
+                63
+            ],
+            " HONDA (MOVING)": [
+                53
+            ],
+            " HOTEL SUITE": [
+                81
+            ],
+            " JACKRABBIT SLIM'S": [
+                28,
+                29
+            ],
+            " JACKRABBIT SLIM'S (DINING AREA)": [
+                31
+            ],
+            " JACKRABBIT SLIM'S (LADIES ROOM)": [
+                30
+            ],
+            " JIMMIE'S BACKYARD": [
+                89
+            ],
+            " JIMMIE'S BATHROOM": [
+                77
+            ],
+            " JIMMIE'S BEDROOM": [
+                80,
+                86
+            ],
+            " JIMMIE'S GARAGE": [
+                84,
+                90
+            ],
+            " JIMMIE'S HOUSE": [
+                83
+            ],
+            " JIMMIE'S KITCHEN": [
+                78
+            ],
+            " JIMMIE'S STREET": [
+                82
+            ],
+            " KITCHEN": [
+                85
+            ],
+            " LANCE'S BEDROOM": [
+                13
+            ],
+            " LANCE'S HOUSE": [
+                36,
+                37,
+                38
+            ],
+            " LANCE'S HOUSE (KITCHEN)": [
+                12
+            ],
+            " LOCKER ROOM": [
+                42
+            ],
+            " MARCELLUS' HOUSE / DRESSING ROOM": [
+                16,
+                18,
+                20,
+                22,
+                24,
+                26
+            ],
+            " MARCELLUS' HOUSE / LIVING ROOM": [
+                15,
+                17,
+                19,
+                21,
+                23,
+                25,
+                27
+            ],
+            " MARSELLUS WALLACE'S DINING ROOM": [
+                79
+            ],
+            " MARSELLUS WALLACE'S HOME": [
+                32
+            ],
+            " MARSELLUS WALLACE'S HOUSE": [
+                14
+            ],
+            " MASON": [
+                64,
+                69
+            ],
+            " MONSTER JOE'S TRUCK AND TOW": [
+                91
+            ],
+            " MOTEL (ROOM SIX)": [
+                52
+            ],
+            " MOTEL (STOPPED / RAINING)": [
+                51
+            ],
+            " MOTEL ROOM": [
+                72
+            ],
+            " NOVA (MOVING)": [
+                76
+            ],
+            " PAWNSHOP": [
+                66
+            ],
+            " PAWNSHOP BACK ROOM": [
+                65,
+                67
+            ],
+            " PHONE BOOTH (RAINING)": [
+                50
+            ],
+            " RECEPTION AREA (APARTMENT BUILDING)": [
+                5
+            ],
+            " RESIDENTIAL STREET CORNER": [
+                55
+            ],
+            " RUSSELL'S OLD ROOM": [
+                68
+            ],
+            " SALLY LeROY'S": [
+                10,
+                11
+            ],
+            " SPARE ROOM": [
+                39
+            ],
+            " STREET": [
+                57
+            ],
+            " TAXI (PARKED / RAINING)": [
+                46
+            ],
+            " TAXI (PARKED/RAINING)": [
+                44
+            ],
+            " VINCENT'S MALIBU (MOVING)": [
+                40
+            ],
+            " WILLIS LOCKER ROOM (AUDITORIUM)": [
+                48
+            ],
+            "VINCENT'S HOT ROD (MOVING)": [
+                34,
+                35
+            ]
+        },
+        "locations": [
+            " COFFEE SHOP",
+            " '74 CHEVY (MOVING)",
+            " CHEVY (TRUNK)",
+            " APARTMENT BUILDING COURTYARD",
+            " RECEPTION AREA (APARTMENT BUILDING)",
+            " ELEVATOR",
+            " APARTMENT BUILDING HALLWAY",
+            " APARTMENT (ROOM 49)",
+            " CAR (MOVING)",
+            " SALLY LeROY'S",
+            " LANCE'S HOUSE (KITCHEN)",
+            " LANCE'S BEDROOM",
+            " MARSELLUS WALLACE'S HOUSE",
+            " MARCELLUS' HOUSE / LIVING ROOM",
+            " MARCELLUS' HOUSE / DRESSING ROOM",
+            " JACKRABBIT SLIM'S",
+            " JACKRABBIT SLIM'S (LADIES ROOM)",
+            " JACKRABBIT SLIM'S (DINING AREA)",
+            " MARSELLUS WALLACE'S HOME",
+            " BATHROOM (MARSELLUS WALLACE'S HOUSE)",
+            "VINCENT'S HOT ROD (MOVING)",
+            " LANCE'S HOUSE",
+            " SPARE ROOM",
+            " VINCENT'S MALIBU (MOVING)",
+            " FRONT OF MARSELLUS WALLACE'S HOUSE",
+            " LOCKER ROOM",
+            " ALLEY (RAINING)",
+            " TAXI (PARKED/RAINING)",
+            " BOXING AUDITORIUM (RAINING)",
+            " TAXI (PARKED / RAINING)",
+            " WILLIS LOCKER ROOM (AUDITORIUM)",
+            " CAB (MOVING / RAINING)",
+            " PHONE BOOTH (RAINING)",
+            " MOTEL (STOPPED / RAINING)",
+            " MOTEL (ROOM SIX)",
+            " HONDA (MOVING)",
+            " CITY STREET",
+            " RESIDENTIAL STREET CORNER",
+            " ALLEY",
+            " STREET",
+            " BUTCH'S APARTMENT COURTYARD",
+            " BUTCH'S APARTMENT",
+            " APARTMENT COURTYARD",
+            " HONDA",
+            " APARTMENT BUILDING STREET",
+            " MASON",
+            " PAWNSHOP BACK ROOM",
+            " PAWNSHOP",
+            " RUSSELL'S OLD ROOM",
+            " BUTCH AND FABIENNE'S HOTEL ROOM",
+            " MOTEL ROOM",
+            " BATHROOM",
+            " APARTMENT",
+            " HOLLYWOOD APARTMENT BUILDING",
+            " NOVA (MOVING)",
+            " JIMMIE'S BATHROOM",
+            " JIMMIE'S KITCHEN",
+            " MARSELLUS WALLACE'S DINING ROOM",
+            " JIMMIE'S BEDROOM",
+            " HOTEL SUITE",
+            " JIMMIE'S STREET",
+            " JIMMIE'S HOUSE",
+            " JIMMIE'S GARAGE",
+            " KITCHEN",
+            " GARAGE",
+            " CHEVY NOVA",
+            " JIMMIE'S BACKYARD",
+            " MONSTER JOE'S TRUCK AND TOW",
+            " COFFEE SHOP BATHROOM"
+        ],
+        "message": "success",
+        "shoot_time": [
+            "2023-06-08",
+            "2023-06-27"
+        ],
+        "status_code": 200
+    };
+    setResponseData({locationData});
+     onSubmit('locationInput');
   };
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
   return isLoaded ? (
     <div>
       <div className={styles.appBarSpacer}>
@@ -283,6 +448,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
               <Box sx={{ mt: 2 }}>
                 <div className={styles.accordianDetails}>
                   {result.map((item, index) => (
+                    index <= 50 &&
                     <Accordion
                       key={index}
                       expanded={expanded === item.name}
@@ -401,65 +567,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
                                     </div>
                                   </AccordionSummary>
                                   <AccordionDetails className={styles.details}>
-                                    {timeSlots.map((item, index1) => (
-                                      <Box key={index1} sx={{ p: 2 }}>
-                                        <Grid
-                                          container
-                                          direction="row"
-                                          overflow="unset"
-                                        >
-                                          <Grid item sm={2}>
-                                            <Typography variant="caption">
-                                              Time Slot {index1 + 1}:
-                                            </Typography>
-                                          </Grid>
-                                          <Grid item sm={3}>
-                                            <Typography variant="caption">
-                                              From
-                                              <LocalizationProvider
-                                                dateAdapter={AdapterDayjs}
-                                              >
-                                                <DemoContainer
-                                                  components={["DatePicker"]}
-                                                >
-                                                  <DatePicker
-                                                    inputProps={{
-                                                      name: "fromDate",
-                                                      id:
-                                                        item.name + "fromDate",
-                                                    }}
-                                                    selected={fromDate}
-                                                    onChange={handleDateChange(index, index1, "fromDate")}
-                                                  />
-                                                </DemoContainer>
-                                              </LocalizationProvider>
-                                            </Typography>
-                                          </Grid>
-                                          <Grid item sm={1} />
-                                          <Grid item sm={3}>
-                                            <Typography variant="caption">
-                                              To
-                                              <LocalizationProvider
-                                                dateAdapter={AdapterDayjs}
-                                              >
-                                                <DemoContainer
-                                                  components={["DatePicker"]}
-                                                >
-                                                  <DatePicker
-                                                    inputProps={{
-                                                      name: "toDate",
-                                                      id: item.name + "toDate",
-                                                    }}
-                                                    selected={fromDate}
-                                                    onChange={handleDateChange(index, index1, "toDate")}
-                                                  />
-                                                </DemoContainer>
-                                              </LocalizationProvider>
-                                            </Typography>
-                                          </Grid>
-                                        </Grid>
-                                      </Box>
-                                    ))}
+                                   <TimeSlots index={index} handleDateChange={handleDateChange} />
                                   </AccordionDetails>
                                 </Accordion>
                               </Box>
@@ -518,3 +626,78 @@ const CharacterInputComponent = ({ onSubmit }) => {
 };
 
 export default CharacterInputComponent;
+
+
+const timeSlots = [
+  {
+    name: "Time Slot 1:",
+    key: 'timeSlotOne'
+  },
+  {
+    name: "Time Slot 2:",
+    key: 'timeSlotTwo'
+  },
+];
+
+
+
+const TimeSlots = ({index, handleDateChange}) => (
+  timeSlots.map((item,index1) =>
+  <Box key={index1} sx={{ p: 2 }}>
+    <Grid
+      container
+      direction="row"
+      overflow="unset"
+    >
+      <Grid item sm={2}>
+        <Typography variant="caption">
+          Time Slot {index1 + 1}:
+        </Typography>
+      </Grid>
+      <Grid item sm={3}>
+        <Typography variant="caption">
+          From
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+          >
+            <DemoContainer
+              components={["DatePicker"]}
+            >
+              <DatePicker
+                inputProps={{
+                  name: "fromDate",
+                  id:
+                    item.name + "fromDate",
+                }}
+                // selected={fromDate}
+                onChange={(e) => handleDateChange(index, index1, "fromDate", item.key, e)}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+        </Typography>
+      </Grid>
+      <Grid item sm={1} />
+      <Grid item sm={3}>
+        <Typography variant="caption">
+          To
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+          >
+            <DemoContainer
+              components={["DatePicker"]}
+            >
+              <DatePicker
+                inputProps={{
+                  name: "toDate",
+                  id: item.name + "toDate",
+                }}
+                // selected={fromDate}
+                onChange={(e) => handleDateChange(index, index1, "toDate", item.key, e)}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
+        </Typography>
+      </Grid>
+    </Grid>
+  </Box>
+));

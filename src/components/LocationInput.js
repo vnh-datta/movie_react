@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect,useState,useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -15,6 +15,7 @@ import Paper from '@mui/material/Paper';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import ResponseContext from './ResponseContext';
 
 
 const LocationItem = styled(Paper)(({ theme }) => ({
@@ -377,11 +378,18 @@ const LocationInputComponent = ({ onSubmit }) => {
         "status_code": 200
     })
 
+    const responseContexts = useContext(ResponseContext);
+    const { setResponseData, responseContext } = useContext(ResponseContext);
     useEffect(() => {
         // Code to fetch a new quote from the API
         // Update the quote state with the fetched quote
-        for (const location of locationdata.locations) {
-            const scenes = locationdata.loc_dict[location];
+        const responseData  = responseContexts;
+    const locationData = responseContexts.responseData?.locationData;
+    console.log("reyy it is working down from one to another in location");
+    console.log(locationData);
+    console.log(responseData);
+        for (const location of locationData.locations) {
+            const scenes = locationData.loc_dict[location];
             result.push({
                 name: location,
                 noOfScenes: scenes.length.toString(),
@@ -392,7 +400,7 @@ const LocationInputComponent = ({ onSubmit }) => {
         console.log("Use Effect is called and in location done")
         setIsLoaded(true);
         console.log(result)
-      }, []); 
+      }, [responseContexts]); 
     const handleSubmit = (event) => {
         event.preventDefault();
         onSubmit('scheduleOutput');

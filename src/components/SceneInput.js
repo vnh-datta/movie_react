@@ -174,12 +174,22 @@ const SceneInputComponent = ({ onSubmit }) => {
   console.log(sceneData);
   //const sceneData = {responseData:requestBody};
   console.log("sceneData");
+  const sceneConvertedData = sceneData.reduce((result, item) => {
+    Object.entries(item).forEach(([key, value]) => {
+      if (!result[key]) {
+        result[key] = [];
+      }
+      result[key].push(value);
+    });
+    return result;
+  }, {});
+  console.log(sceneConvertedData)
   //console.log(...responseContext.sceneData)
   // Set the sceneData in responseData with a specific key
   //responseContext.setResponseData({ ...responseContext.sceneData, sceneData });
   //responseContext.setResponseData({ ...responseContext.responseData, sceneData: requestBody });
   //responseContext.setResponseData({ sceneData: requestBody });
-  setResponseData({ sceneData });
+  setResponseData({ sceneConvertedData });
 
   //responseContext.setResponseData(sceneData);
   
@@ -217,9 +227,6 @@ const SceneInputComponent = ({ onSubmit }) => {
     const updatedData = [...formData];
     updatedData[index] = { ...updatedData[index], [name]: value };
     setFormData(updatedData);
-    // console.log("Before Prateek")
-    // console.log(formData);
-    // console.log("After prateek")
   };
 
   const handleRemoveFile = () => {
