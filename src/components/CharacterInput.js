@@ -567,7 +567,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
                                     </div>
                                   </AccordionSummary>
                                   <AccordionDetails className={styles.details}>
-                                   <TimeSlots index={index} handleDateChange={handleDateChange} />
+                                   {/* <TimeSlots index={index} handleDateChange={handleDateChange} /> */}
                                   </AccordionDetails>
                                 </Accordion>
                               </Box>
