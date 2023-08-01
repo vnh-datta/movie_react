@@ -99,8 +99,11 @@ const CharacterInputComponent = ({ onSubmit }) => {
   const [fromDate, setFromDate] = useState(null);
   const handleDateChange = (index, index1, item, key, event)  => {
     const updatedData = [...formData];
-
-     updatedData[index] = { ...formData[index], [key]: { ...formData[index][key], [item]: event?.toLocaleString()}}
+     const formIndex = formData.findIndex((record) => record.id === index)
+     if(formIndex !== -1) 
+        updatedData[formIndex] = { ...updatedData[formIndex], [key]: { ...formData[formIndex][key], [item]: event?.toLocaleString()}}
+     else 
+        updatedData.push({id: index, [key]: {[item]: event.toLocaleString()}})
      setFormData(updatedData);
   };
   const handleDataChange = (index, item) => (event) => {
@@ -567,7 +570,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
                                     </div>
                                   </AccordionSummary>
                                   <AccordionDetails className={styles.details}>
-                                   {/* <TimeSlots index={index} handleDateChange={handleDateChange} /> */}
+                                   <TimeSlots index={index} handleDateChange={handleDateChange} />
                                   </AccordionDetails>
                                 </Accordion>
                               </Box>

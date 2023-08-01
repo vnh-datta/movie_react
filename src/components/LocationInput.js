@@ -220,7 +220,12 @@ const LocationInputComponent = ({ onSubmit }) => {
                                                         From
                                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                             <DemoContainer components={['DatePicker']}>
-                                                                <DatePicker />
+                                                                <DatePicker 
+                                                                inputProps={{
+                                                                    name: 'fromDate',
+                                                                    id: item.name + 'fromDate',
+                                                                  }}
+                                                                  onChange={handleDataChange(index)} />
                                                             </DemoContainer>
                                                         </LocalizationProvider>
                                                     </Typography>
@@ -231,7 +236,12 @@ const LocationInputComponent = ({ onSubmit }) => {
                                                         To
                                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                             <DemoContainer components={['DatePicker']}>
-                                                                <DatePicker />
+                                                                <DatePicker
+                                                                inputProps={{
+                                                                    name: 'toDate',
+                                                                    id: item.name + 'toDate',
+                                                                  }}
+                                                                  onChange={handleDataChange(index)} />
                                                             </DemoContainer>
                                                         </LocalizationProvider>
                                                     </Typography>

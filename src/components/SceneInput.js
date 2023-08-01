@@ -195,24 +195,24 @@ const SceneInputComponent = ({ onSubmit }) => {
   
 
   // Make the POST request to the API endpoint
-  // fetch('http://127.0.0.1:3000/duration', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify(requestBody)
-  // })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     // Handle the response from the API
-  //     console.log(data);
-  //     // Perform any additional actions based on the response
-  //   })
-  //   .catch(error => {
-  //     // Handle any errors that occur during the request
-  //     console.error(error);
-  //     // Perform any error handling
-  //   });
+  fetch('http://127.0.0.1:3000/duration', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(sceneConvertedData)
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response from the API
+      console.log(data);
+      // Perform any additional actions based on the response
+    })
+    .catch(error => {
+      // Handle any errors that occur during the request
+      console.error(error);
+      // Perform any error handling
+    });
     onSubmit('shootDuration');
   };
   const handleTownChange = (event) => {
@@ -244,7 +244,39 @@ const SceneInputComponent = ({ onSubmit }) => {
   //   });
   // };
   const handleFileInput = (e) => {
-    setSelectedFile(e.target.files[0]);
+    
+    const file = e.target.files[0];
+
+    const myTimeout = setTimeout(myGreeting, 15000);
+
+function myGreeting() {
+  setSelectedFile(e.target.files[0]);
+}
+    // Make the POST request to the API endpoint
+  fetch('http://127.0.0.1:3000/scene', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(file)
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Handle the response from the API
+      console.log(data);
+      // Perform any additional actions based on the response
+    })
+    .catch(error => {
+      // Handle any errors that occur during the request
+      console.error(error);
+      // Perform any error handling
+    });
+    console.log(e.target.files);
+    console.log("selected File");
+    console.log(selectedFile)
+    
+
+
   };
 
   return (
