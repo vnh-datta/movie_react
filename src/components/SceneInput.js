@@ -18,6 +18,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Link from '@material-ui/core/Link';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ResponseContext from './ResponseContext';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -116,6 +117,10 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
 
+  },
+  textArea: {
+    margin: '1rem 0',
+    width: '100%'
   }
 }));
 
@@ -385,6 +390,23 @@ function myGreeting() {
                                         <option value={6}>6</option>
                                       </Select>
                                     </FormControl>
+                                  </Typography>
+                                </Grid>
+                                <Grid item sx={1}>
+                                  <Divider orientation="vertical" variant="middle" fullWidth />
+                                </Grid>
+                                <Grid item sm={3}>
+                                  <Typography>
+                                    Scene Script:
+                                    <br />
+                                    <TextareaAutosize
+                                      className={classes.textArea}
+                                      maxRows={4}
+                                      minRows={4}
+                                      aria-label="Screen script"
+                                      placeholder="Script"
+                                      defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                                    />
                                   </Typography>
                                 </Grid>
                               </Grid>

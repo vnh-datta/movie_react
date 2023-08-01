@@ -95,16 +95,23 @@ const LocationInputComponent = ({ onSubmit }) => {
 
 
 
-      const handleDataChange = (index, item) => (event) => {
-        const { name, value } = event.target;
+    const handleDataChange = (index, item, event, date) => {
+        let name, value;
+        if(!!date) {
+            name = date;
+            value = event?.toLocaleString()
+        } else {
+            name = event.target.name;
+            value = event.target.value;
+        }
         let updatedData = formData;
         if(formData.some((show) => show.id === index)) {
-           updatedData = updatedData.map((record) => record.id === index ? ({...record, [name]: value}): record);
+            updatedData = updatedData.map((record) => record.id === index ? ({...record, [name]: value}): record);
         } else {
-          updatedData.push({id: index, [name]: value})
+            updatedData.push({id: index, [name]: value})
         }
         setFormData(updatedData);
-      };
+    };
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(formData);
@@ -161,7 +168,7 @@ const LocationInputComponent = ({ onSubmit }) => {
                                                         label="Name"
                                                         variant="outlined"
                                                         fullWidth
-                                                        onChange={handleDataChange(index, item)} />
+                                                        onChange={ e => handleDataChange(index, item, e)} />
                                                 </Grid>
                                             </Grid>
                                         </Item>
@@ -197,7 +204,7 @@ const LocationInputComponent = ({ onSubmit }) => {
                                                                         name: 'sceneNo',
                                                                         id: item.name + 'sceneNo',
                                                                       }}
-                                                                      onChange={handleDataChange(index)}
+                                                                      onChange={ e => handleDataChange(index, item, e)}
                                                                     >
                                                                     <option aria-label="None" value="" />
                                                                     {item.scenes.map((value) => (
@@ -225,7 +232,7 @@ const LocationInputComponent = ({ onSubmit }) => {
                                                                     name: 'fromDate',
                                                                     id: item.name + 'fromDate',
                                                                   }}
-                                                                  onChange={handleDataChange(index)} />
+                                                                  onChange={(e) => handleDataChange(index, item, e, "fromDate")} />
                                                             </DemoContainer>
                                                         </LocalizationProvider>
                                                     </Typography>
@@ -237,11 +244,11 @@ const LocationInputComponent = ({ onSubmit }) => {
                                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                             <DemoContainer components={['DatePicker']}>
                                                                 <DatePicker
-                                                                inputProps={{
-                                                                    name: 'toDate',
-                                                                    id: item.name + 'toDate',
-                                                                  }}
-                                                                  onChange={handleDataChange(index)} />
+                                                                    inputProps={{
+                                                                        name: 'toDate',
+                                                                        id: item.name + 'toDate',
+                                                                    }}
+                                                                    onChange={(e) => handleDataChange(index, item, e, "toDate")} />
                                                             </DemoContainer>
                                                         </LocalizationProvider>
                                                     </Typography>
@@ -268,7 +275,7 @@ const LocationInputComponent = ({ onSubmit }) => {
                                           item.name +
                                           "outlined-age-native-simple",
                                       }}
-                                      onChange={handleDataChange(index, item)}>
+                                      onChange={e => handleDataChange(index, item, e)}>
                                                             <option aria-label="None" value="" />
                                                             <option value={1}>1</option>
                                                             <option value={2}>2</option>
