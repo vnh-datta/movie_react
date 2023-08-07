@@ -570,7 +570,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
                                     </div>
                                   </AccordionSummary>
                                   <AccordionDetails className={styles.details}>
-                                   <TimeSlots index={index} handleDateChange={handleDateChange} />
+                                   <TimeSlots index={index} timeSlots={timeSlots} handleDateChange={handleDateChange} />
                                   </AccordionDetails>
                                 </Accordion>
                               </Box>
@@ -644,7 +644,7 @@ const timeSlots = [
 
 
 
-const TimeSlots = ({index, handleDateChange}) => (
+export const TimeSlots = ({index, handleDateChange, timeSlots}) => (
   timeSlots.map((item,index1) =>
   <Box key={index1} sx={{ p: 2 }}>
     <Grid
