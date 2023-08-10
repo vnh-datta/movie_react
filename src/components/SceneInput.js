@@ -1,86 +1,86 @@
-import React ,{ useState , useContext, useEffect } from 'react';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import TextField from '@material-ui/core/TextField';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionActions from '@material-ui/core/AccordionActions';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Link from '@material-ui/core/Link';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import ResponseContext from './ResponseContext';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useContext, useEffect } from "react";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import TextField from "@material-ui/core/TextField";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import AccordionActions from "@material-ui/core/AccordionActions";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Link from "@material-ui/core/Link";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import ResponseContext from "./ResponseContext";
+import { makeStyles } from "@material-ui/core/styles";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
   //file upload css start
   input: {
-    display: 'none',
+    display: "none",
   },
   button: {
     margin: theme.spacing(1),
   },
   uploadContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: theme.spacing(2)
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: theme.spacing(2),
   },
   heading: {
     marginBottom: theme.spacing(2),
     fontSize: theme.typography.pxToRem(15),
   },
   fileLabel: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
   },
   fileName: {
     marginLeft: theme.spacing(1),
   },
   //accordion start
   accordionContainer: {
-    display: 'block',
-    width: '100%',
+    display: "block",
+    width: "100%",
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
   icon: {
-    verticalAlign: 'bottom',
+    verticalAlign: "bottom",
     height: 20,
     width: 20,
   },
   details: {
-    display: 'block',
-    alignItems: 'center',
+    display: "block",
+    alignItems: "center",
   },
   column: {
     // flexBasis: '33.33%',
@@ -91,9 +91,9 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     color: theme.palette.primary.main,
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline',
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "underline",
     },
   },
   //accordion end
@@ -105,23 +105,22 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-  //priority dropdown end 
-  //File upload css end 
+  //priority dropdown end
+  //File upload css end
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
+    height: "100vh",
+    overflow: "auto",
   },
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
-
   },
   textArea: {
-    margin: '1rem 0',
-    width: '100%'
-  }
+    margin: "1rem 0",
+    width: "100%",
+  },
 }));
 
 function createSceneData(sceneNo, shootTown, est) {
@@ -129,19 +128,17 @@ function createSceneData(sceneNo, shootTown, est) {
 }
 
 const SceneInputComponent = ({ onSubmit }) => {
-
-
   const [selectedFile, setSelectedFile] = useState(null);
   const [scenesDataList, setScenesDataList] = useState([]);
   const [state, setState] = useState({
-    sceneNo: '',
-    shootTown: '',
-    shootTime: ''
+    sceneNo: "",
+    shootTown: "",
+    shootTime: "",
   });
   const classes = useStyles();
   const [showAccordion, setShowAccordion] = useState(false);
- // const responseContext = useContext(ResponseContext);
- const { setResponseData, responseData } = useContext(ResponseContext);
+  // const responseContext = useContext(ResponseContext);
+  const { setResponseData, responseData } = useContext(ResponseContext);
   const [expanded, setExpanded] = useState(true);
   const [formData, setFormData] = useState([]);
 
@@ -170,57 +167,56 @@ const SceneInputComponent = ({ onSubmit }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-     // Prepare the data to be sent in the request body
-  const sceneData = formData.map((item, index) => ({
-    sceneNo: index + 1,
-    shootTown: item.shootTown,
-    shootTime: item.shootTime
-  }));
-  console.log(sceneData);
-  //const sceneData = {responseData:requestBody};
-  console.log("sceneData");
-  const sceneConvertedData = sceneData.reduce((result, item) => {
-    Object.entries(item).forEach(([key, value]) => {
-      if (!result[key]) {
-        result[key] = [];
-      }
-      result[key].push(value);
-    });
-    return result;
-  }, {});
-  console.log(sceneConvertedData)
-  //console.log(...responseContext.sceneData)
-  // Set the sceneData in responseData with a specific key
-  //responseContext.setResponseData({ ...responseContext.sceneData, sceneData });
-  //responseContext.setResponseData({ ...responseContext.responseData, sceneData: requestBody });
-  //responseContext.setResponseData({ sceneData: requestBody });
-  setResponseData({ sceneConvertedData });
+    // Prepare the data to be sent in the request body
+    const sceneData = formData.map((item, index) => ({
+      sceneNo: index + 1,
+      shootTown: item.shootTown,
+      shootTime: item.shootTime,
+    }));
+    console.log(sceneData);
+    //const sceneData = {responseData:requestBody};
+    console.log("sceneData");
+    const sceneConvertedData = sceneData.reduce((result, item) => {
+      Object.entries(item).forEach(([key, value]) => {
+        if (!result[key]) {
+          result[key] = [];
+        }
+        result[key].push(value);
+      });
+      return result;
+    }, {});
+    console.log(sceneConvertedData);
+    //console.log(...responseContext.sceneData)
+    // Set the sceneData in responseData with a specific key
+    //responseContext.setResponseData({ ...responseContext.sceneData, sceneData });
+    //responseContext.setResponseData({ ...responseContext.responseData, sceneData: requestBody });
+    //responseContext.setResponseData({ sceneData: requestBody });
+    setResponseData({ sceneConvertedData });
 
-  //responseContext.setResponseData(sceneData);
-  
+    //responseContext.setResponseData(sceneData);
 
-  // Make the POST request to the API endpoint
-  fetch('http://127.0.0.1:3000/duration', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(sceneConvertedData)
-  })
-    .then(response => response.json())
-    .then(data => {
-      // Handle the response from the API
-      console.log(data);
-      // Perform any additional actions based on the response
+    // Make the POST request to the API endpoint
+    fetch("http://127.0.0.1:3000/duration", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sceneConvertedData),
     })
-    .catch(error => {
-      // Handle any errors that occur during the request
-      console.error(error);
-      // Perform any error handling
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the API
+        console.log(data);
+        // Perform any additional actions based on the response
+      })
+      .catch((error) => {
+        // Handle any errors that occur during the request
+        console.error(error);
+        // Perform any error handling
+      });
 
     //calling Characters directly Start
-    const charData={
+    const charData = {
       char_dict: {
         BATHROOM: [29, 30, 31, 33, 52, 59, 73, 74, 77, 93, 94],
         BRETT: [8, 72],
@@ -242,8 +238,8 @@ const SceneInputComponent = ({ onSubmit }) => {
         JIMMIE: [72, 76, 77, 78, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90],
         JODY: [12, 13, 36, 38, 39],
         JULES: [
-          2, 3, 4, 5, 6, 7, 8, 10, 72, 73, 74, 76, 77, 78, 80, 81, 83, 84, 85, 87,
-          88, 89, 90, 91, 92, 94,
+          2, 3, 4, 5, 6, 7, 8, 10, 72, 73, 74, 76, 77, 78, 80, 81, 83, 84, 85,
+          87, 88, 89, 90, 91, 92, 94,
         ],
         "JULES ANDVINCENT": [89],
         KLONDIKE: [42],
@@ -276,9 +272,10 @@ const SceneInputComponent = ({ onSubmit }) => {
         "THROUGH THE WINDSHIELD": [63],
         TRUDI: [12, 13],
         VINCENT: [
-          2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 21, 22, 23,
-          25, 27, 28, 29, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 48, 59, 72,
-          73, 74, 76, 77, 78, 81, 83, 85, 87, 88, 89, 90, 91, 92, 93, 94,
+          2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 21, 22,
+          23, 25, 27, 28, 29, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 48,
+          59, 72, 73, 74, 76, 77, 78, 81, 83, 85, 87, 88, 89, 90, 91, 92, 93,
+          94,
         ],
         WAITRESS: [28, 29, 31, 92, 94],
         WHITE: [2, 8, 10, 11, 13, 14, 29, 31, 32, 42, 44, 52, 77, 85, 86],
@@ -345,16 +342,16 @@ const SceneInputComponent = ({ onSubmit }) => {
       message: "success",
       shoot_time: [["2023-06-01"], ["2023-06-27"]],
       status_code: 200,
-    }
+    };
     setResponseData({ charData });
-  onSubmit('characterInput');
+    onSubmit("characterInput");
     //calling Characters directly End
     //onSubmit('shootDuration');
   };
   const handleTownChange = (event) => {
     setState({
       ...state,
-      shootTown: event.target.value
+      shootTown: event.target.value,
     });
     setScenesDataList([...scenesDataList, state]);
   };
@@ -380,45 +377,40 @@ const SceneInputComponent = ({ onSubmit }) => {
   //   });
   // };
   const handleFileInput = (e) => {
-    
     const file = e.target.files[0];
 
     const myTimeout = setTimeout(myGreeting, 5000);
 
-function myGreeting() {
-  setSelectedFile(e.target.files[0]);
-}
+    function myGreeting() {
+      setSelectedFile(e.target.files[0]);
+    }
+
+
     // Make the POST request to the API endpoint
-  fetch('http://127.0.0.1:3000/scene', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(file)
-  })
-    .then(response => response.json())
-    .then(data => {
-      // Handle the response from the API
-      console.log(data);
-      // Perform any additional actions based on the response
+    fetch("http://localhost:6000/upload", {
+      method: "POST",
+      body: file,
     })
-    .catch(error => {
-      // Handle any errors that occur during the request
-      console.error(error);
-      // Perform any error handling
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the API
+        console.log(data);
+        // Perform any additional actions based on the response
+      })
+      .catch((error) => {
+        // Handle any errors that occur during the request
+        console.error(error);
+        // Perform any error handling
+      });
     console.log(e.target.files);
     console.log("selected File");
-    console.log(selectedFile)
-    
-
-
+    console.log(selectedFile);
   };
 
   return (
     <div>
       <div className={classes.appBarSpacer} />
-      <Container maxWidth="xl" className={classes.container} >
+      <Container maxWidth="xl" className={classes.container}>
         {/* <Content /> */}
         <Grid spacing={1}>
           <form onSubmit={handleSubmit}>
@@ -427,7 +419,11 @@ function myGreeting() {
               <Paper>
                 {/* <Chart /> */}
                 <div className={classes.uploadContainer}>
-                  <Typography variant="h5" component="h2" className={classes.heading}>
+                  <Typography
+                    variant="h5"
+                    component="h2"
+                    className={classes.heading}
+                  >
                     Upload your Script here
                   </Typography>
                   <input
@@ -435,20 +431,24 @@ function myGreeting() {
                     className={classes.input}
                     id="contained-button-file"
                     type="file"
-                    onChange={handleFileInput} />
+                    onChange={handleFileInput}
+                  />
                   <label htmlFor="contained-button-file">
                     <Button
                       variant="contained"
                       color="default"
                       startIcon={<CloudUploadIcon />}
                       className={classes.button}
-                      component="span">
+                      component="span"
+                    >
                       Upload
                     </Button>
                   </label>
                   {selectedFile && (
                     <>
-                      <span className={classes.fileName}>{selectedFile.name}</span>
+                      <span className={classes.fileName}>
+                        {selectedFile.name}
+                      </span>
                       <Button
                         variant="contained"
                         color="secondary"
@@ -464,20 +464,25 @@ function myGreeting() {
                     <>
                       <div className={classes.accordionContainer}>
                         {data.map((item, index) => (
-                          <Accordion key={item.name} expanded={expanded === item.name} onChange={handleChange(item.name)}>
+                          <Accordion
+                            key={item.name}
+                            expanded={expanded === item.name}
+                            onChange={handleChange(item.name)}
+                          >
                             <AccordionSummary
                               expandIcon={<ExpandMoreIcon />}
                               aria-controls={`${item.name}-content`}
                               id={`${item.name}-header`}
-                              overlap="rectangular">
+                              overlap="rectangular"
+                            >
                               <div className={classes.column}>
-                                <Typography className={classes.heading}>Scene{index + 1}</Typography>
+                                <Typography className={classes.heading}>
+                                  Scene{index + 1}
+                                </Typography>
                               </div>
                             </AccordionSummary>
                             <AccordionDetails className={classes.details}>
-                              <Grid
-                                container
-                                direction="row">
+                              <Grid container direction="row">
                                 <Grid item sm={3}>
                                   <Typography>
                                     Shoot Town
@@ -486,32 +491,46 @@ function myGreeting() {
                                       label="Town"
                                       variant="outlined"
                                       inputProps={{
-                                        name: 'shootTown',
-                                        id: item.name + 'Town',
+                                        name: "shootTown",
+                                        id: item.name + "Town",
                                       }}
-                                      fullWidth 
+                                      fullWidth
                                       className={classes.selectEmpty}
-                                      onChange={handleDataChange(index)} />
+                                      onChange={handleDataChange(index)}
+                                    />
                                   </Typography>
                                 </Grid>
                                 <Grid item sx={1}>
-                                  <Divider orientation="vertical" variant="middle" fullWidth />
+                                  <Divider
+                                    orientation="vertical"
+                                    variant="middle"
+                                    fullWidth
+                                  />
                                 </Grid>
                                 <Grid item sm={2}>
                                   <Typography>
                                     EST Shoot Time:
                                     <br />
-                                    <FormControl variant="outlined" fullWidth className={classes.selectEmpty}>
-                                      <InputLabel htmlFor="outlined-age-native-simple">Shoot Time</InputLabel>
+                                    <FormControl
+                                      variant="outlined"
+                                      fullWidth
+                                      className={classes.selectEmpty}
+                                    >
+                                      <InputLabel htmlFor="outlined-age-native-simple">
+                                        Shoot Time
+                                      </InputLabel>
                                       <Select
                                         native
                                         label={`${item.name}-ShootTime`}
                                         autoWidth
                                         inputProps={{
-                                          name: 'shootTime',
-                                          id: item.name + 'outlined-age-native-simple',
+                                          name: "shootTime",
+                                          id:
+                                            item.name +
+                                            "outlined-age-native-simple",
                                         }}
-                                        onChange={handleDataChange(index)}>
+                                        onChange={handleDataChange(index)}
+                                      >
                                         <option aria-label="None" value="" />
                                         <option value={1}>1</option>
                                         <option value={2}>2</option>
@@ -524,7 +543,11 @@ function myGreeting() {
                                   </Typography>
                                 </Grid>
                                 <Grid item sx={1}>
-                                  <Divider orientation="vertical" variant="middle" fullWidth />
+                                  <Divider
+                                    orientation="vertical"
+                                    variant="middle"
+                                    fullWidth
+                                  />
                                 </Grid>
                                 <Grid item sm={3}>
                                   <Typography>
@@ -564,7 +587,8 @@ function myGreeting() {
                 color="primary"
                 className={classes.button}
                 //disabled={(scenesDataList.length != data.length)}
-                type="submit">
+                type="submit"
+              >
                 Submit
               </Button>
             </Grid>

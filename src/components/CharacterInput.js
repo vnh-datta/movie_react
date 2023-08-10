@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -62,64 +62,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CharacterInputComponent = ({ onSubmit }) => {
+  console.log('rendering character input component');
   const styles = useStyles();
+  const formData = useRef([]);
   const [expanded, setExpanded] = React.useState(true);
-  //new code start
-  const [result, setresult] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
   const responseContexts = useContext(ResponseContext);
   const { setResponseData, responseContext } = useContext(ResponseContext);
- 
-  useEffect(() => {
-    // Code to fetch a new quote from the API
-    // Update the quote state with the fetched quote
-    
-    
-    
-    const responseData  = responseContexts;
-    const charData = responseContexts.responseData?.charData;
-    console.log("reyy it is working down from one to another in character");
-    console.log(charData);
-    console.log(responseData);
-    
-    for (const character of charData.characters) {
-      const scenes = charData.char_dict[character];
-      result.push({
-        name: character,
-        noOfScenes: scenes.length.toString(),
-        scenes: scenes,
-      });
-    }
-    setresult(result);
-    setIsLoaded(true);
-  }, [responseContexts]);
-  //end
 
-  const [formData, setFormData] = useState([]);
-  const [fromDate, setFromDate] = useState(null);
   const handleDateChange = (index, index1, item, key, event)  => {
-    const updatedData = [...formData];
-     const formIndex = formData.findIndex((record) => record.id === index)
+    const updatedData = [...formData.current];
+     const formIndex = formData.current.findIndex((record) => record.id === index)
      if(formIndex !== -1) 
-        updatedData[formIndex] = { ...updatedData[formIndex], [key]: { ...formData[formIndex][key], [item]: event?.toLocaleString()}}
+        updatedData[formIndex] = { ...updatedData[formIndex], [key]: { ...formData.current[formIndex][key], [item]: event?.toLocaleString()}}
      else 
         updatedData.push({id: index, [key]: {[item]: event.toLocaleString()}})
-     setFormData(updatedData);
+        formData.current = updatedData;
   };
   const handleDataChange = (index, item) => (event) => {
     const { name, value } = event.target;
-    let updatedData = formData;
-    if(formData.some((show) => show.id === index)) {
+    let updatedData = formData.current;
+    if(formData.current.some((show) => show.id === index)) {
        updatedData = updatedData.map((record) => record.id === index ? ({...record, [name]: value}): record);
     } else {
       updatedData.push({id: index, [name]: value})
     }
-    setFormData(updatedData);
+    formData.current = updatedData
   };
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData);
+    console.log(formData.current);
     const locationData={
         "loc_dict": {
             " '74 CHEVY (MOVING)": [
@@ -433,13 +405,32 @@ const CharacterInputComponent = ({ onSubmit }) => {
         "status_code": 200
     };
     setResponseData({locationData});
-     onSubmit('locationInput');
+     // Make the POST request to the API endpoint
+    fetch('http://127.0.0.1:3000/location', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData.current)
+    }).then(response => response.json())
+    .then(data => {
+      // Handle the response from the API
+      console.log(data);
+      setResponseData({locationData: data});
+      // Perform any additional actions based on the response
+    })
+    .catch(error => {
+      // Handle any errors that occur during the request
+      console.error(error);
+      // Perform any error handling
+    });
+    onSubmit('locationInput');
   };
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  return isLoaded ? (
+  return (
     <div>
       <div className={styles.appBarSpacer}>
         <Container maxWidth="xl" className={styles.container}>
@@ -450,9 +441,16 @@ const CharacterInputComponent = ({ onSubmit }) => {
             <Stack spacing={2}>
               <Box sx={{ mt: 2 }}>
                 <div className={styles.accordianDetails}>
-                  {result.map((item, index) => (
-                    index <= 50 &&
-                    <Accordion
+                  {responseContexts.responseData?.charData?.characters.filter((character, index) => index <= 10).map((character, index) => {
+                    // index <= 5 &&
+                    const scenes = responseContexts.responseData?.charData?.char_dict[character]
+                    const item = {
+                      name: character,
+                      noOfScenes: scenes.length.toString(),
+                      scenes: scenes,
+                    }
+
+                    return (<Accordion
                       key={index}
                       expanded={expanded === item.name}
                       onChange={handleChange(item.name)}
@@ -611,8 +609,8 @@ const CharacterInputComponent = ({ onSubmit }) => {
                           </Stack>
                         </CharacterItem>
                       </AccordionDetails>
-                    </Accordion>
-                  ))}
+                    </Accordion>)
+                  })}
                 </div>
               </Box>
               <Item>
@@ -625,7 +623,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
         </Container>
       </div>
     </div>
-  ) : null;
+  );
 };
 
 export default CharacterInputComponent;
