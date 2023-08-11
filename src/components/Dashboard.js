@@ -1,20 +1,7 @@
-// import React from 'react';
-
-// function Dashboard() {
-//   return (
-//     <div>
-//       <h1>Dashboard</h1>
-//     </div>
-//   );
-// }
-
-// export default Dashboard;
-
-
-import React, { useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import clsx from 'clsx';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { BrowserRouter as Routes, Route, Outlet } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Director from './Director';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -111,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     height: '100vh',
-    overflow: 'auto',
+    overflow: 'auto'
   },
   container: {
     paddingTop: theme.spacing(4),
@@ -131,6 +118,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
+  const location = useLocation();
   const {responseData} = useContext(ResponseContext)
   const [selectedItem, setSelectedItem] = React.useState('sceneInput');
   const [open, setOpen] = React.useState(false);
@@ -194,11 +182,18 @@ export default function Dashboard() {
         <List>{secondaryListItems}</List> */}
       </Drawer>
       <main className={classes.content}>
-      {selectedItem === 'sceneInput' && <SceneInputComponent onSubmit={handleFormSubmit} />}
-      {selectedItem === 'shootDuration' && <ShootDurationComponent  onSubmit={handleFormSubmit} />}
-      {selectedItem === 'characterInput' && <CharacterInputComponent  onSubmit={handleFormSubmit} />}
-      {selectedItem === 'locationInput' && <LocationInputComponent  onSubmit={handleFormSubmit} />}
-      {selectedItem === 'scheduleOutput' && <ScheduleOutputComponent />}
+        {
+          location.pathname === '/dashboard' && 
+          <Fragment>
+            {selectedItem === 'sceneInput' && <SceneInputComponent onSubmit={handleFormSubmit} />}
+            {selectedItem === 'shootDuration' && <ShootDurationComponent  onSubmit={handleFormSubmit} />}
+            {selectedItem === 'characterInput' && <CharacterInputComponent  onSubmit={handleFormSubmit} />}
+            {selectedItem === 'locationInput' && <LocationInputComponent  onSubmit={handleFormSubmit} />}
+            {selectedItem === 'scheduleOutput' && <ScheduleOutputComponent />}
+          </Fragment>
+        
+        }
+        {location.pathname !== '/dashboard' && <Outlet />}
       </main>
     </div>
   );

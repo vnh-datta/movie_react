@@ -19,7 +19,7 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ResponseContext from './ResponseContext';
+import ResponseContext from "./ResponseContext";
 
 const CharacterItem = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -62,369 +62,218 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CharacterInputComponent = ({ onSubmit }) => {
-  console.log('rendering character input component');
+  console.log("rendering character input component");
   const styles = useStyles();
   const formData = useRef([]);
   const [expanded, setExpanded] = React.useState(true);
   const responseContexts = useContext(ResponseContext);
   const { setResponseData, responseContext } = useContext(ResponseContext);
 
-  const handleDateChange = (index, index1, item, key, event)  => {
+  const handleDateChange = (index, index1, item, key, event) => {
     const updatedData = [...formData.current];
-     const formIndex = formData.current.findIndex((record) => record.id === index)
-     if(formIndex !== -1) 
-        updatedData[formIndex] = { ...updatedData[formIndex], [key]: { ...formData.current[formIndex][key], [item]: event?.toLocaleString()}}
-     else 
-        updatedData.push({id: index, [key]: {[item]: event.toLocaleString()}})
-        formData.current = updatedData;
+    const formIndex = formData.current.findIndex(
+      (record) => record.id === index
+    );
+    if (formIndex !== -1)
+      updatedData[formIndex] = {
+        ...updatedData[formIndex],
+        [key]: {
+          ...formData.current[formIndex][key],
+          [item]: event?.toLocaleString(),
+        },
+      };
+    else
+      updatedData.push({
+        id: index,
+        [key]: { [item]: event.toLocaleString() },
+      });
+    formData.current = updatedData;
   };
   const handleDataChange = (index, item) => (event) => {
     const { name, value } = event.target;
     let updatedData = formData.current;
-    if(formData.current.some((show) => show.id === index)) {
-       updatedData = updatedData.map((record) => record.id === index ? ({...record, [name]: value}): record);
+    if (formData.current.some((show) => show.id === index)) {
+      updatedData = updatedData.map((record) =>
+        record.id === index ? { ...record, [name]: value } : record
+      );
     } else {
-      updatedData.push({id: index, [name]: value})
+      updatedData.push({ id: index, [name]: value });
     }
-    formData.current = updatedData
+    formData.current = updatedData;
   };
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formData.current);
-    const locationData={
-        "loc_dict": {
-            " '74 CHEVY (MOVING)": [
-                2
-            ],
-            " ALLEY": [
-                56
-            ],
-            " ALLEY (RAINING)": [
-                43
-            ],
-            " APARTMENT": [
-                74
-            ],
-            " APARTMENT (ROOM 49)": [
-                8
-            ],
-            " APARTMENT BUILDING COURTYARD": [
-                4
-            ],
-            " APARTMENT BUILDING HALLWAY": [
-                7
-            ],
-            " APARTMENT BUILDING STREET": [
-                62
-            ],
-            " APARTMENT COURTYARD": [
-                60
-            ],
-            " BATHROOM": [
-                73
-            ],
-            " BATHROOM (MARSELLUS WALLACE'S HOUSE)": [
-                33
-            ],
-            " BOXING AUDITORIUM (RAINING)": [
-                45,
-                47
-            ],
-            " BUTCH AND FABIENNE'S HOTEL ROOM": [
-                70
-            ],
-            " BUTCH'S APARTMENT": [
-                59
-            ],
-            " BUTCH'S APARTMENT COURTYARD": [
-                58
-            ],
-            " CAB (MOVING / RAINING)": [
-                49
-            ],
-            " CAR (MOVING)": [
-                9
-            ],
-            " CHEVY (TRUNK)": [
-                3
-            ],
-            " CHEVY NOVA": [
-                88
-            ],
-            " CITY STREET": [
-                54,
-                71
-            ],
-            " COFFEE SHOP": [
-                92,
-                94
-            ],
-            " COFFEE SHOP BATHROOM": [
-                93
-            ],
-            " ELEVATOR": [
-                6
-            ],
-            " FRONT OF MARSELLUS WALLACE'S HOUSE": [
-                41
-            ],
-            " GARAGE": [
-                87
-            ],
-            " HOLLYWOOD APARTMENT BUILDING": [
-                75
-            ],
-            " HONDA": [
-                61,
-                63
-            ],
-            " HONDA (MOVING)": [
-                53
-            ],
-            " HOTEL SUITE": [
-                81
-            ],
-            " JACKRABBIT SLIM'S": [
-                28,
-                29
-            ],
-            " JACKRABBIT SLIM'S (DINING AREA)": [
-                31
-            ],
-            " JACKRABBIT SLIM'S (LADIES ROOM)": [
-                30
-            ],
-            " JIMMIE'S BACKYARD": [
-                89
-            ],
-            " JIMMIE'S BATHROOM": [
-                77
-            ],
-            " JIMMIE'S BEDROOM": [
-                80,
-                86
-            ],
-            " JIMMIE'S GARAGE": [
-                84,
-                90
-            ],
-            " JIMMIE'S HOUSE": [
-                83
-            ],
-            " JIMMIE'S KITCHEN": [
-                78
-            ],
-            " JIMMIE'S STREET": [
-                82
-            ],
-            " KITCHEN": [
-                85
-            ],
-            " LANCE'S BEDROOM": [
-                13
-            ],
-            " LANCE'S HOUSE": [
-                36,
-                37,
-                38
-            ],
-            " LANCE'S HOUSE (KITCHEN)": [
-                12
-            ],
-            " LOCKER ROOM": [
-                42
-            ],
-            " MARCELLUS' HOUSE / DRESSING ROOM": [
-                16,
-                18,
-                20,
-                22,
-                24,
-                26
-            ],
-            " MARCELLUS' HOUSE / LIVING ROOM": [
-                15,
-                17,
-                19,
-                21,
-                23,
-                25,
-                27
-            ],
-            " MARSELLUS WALLACE'S DINING ROOM": [
-                79
-            ],
-            " MARSELLUS WALLACE'S HOME": [
-                32
-            ],
-            " MARSELLUS WALLACE'S HOUSE": [
-                14
-            ],
-            " MASON": [
-                64,
-                69
-            ],
-            " MONSTER JOE'S TRUCK AND TOW": [
-                91
-            ],
-            " MOTEL (ROOM SIX)": [
-                52
-            ],
-            " MOTEL (STOPPED / RAINING)": [
-                51
-            ],
-            " MOTEL ROOM": [
-                72
-            ],
-            " NOVA (MOVING)": [
-                76
-            ],
-            " PAWNSHOP": [
-                66
-            ],
-            " PAWNSHOP BACK ROOM": [
-                65,
-                67
-            ],
-            " PHONE BOOTH (RAINING)": [
-                50
-            ],
-            " RECEPTION AREA (APARTMENT BUILDING)": [
-                5
-            ],
-            " RESIDENTIAL STREET CORNER": [
-                55
-            ],
-            " RUSSELL'S OLD ROOM": [
-                68
-            ],
-            " SALLY LeROY'S": [
-                10,
-                11
-            ],
-            " SPARE ROOM": [
-                39
-            ],
-            " STREET": [
-                57
-            ],
-            " TAXI (PARKED / RAINING)": [
-                46
-            ],
-            " TAXI (PARKED/RAINING)": [
-                44
-            ],
-            " VINCENT'S MALIBU (MOVING)": [
-                40
-            ],
-            " WILLIS LOCKER ROOM (AUDITORIUM)": [
-                48
-            ],
-            "VINCENT'S HOT ROD (MOVING)": [
-                34,
-                35
-            ]
-        },
-        "locations": [
-            " COFFEE SHOP",
-            " '74 CHEVY (MOVING)",
-            " CHEVY (TRUNK)",
-            " APARTMENT BUILDING COURTYARD",
-            " RECEPTION AREA (APARTMENT BUILDING)",
-            " ELEVATOR",
-            " APARTMENT BUILDING HALLWAY",
-            " APARTMENT (ROOM 49)",
-            " CAR (MOVING)",
-            " SALLY LeROY'S",
-            " LANCE'S HOUSE (KITCHEN)",
-            " LANCE'S BEDROOM",
-            " MARSELLUS WALLACE'S HOUSE",
-            " MARCELLUS' HOUSE / LIVING ROOM",
-            " MARCELLUS' HOUSE / DRESSING ROOM",
-            " JACKRABBIT SLIM'S",
-            " JACKRABBIT SLIM'S (LADIES ROOM)",
-            " JACKRABBIT SLIM'S (DINING AREA)",
-            " MARSELLUS WALLACE'S HOME",
-            " BATHROOM (MARSELLUS WALLACE'S HOUSE)",
-            "VINCENT'S HOT ROD (MOVING)",
-            " LANCE'S HOUSE",
-            " SPARE ROOM",
-            " VINCENT'S MALIBU (MOVING)",
-            " FRONT OF MARSELLUS WALLACE'S HOUSE",
-            " LOCKER ROOM",
-            " ALLEY (RAINING)",
-            " TAXI (PARKED/RAINING)",
-            " BOXING AUDITORIUM (RAINING)",
-            " TAXI (PARKED / RAINING)",
-            " WILLIS LOCKER ROOM (AUDITORIUM)",
-            " CAB (MOVING / RAINING)",
-            " PHONE BOOTH (RAINING)",
-            " MOTEL (STOPPED / RAINING)",
-            " MOTEL (ROOM SIX)",
-            " HONDA (MOVING)",
-            " CITY STREET",
-            " RESIDENTIAL STREET CORNER",
-            " ALLEY",
-            " STREET",
-            " BUTCH'S APARTMENT COURTYARD",
-            " BUTCH'S APARTMENT",
-            " APARTMENT COURTYARD",
-            " HONDA",
-            " APARTMENT BUILDING STREET",
-            " MASON",
-            " PAWNSHOP BACK ROOM",
-            " PAWNSHOP",
-            " RUSSELL'S OLD ROOM",
-            " BUTCH AND FABIENNE'S HOTEL ROOM",
-            " MOTEL ROOM",
-            " BATHROOM",
-            " APARTMENT",
-            " HOLLYWOOD APARTMENT BUILDING",
-            " NOVA (MOVING)",
-            " JIMMIE'S BATHROOM",
-            " JIMMIE'S KITCHEN",
-            " MARSELLUS WALLACE'S DINING ROOM",
-            " JIMMIE'S BEDROOM",
-            " HOTEL SUITE",
-            " JIMMIE'S STREET",
-            " JIMMIE'S HOUSE",
-            " JIMMIE'S GARAGE",
-            " KITCHEN",
-            " GARAGE",
-            " CHEVY NOVA",
-            " JIMMIE'S BACKYARD",
-            " MONSTER JOE'S TRUCK AND TOW",
-            " COFFEE SHOP BATHROOM"
-        ],
-        "message": "success",
-        "shoot_time": [
-            "2023-06-08",
-            "2023-06-27"
-        ],
-        "status_code": 200
-    };
-    setResponseData({locationData});
-     // Make the POST request to the API endpoint
-    fetch('http://127.0.0.1:3000/location', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
+    const locationData = {
+      loc_dict: {
+        " '74 CHEVY (MOVING)": [2],
+        " ALLEY": [56],
+        " ALLEY (RAINING)": [43],
+        " APARTMENT": [74],
+        " APARTMENT (ROOM 49)": [8],
+        " APARTMENT BUILDING COURTYARD": [4],
+        " APARTMENT BUILDING HALLWAY": [7],
+        " APARTMENT BUILDING STREET": [62],
+        " APARTMENT COURTYARD": [60],
+        " BATHROOM": [73],
+        " BATHROOM (MARSELLUS WALLACE'S HOUSE)": [33],
+        " BOXING AUDITORIUM (RAINING)": [45, 47],
+        " BUTCH AND FABIENNE'S HOTEL ROOM": [70],
+        " BUTCH'S APARTMENT": [59],
+        " BUTCH'S APARTMENT COURTYARD": [58],
+        " CAB (MOVING / RAINING)": [49],
+        " CAR (MOVING)": [9],
+        " CHEVY (TRUNK)": [3],
+        " CHEVY NOVA": [88],
+        " CITY STREET": [54, 71],
+        " COFFEE SHOP": [92, 94],
+        " COFFEE SHOP BATHROOM": [93],
+        " ELEVATOR": [6],
+        " FRONT OF MARSELLUS WALLACE'S HOUSE": [41],
+        " GARAGE": [87],
+        " HOLLYWOOD APARTMENT BUILDING": [75],
+        " HONDA": [61, 63],
+        " HONDA (MOVING)": [53],
+        " HOTEL SUITE": [81],
+        " JACKRABBIT SLIM'S": [28, 29],
+        " JACKRABBIT SLIM'S (DINING AREA)": [31],
+        " JACKRABBIT SLIM'S (LADIES ROOM)": [30],
+        " JIMMIE'S BACKYARD": [89],
+        " JIMMIE'S BATHROOM": [77],
+        " JIMMIE'S BEDROOM": [80, 86],
+        " JIMMIE'S GARAGE": [84, 90],
+        " JIMMIE'S HOUSE": [83],
+        " JIMMIE'S KITCHEN": [78],
+        " JIMMIE'S STREET": [82],
+        " KITCHEN": [85],
+        " LANCE'S BEDROOM": [13],
+        " LANCE'S HOUSE": [36, 37, 38],
+        " LANCE'S HOUSE (KITCHEN)": [12],
+        " LOCKER ROOM": [42],
+        " MARCELLUS' HOUSE / DRESSING ROOM": [16, 18, 20, 22, 24, 26],
+        " MARCELLUS' HOUSE / LIVING ROOM": [15, 17, 19, 21, 23, 25, 27],
+        " MARSELLUS WALLACE'S DINING ROOM": [79],
+        " MARSELLUS WALLACE'S HOME": [32],
+        " MARSELLUS WALLACE'S HOUSE": [14],
+        " MASON": [64, 69],
+        " MONSTER JOE'S TRUCK AND TOW": [91],
+        " MOTEL (ROOM SIX)": [52],
+        " MOTEL (STOPPED / RAINING)": [51],
+        " MOTEL ROOM": [72],
+        " NOVA (MOVING)": [76],
+        " PAWNSHOP": [66],
+        " PAWNSHOP BACK ROOM": [65, 67],
+        " PHONE BOOTH (RAINING)": [50],
+        " RECEPTION AREA (APARTMENT BUILDING)": [5],
+        " RESIDENTIAL STREET CORNER": [55],
+        " RUSSELL'S OLD ROOM": [68],
+        " SALLY LeROY'S": [10, 11],
+        " SPARE ROOM": [39],
+        " STREET": [57],
+        " TAXI (PARKED / RAINING)": [46],
+        " TAXI (PARKED/RAINING)": [44],
+        " VINCENT'S MALIBU (MOVING)": [40],
+        " WILLIS LOCKER ROOM (AUDITORIUM)": [48],
+        "VINCENT'S HOT ROD (MOVING)": [34, 35],
       },
-      body: JSON.stringify(formData.current)
-    }).then(response => response.json())
-    .then(data => {
-      // Handle the response from the API
-      console.log(data);
-      setResponseData({locationData: data});
-      // Perform any additional actions based on the response
+      locations: [
+        " COFFEE SHOP",
+        " '74 CHEVY (MOVING)",
+        " CHEVY (TRUNK)",
+        " APARTMENT BUILDING COURTYARD",
+        " RECEPTION AREA (APARTMENT BUILDING)",
+        " ELEVATOR",
+        " APARTMENT BUILDING HALLWAY",
+        " APARTMENT (ROOM 49)",
+        " CAR (MOVING)",
+        " SALLY LeROY'S",
+        " LANCE'S HOUSE (KITCHEN)",
+        " LANCE'S BEDROOM",
+        " MARSELLUS WALLACE'S HOUSE",
+        " MARCELLUS' HOUSE / LIVING ROOM",
+        " MARCELLUS' HOUSE / DRESSING ROOM",
+        " JACKRABBIT SLIM'S",
+        " JACKRABBIT SLIM'S (LADIES ROOM)",
+        " JACKRABBIT SLIM'S (DINING AREA)",
+        " MARSELLUS WALLACE'S HOME",
+        " BATHROOM (MARSELLUS WALLACE'S HOUSE)",
+        "VINCENT'S HOT ROD (MOVING)",
+        " LANCE'S HOUSE",
+        " SPARE ROOM",
+        " VINCENT'S MALIBU (MOVING)",
+        " FRONT OF MARSELLUS WALLACE'S HOUSE",
+        " LOCKER ROOM",
+        " ALLEY (RAINING)",
+        " TAXI (PARKED/RAINING)",
+        " BOXING AUDITORIUM (RAINING)",
+        " TAXI (PARKED / RAINING)",
+        " WILLIS LOCKER ROOM (AUDITORIUM)",
+        " CAB (MOVING / RAINING)",
+        " PHONE BOOTH (RAINING)",
+        " MOTEL (STOPPED / RAINING)",
+        " MOTEL (ROOM SIX)",
+        " HONDA (MOVING)",
+        " CITY STREET",
+        " RESIDENTIAL STREET CORNER",
+        " ALLEY",
+        " STREET",
+        " BUTCH'S APARTMENT COURTYARD",
+        " BUTCH'S APARTMENT",
+        " APARTMENT COURTYARD",
+        " HONDA",
+        " APARTMENT BUILDING STREET",
+        " MASON",
+        " PAWNSHOP BACK ROOM",
+        " PAWNSHOP",
+        " RUSSELL'S OLD ROOM",
+        " BUTCH AND FABIENNE'S HOTEL ROOM",
+        " MOTEL ROOM",
+        " BATHROOM",
+        " APARTMENT",
+        " HOLLYWOOD APARTMENT BUILDING",
+        " NOVA (MOVING)",
+        " JIMMIE'S BATHROOM",
+        " JIMMIE'S KITCHEN",
+        " MARSELLUS WALLACE'S DINING ROOM",
+        " JIMMIE'S BEDROOM",
+        " HOTEL SUITE",
+        " JIMMIE'S STREET",
+        " JIMMIE'S HOUSE",
+        " JIMMIE'S GARAGE",
+        " KITCHEN",
+        " GARAGE",
+        " CHEVY NOVA",
+        " JIMMIE'S BACKYARD",
+        " MONSTER JOE'S TRUCK AND TOW",
+        " COFFEE SHOP BATHROOM",
+      ],
+      message: "success",
+      shoot_time: ["2023-06-08", "2023-06-27"],
+      status_code: 200,
+    };
+    setResponseData({ locationData });
+    // Make the POST request to the API endpoint
+    fetch("http://127.0.0.1:3000/location", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData.current),
     })
-    .catch(error => {
-      // Handle any errors that occur during the request
-      console.error(error);
-      // Perform any error handling
-    });
-    onSubmit('locationInput');
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the API
+        console.log(data);
+        setResponseData({ locationData: data });
+        // Perform any additional actions based on the response
+      })
+      .catch((error) => {
+        // Handle any errors that occur during the request
+        console.error(error);
+        // Perform any error handling
+      });
+    onSubmit("locationInput");
   };
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -441,176 +290,194 @@ const CharacterInputComponent = ({ onSubmit }) => {
             <Stack spacing={2}>
               <Box sx={{ mt: 2 }}>
                 <div className={styles.accordianDetails}>
-                  {responseContexts.responseData?.charData?.characters.filter((character, index) => index <= 10).map((character, index) => {
-                    // index <= 5 &&
-                    const scenes = responseContexts.responseData?.charData?.char_dict[character]
-                    const item = {
-                      name: character,
-                      noOfScenes: scenes.length.toString(),
-                      scenes: scenes,
-                    }
+                  {responseContexts.responseData?.charData?.characters
+                    .filter((character, index) => index <= 10)
+                    .map((character, index) => {
+                      // index <= 5 &&
+                      const scenes =
+                        responseContexts.responseData?.charData?.char_dict[
+                          character
+                        ];
+                      const item = {
+                        name: character,
+                        noOfScenes: scenes.length.toString(),
+                        scenes: scenes,
+                      };
 
-                    return (<Accordion
-                      key={index}
-                      expanded={expanded === item.name}
-                      onChange={handleChange(item.name)}
-                    >
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls={`${item.name}-content`}
-                        id={`${item.name}-header`}
-                      >
-                        <div>
-                          <Typography>{item.name}</Typography>
-                        </div>
-                      </AccordionSummary>
-                      <AccordionDetails className={styles.accordionContainer}>
-                        <CharacterItem>
-                          <Typography
-                            variant="body1"
-                            className={styles.heading}
+                      return (
+                        <Accordion
+                          key={index}
+                          expanded={expanded === item.name}
+                          onChange={handleChange(item.name)}
+                        >
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls={`${item.name}-content`}
+                            id={`${item.name}-header`}
                           >
-                            Character Details
-                          </Typography>
-                          <Stack>
-                            <Item>
-                              <Grid container direction="row">
-                                <Grid item sm={2}>
-                                  <Typography variant="body2">
-                                    Character:
-                                  </Typography>
-                                </Grid>
-                                <Grid item sm={4}>
-                                  <Typography variant="body1">
-                                    <b>{item.name}</b>
-                                  </Typography>
-                                </Grid>
-                              </Grid>
-                            </Item>
-                            <Item>
-                              <Grid container direction="row">
-                                <Grid item sm={2}>
-                                  <Typography variant="body2">
-                                    Character Name:
-                                  </Typography>
-                                </Grid>
-                                <Grid item sm={0} />
-                                <Grid item sm={4}>
-                                  <TextField
-                                    inputProps={{
-                                      name: "characterName",
-                                      id: item.name + "characterName",
-                                    }}
-                                    label="Name"
-                                    variant="outlined"
-                                    fullWidth
-                                    onChange={handleDataChange(index, item)}
-                                  />
-                                </Grid>
-                              </Grid>
-                            </Item>
-                            <Item>
-                              <Grid container direction="row">
-                                <Grid item sm={2}>
-                                  <Typography variant="body2">
-                                    Number of scenes:
-                                  </Typography>
-                                </Grid>
-                                <Grid item sm={4}>
-                                  <Typography variant="body1">
-                                    <b>{item.noOfScenes}</b>
-                                  </Typography>
-                                </Grid>
-                              </Grid>
-                            </Item>
-                            <Item>
-                              <Grid container direction="row">
-                                <Grid item sm={2}>
-                                  <Typography variant="body2">
-                                    Scene list:
-                                  </Typography>
-                                </Grid>
-                                <Grid item sm={0} />
-                                <Grid item sm={2}>
-                                  <FormControl variant="outlined">
-                                    <Select
-                                      native
-                                      inputProps={{
-                                        name: "sceneNo",
-                                        id: item.name + "sceneNo",
-                                      }}
-                                      onChange={handleDataChange(index)}
-                                    >
-                                      <option aria-label="None" value="" />
-                                      {item.scenes.map((value) => (
-                                        <option key={value} value={value}>
-                                          {value}
-                                        </option>
-                                      ))}
-                                    </Select>
-                                  </FormControl>
-                                </Grid>
-                              </Grid>
-                            </Item>
-                            <Item>
-                              <Typography variant="body2">
-                                Available Dates:
+                            <div>
+                              <Typography>{item.name}</Typography>
+                            </div>
+                          </AccordionSummary>
+                          <AccordionDetails
+                            className={styles.accordionContainer}
+                          >
+                            <CharacterItem>
+                              <Typography
+                                variant="body1"
+                                className={styles.heading}
+                              >
+                                Character Details
                               </Typography>
-                              <Box sx={{ mt: 1 }} fullWidth>
-                                <Accordion>
-                                  <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                  >
-                                    <div>
+                              <Stack>
+                                <Item>
+                                  <Grid container direction="row">
+                                    <Grid item sm={2}>
                                       <Typography variant="body2">
-                                        Time Slots
+                                        Character:
                                       </Typography>
-                                    </div>
-                                  </AccordionSummary>
-                                  <AccordionDetails className={styles.details}>
-                                   <TimeSlots index={index} timeSlots={timeSlots} handleDateChange={handleDateChange} />
-                                  </AccordionDetails>
-                                </Accordion>
-                              </Box>
-                            </Item>
-                            <Item>
-                              <Grid container direction="row">
-                                <Grid item sm={2}>
+                                    </Grid>
+                                    <Grid item sm={4}>
+                                      <Typography variant="body1">
+                                        <b>{item.name}</b>
+                                      </Typography>
+                                    </Grid>
+                                  </Grid>
+                                </Item>
+                                <Item>
+                                  <Grid container direction="row">
+                                    <Grid item sm={2}>
+                                      <Typography variant="body2">
+                                        Character Name:
+                                      </Typography>
+                                    </Grid>
+                                    <Grid item sm={0} />
+                                    <Grid item sm={4}>
+                                      <TextField
+                                        inputProps={{
+                                          name: "characterName",
+                                          id: item.name + "characterName",
+                                        }}
+                                        label="Name"
+                                        variant="outlined"
+                                        fullWidth
+                                        onChange={handleDataChange(index, item)}
+                                      />
+                                    </Grid>
+                                  </Grid>
+                                </Item>
+                                <Item>
+                                  <Grid container direction="row">
+                                    <Grid item sm={2}>
+                                      <Typography variant="body2">
+                                        Number of scenes:
+                                      </Typography>
+                                    </Grid>
+                                    <Grid item sm={4}>
+                                      <Typography variant="body1">
+                                        <b>{item.noOfScenes}</b>
+                                      </Typography>
+                                    </Grid>
+                                  </Grid>
+                                </Item>
+                                <Item>
+                                  <Grid container direction="row">
+                                    <Grid item sm={2}>
+                                      <Typography variant="body2">
+                                        Scene list:
+                                      </Typography>
+                                    </Grid>
+                                    <Grid item sm={0} />
+                                    <Grid item sm={2}>
+                                      <FormControl variant="outlined">
+                                        <Select
+                                          native
+                                          inputProps={{
+                                            name: "sceneNo",
+                                            id: item.name + "sceneNo",
+                                          }}
+                                          onChange={handleDataChange(index)}
+                                        >
+                                          <option aria-label="None" value="" />
+                                          {item.scenes.map((value) => (
+                                            <option key={value} value={value}>
+                                              {value}
+                                            </option>
+                                          ))}
+                                        </Select>
+                                      </FormControl>
+                                    </Grid>
+                                  </Grid>
+                                </Item>
+                                <Item>
                                   <Typography variant="body2">
-                                    Criticality:
+                                    Available Dates:
                                   </Typography>
-                                </Grid>
-                                <Grid item sm={0} />
-                                <Grid item sm={2}>
-                                  <FormControl variant="outlined">
-                                    <Select
-                                      native
-                                      label={`${item.name}-Criticality`}
-                                      inputProps={{
-                                        name: "criticality",
-                                        id:
-                                          item.name +
-                                          "outlined-age-native-simple",
-                                      }}
-                                      onChange={handleDataChange(index, item)}
-                                    >
-                                      <option aria-label="None" value="" />
-                                      <option value={1}>1</option>
-                                      <option value={2}>2</option>
-                                      <option value={3}>3</option>
-                                      <option value={4}>4</option>
-                                      <option value={5}>5</option>
-                                      <option value={6}>6</option>
-                                    </Select>
-                                  </FormControl>
-                                </Grid>
-                              </Grid>
-                            </Item>
-                          </Stack>
-                        </CharacterItem>
-                      </AccordionDetails>
-                    </Accordion>)
-                  })}
+                                  <Box sx={{ mt: 1 }} fullWidth>
+                                    <Accordion>
+                                      <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                      >
+                                        <div>
+                                          <Typography variant="body2">
+                                            Time Slots
+                                          </Typography>
+                                        </div>
+                                      </AccordionSummary>
+                                      <AccordionDetails
+                                        className={styles.details}
+                                      >
+                                        <TimeSlots
+                                          index={index}
+                                          timeSlots={timeSlots}
+                                          handleDateChange={handleDateChange}
+                                        />
+                                      </AccordionDetails>
+                                    </Accordion>
+                                  </Box>
+                                </Item>
+                                <Item>
+                                  <Grid container direction="row">
+                                    <Grid item sm={2}>
+                                      <Typography variant="body2">
+                                        Criticality:
+                                      </Typography>
+                                    </Grid>
+                                    <Grid item sm={0} />
+                                    <Grid item sm={2}>
+                                      <FormControl variant="outlined">
+                                        <Select
+                                          native
+                                          label={`${item.name}-Criticality`}
+                                          inputProps={{
+                                            name: "criticality",
+                                            id:
+                                              item.name +
+                                              "outlined-age-native-simple",
+                                          }}
+                                          onChange={handleDataChange(
+                                            index,
+                                            item
+                                          )}
+                                        >
+                                          <option aria-label="None" value="" />
+                                          <option value={1}>1</option>
+                                          <option value={2}>2</option>
+                                          <option value={3}>3</option>
+                                          <option value={4}>4</option>
+                                          <option value={5}>5</option>
+                                          <option value={6}>6</option>
+                                        </Select>
+                                      </FormControl>
+                                    </Grid>
+                                  </Grid>
+                                </Item>
+                              </Stack>
+                            </CharacterItem>
+                          </AccordionDetails>
+                        </Accordion>
+                      );
+                    })}
                 </div>
               </Box>
               <Item>
@@ -628,77 +495,63 @@ const CharacterInputComponent = ({ onSubmit }) => {
 
 export default CharacterInputComponent;
 
-
 const timeSlots = [
   {
     name: "Time Slot 1:",
-    key: 'timeSlotOne'
+    key: "timeSlotOne",
   },
   {
     name: "Time Slot 2:",
-    key: 'timeSlotTwo'
+    key: "timeSlotTwo",
   },
 ];
 
-
-
-export const TimeSlots = ({index, handleDateChange, timeSlots}) => (
-  timeSlots.map((item,index1) =>
-  <Box key={index1} sx={{ p: 2 }}>
-    <Grid
-      container
-      direction="row"
-      overflow="unset"
-    >
-      <Grid item sm={2}>
-        <Typography variant="caption">
-          Time Slot {index1 + 1}:
-        </Typography>
+export const TimeSlots = ({ index, handleDateChange, timeSlots }) =>
+  timeSlots.map((item, index1) => (
+    <Box key={index1} sx={{ p: 2 }}>
+      <Grid container direction="row" overflow="unset">
+        <Grid item sm={2}>
+          <Typography variant="caption">Time Slot {index1 + 1}:</Typography>
+        </Grid>
+        <Grid item sm={3}>
+          <Typography variant="caption">
+            From
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DatePicker"]}>
+                <DatePicker
+                  inputProps={{
+                    name: "fromDate",
+                    id: item.name + "fromDate",
+                  }}
+                  // selected={fromDate}
+                  onChange={(e) =>
+                    handleDateChange(index, index1, "fromDate", item.key, e)
+                  }
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+          </Typography>
+        </Grid>
+        <Grid item sm={1} />
+        <Grid item sm={3}>
+          <Typography variant="caption">
+            To
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DatePicker"]}>
+                <DatePicker
+                  inputProps={{
+                    name: "toDate",
+                    id: item.name + "toDate",
+                  }}
+                  // selected={fromDate}
+                  onChange={(e) =>
+                    handleDateChange(index, index1, "toDate", item.key, e)
+                  }
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+          </Typography>
+        </Grid>
       </Grid>
-      <Grid item sm={3}>
-        <Typography variant="caption">
-          From
-          <LocalizationProvider
-            dateAdapter={AdapterDayjs}
-          >
-            <DemoContainer
-              components={["DatePicker"]}
-            >
-              <DatePicker
-                inputProps={{
-                  name: "fromDate",
-                  id:
-                    item.name + "fromDate",
-                }}
-                // selected={fromDate}
-                onChange={(e) => handleDateChange(index, index1, "fromDate", item.key, e)}
-              />
-            </DemoContainer>
-          </LocalizationProvider>
-        </Typography>
-      </Grid>
-      <Grid item sm={1} />
-      <Grid item sm={3}>
-        <Typography variant="caption">
-          To
-          <LocalizationProvider
-            dateAdapter={AdapterDayjs}
-          >
-            <DemoContainer
-              components={["DatePicker"]}
-            >
-              <DatePicker
-                inputProps={{
-                  name: "toDate",
-                  id: item.name + "toDate",
-                }}
-                // selected={fromDate}
-                onChange={(e) => handleDateChange(index, index1, "toDate", item.key, e)}
-              />
-            </DemoContainer>
-          </LocalizationProvider>
-        </Typography>
-      </Grid>
-    </Grid>
-  </Box>
-));
+    </Box>
+  ));

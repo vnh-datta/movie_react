@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
@@ -12,7 +13,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
-import AccordionActions from "@material-ui/core/AccordionActions";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -137,25 +137,9 @@ const SceneInputComponent = ({ onSubmit }) => {
   });
   const classes = useStyles();
   const [showAccordion, setShowAccordion] = useState(false);
-  // const responseContext = useContext(ResponseContext);
   const { setResponseData, responseData } = useContext(ResponseContext);
   const [expanded, setExpanded] = useState(true);
   const [formData, setFormData] = useState([]);
-
-  // useEffect(() => {
-  //   console.log('reached', responseData)
-  //     }, [responseData])
-  // const data = [{
-  //   name: "panel1"
-  // }, {
-  //   name: "panel2"
-  // }, {
-  //   name: "panel3"
-  // }, {
-  //   name: "panel4"
-  // }, {
-  //   name: "panel5"
-  // }];
   const data = [];
 
   for (let i = 1; i <= 100; i++) {
@@ -369,42 +353,26 @@ const SceneInputComponent = ({ onSubmit }) => {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  // const handleChangeSelect = (event) => {
-  //   const name = event.target.name;
-  //   setState({
-  //     ...state,
-  //     [name]: event.target.value,
-  //   });
-  // };
+
   const handleFileInput = (e) => {
     const file = e.target.files[0];
 
-    const myTimeout = setTimeout(myGreeting, 5000);
+    const formData = new FormData();
+    formData.append("file", file);
 
-    function myGreeting() {
-      setSelectedFile(e.target.files[0]);
-    }
-
-
-    // Make the POST request to the API endpoint
-    fetch("http://localhost:6000/upload", {
-      method: "POST",
-      body: file,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the API
-        console.log(data);
-        // Perform any additional actions based on the response
+    axios
+      .post("http://localhost:7789/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response);
       })
       .catch((error) => {
-        // Handle any errors that occur during the request
-        console.error(error);
-        // Perform any error handling
+        // handle errors
+        console.log(error);
       });
-    console.log(e.target.files);
-    console.log("selected File");
-    console.log(selectedFile);
   };
 
   return (

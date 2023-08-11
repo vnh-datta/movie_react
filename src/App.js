@@ -6,6 +6,7 @@ import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
 import Director from './components/Director';
 import ResponseContext from './components/ResponseContext';
+import AssistantDirector from './components/AssistantDirector';
 
 
 function App() {
@@ -18,8 +19,10 @@ function App() {
       <Routes>
       <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/director" element={<Director />} />
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="/dashboard/director" element={<Director />} />
+          <Route path="/dashboard/ad" element={<AssistantDirector />} />
+        </Route>
       </Routes>
     </Router>
     </ResponseContext.Provider>
