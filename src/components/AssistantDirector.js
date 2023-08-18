@@ -1,6 +1,6 @@
 import { Button, IconButton, Typography, makeStyles } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
-import { PieChart } from '@mui/x-charts/PieChart';
+import { PieChart, pieArcClasses } from '@mui/x-charts/PieChart';
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
@@ -120,12 +120,22 @@ const AssistantDirector = function() {
             series={[
               {
                 data: [
-                  { id: 0, value: 10, label: 'series A' },
-                  { id: 1, value: 15, label: 'series B' },
-                  { id: 2, value: 20, label: 'series C' },
+                  { id: 0, value: 10, label: 'Series A' },
+                  { id: 1, value: 15, label: 'Series B' },
+                  { id: 2, value: 20, label: 'Series C' },
                 ],
+                highlightScope: { faded: 'global', highlighted: 'item' },
+                faded: { innerRadius: 30, additionalRadius: -30 },
+                innerRadius: 30,
+                paddingAngle: 5,
+                cornerRadius: 5,
               },
             ]}
+            sx={{
+              [`& .${pieArcClasses.faded}`]: {
+                fill: 'gray',
+              },
+            }}
             width={400}
             height={200}
           />
