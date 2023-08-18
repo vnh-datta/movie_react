@@ -1,5 +1,6 @@
 import { Button, IconButton, Typography, makeStyles } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
+import { PieChart } from '@mui/x-charts/PieChart';
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
@@ -52,10 +53,26 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: 'border-box',
     width: "95%",
     height: '75px',
-    background: 'teal',
     margin: '.2rem auto',
+    display: 'flex',
+    flexDirection: 'column'
   },
-  graphContainer: {},
+  cardItemHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  cardItemBody: {
+    margin: '.2rem 0',
+  },
+  cardItemFooter: {
+    textAlign: 'right',
+  },
+  graphContainer: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 }));
 
 const AssistantDirector = function() {
@@ -72,7 +89,7 @@ const AssistantDirector = function() {
   }];
 
   return (
-    <div className="main">
+    <div className={classes.main}>
       <div className={classes.appBarSpacer} />
       <div className={classes.content}>
         <div className={classes.cardsContainer}>
@@ -85,6 +102,7 @@ const AssistantDirector = function() {
               />
               <CardContent className={classes.cardContent}>
                 <CardContentContainer card={card} />
+
               </CardContent>
               <CardActions disableSpacing className={classes.cardActions}>
                 <Button
@@ -97,7 +115,21 @@ const AssistantDirector = function() {
             </Card>
           ))}
         </div>
-        <div className={classes.graphContainer}></div>
+        <div className={classes.graphContainer}>
+          <PieChart
+            series={[
+              {
+                data: [
+                  { id: 0, value: 10, label: 'series A' },
+                  { id: 1, value: 15, label: 'series B' },
+                  { id: 2, value: 20, label: 'series C' },
+                ],
+              },
+            ]}
+            width={400}
+            height={200}
+          />
+        </div>
       </div>
     </div>
   );
@@ -108,9 +140,18 @@ const CardContentContainer = function({card}) {
     return <div className={classes.cardContentContainer}>
         {
             [1,2,3,4,5,6,7,8,9,10].map((item) => {
-                return <div className={classes.cardItem}>
-
-                </div>
+                return <Card className={classes.cardItem}>
+                    <div className={classes.cardItemHeader}>
+                      <span>Scene {item}</span>
+                      <b>Detailed view</b>
+                    </div>
+                    <div className={classes.cardItemBody}>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </div>
+                    <div className={classes.cardItemFooter}>
+                      Approved
+                    </div>
+                </Card>
             })
         }
     </div>
