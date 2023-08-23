@@ -2,6 +2,7 @@ import React, { useContext, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -105,175 +106,25 @@ const CharacterInputComponent = ({ onSubmit }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formData.current);
-    const locationData = {
-      loc_dict: {
-        " '74 CHEVY (MOVING)": [2],
-        " ALLEY": [56],
-        " ALLEY (RAINING)": [43],
-        " APARTMENT": [74],
-        " APARTMENT (ROOM 49)": [8],
-        " APARTMENT BUILDING COURTYARD": [4],
-        " APARTMENT BUILDING HALLWAY": [7],
-        " APARTMENT BUILDING STREET": [62],
-        " APARTMENT COURTYARD": [60],
-        " BATHROOM": [73],
-        " BATHROOM (MARSELLUS WALLACE'S HOUSE)": [33],
-        " BOXING AUDITORIUM (RAINING)": [45, 47],
-        " BUTCH AND FABIENNE'S HOTEL ROOM": [70],
-        " BUTCH'S APARTMENT": [59],
-        " BUTCH'S APARTMENT COURTYARD": [58],
-        " CAB (MOVING / RAINING)": [49],
-        " CAR (MOVING)": [9],
-        " CHEVY (TRUNK)": [3],
-        " CHEVY NOVA": [88],
-        " CITY STREET": [54, 71],
-        " COFFEE SHOP": [92, 94],
-        " COFFEE SHOP BATHROOM": [93],
-        " ELEVATOR": [6],
-        " FRONT OF MARSELLUS WALLACE'S HOUSE": [41],
-        " GARAGE": [87],
-        " HOLLYWOOD APARTMENT BUILDING": [75],
-        " HONDA": [61, 63],
-        " HONDA (MOVING)": [53],
-        " HOTEL SUITE": [81],
-        " JACKRABBIT SLIM'S": [28, 29],
-        " JACKRABBIT SLIM'S (DINING AREA)": [31],
-        " JACKRABBIT SLIM'S (LADIES ROOM)": [30],
-        " JIMMIE'S BACKYARD": [89],
-        " JIMMIE'S BATHROOM": [77],
-        " JIMMIE'S BEDROOM": [80, 86],
-        " JIMMIE'S GARAGE": [84, 90],
-        " JIMMIE'S HOUSE": [83],
-        " JIMMIE'S KITCHEN": [78],
-        " JIMMIE'S STREET": [82],
-        " KITCHEN": [85],
-        " LANCE'S BEDROOM": [13],
-        " LANCE'S HOUSE": [36, 37, 38],
-        " LANCE'S HOUSE (KITCHEN)": [12],
-        " LOCKER ROOM": [42],
-        " MARCELLUS' HOUSE / DRESSING ROOM": [16, 18, 20, 22, 24, 26],
-        " MARCELLUS' HOUSE / LIVING ROOM": [15, 17, 19, 21, 23, 25, 27],
-        " MARSELLUS WALLACE'S DINING ROOM": [79],
-        " MARSELLUS WALLACE'S HOME": [32],
-        " MARSELLUS WALLACE'S HOUSE": [14],
-        " MASON": [64, 69],
-        " MONSTER JOE'S TRUCK AND TOW": [91],
-        " MOTEL (ROOM SIX)": [52],
-        " MOTEL (STOPPED / RAINING)": [51],
-        " MOTEL ROOM": [72],
-        " NOVA (MOVING)": [76],
-        " PAWNSHOP": [66],
-        " PAWNSHOP BACK ROOM": [65, 67],
-        " PHONE BOOTH (RAINING)": [50],
-        " RECEPTION AREA (APARTMENT BUILDING)": [5],
-        " RESIDENTIAL STREET CORNER": [55],
-        " RUSSELL'S OLD ROOM": [68],
-        " SALLY LeROY'S": [10, 11],
-        " SPARE ROOM": [39],
-        " STREET": [57],
-        " TAXI (PARKED / RAINING)": [46],
-        " TAXI (PARKED/RAINING)": [44],
-        " VINCENT'S MALIBU (MOVING)": [40],
-        " WILLIS LOCKER ROOM (AUDITORIUM)": [48],
-        "VINCENT'S HOT ROD (MOVING)": [34, 35],
-      },
-      locations: [
-        " COFFEE SHOP",
-        " '74 CHEVY (MOVING)",
-        " CHEVY (TRUNK)",
-        " APARTMENT BUILDING COURTYARD",
-        " RECEPTION AREA (APARTMENT BUILDING)",
-        " ELEVATOR",
-        " APARTMENT BUILDING HALLWAY",
-        " APARTMENT (ROOM 49)",
-        " CAR (MOVING)",
-        " SALLY LeROY'S",
-        " LANCE'S HOUSE (KITCHEN)",
-        " LANCE'S BEDROOM",
-        " MARSELLUS WALLACE'S HOUSE",
-        " MARCELLUS' HOUSE / LIVING ROOM",
-        " MARCELLUS' HOUSE / DRESSING ROOM",
-        " JACKRABBIT SLIM'S",
-        " JACKRABBIT SLIM'S (LADIES ROOM)",
-        " JACKRABBIT SLIM'S (DINING AREA)",
-        " MARSELLUS WALLACE'S HOME",
-        " BATHROOM (MARSELLUS WALLACE'S HOUSE)",
-        "VINCENT'S HOT ROD (MOVING)",
-        " LANCE'S HOUSE",
-        " SPARE ROOM",
-        " VINCENT'S MALIBU (MOVING)",
-        " FRONT OF MARSELLUS WALLACE'S HOUSE",
-        " LOCKER ROOM",
-        " ALLEY (RAINING)",
-        " TAXI (PARKED/RAINING)",
-        " BOXING AUDITORIUM (RAINING)",
-        " TAXI (PARKED / RAINING)",
-        " WILLIS LOCKER ROOM (AUDITORIUM)",
-        " CAB (MOVING / RAINING)",
-        " PHONE BOOTH (RAINING)",
-        " MOTEL (STOPPED / RAINING)",
-        " MOTEL (ROOM SIX)",
-        " HONDA (MOVING)",
-        " CITY STREET",
-        " RESIDENTIAL STREET CORNER",
-        " ALLEY",
-        " STREET",
-        " BUTCH'S APARTMENT COURTYARD",
-        " BUTCH'S APARTMENT",
-        " APARTMENT COURTYARD",
-        " HONDA",
-        " APARTMENT BUILDING STREET",
-        " MASON",
-        " PAWNSHOP BACK ROOM",
-        " PAWNSHOP",
-        " RUSSELL'S OLD ROOM",
-        " BUTCH AND FABIENNE'S HOTEL ROOM",
-        " MOTEL ROOM",
-        " BATHROOM",
-        " APARTMENT",
-        " HOLLYWOOD APARTMENT BUILDING",
-        " NOVA (MOVING)",
-        " JIMMIE'S BATHROOM",
-        " JIMMIE'S KITCHEN",
-        " MARSELLUS WALLACE'S DINING ROOM",
-        " JIMMIE'S BEDROOM",
-        " HOTEL SUITE",
-        " JIMMIE'S STREET",
-        " JIMMIE'S HOUSE",
-        " JIMMIE'S GARAGE",
-        " KITCHEN",
-        " GARAGE",
-        " CHEVY NOVA",
-        " JIMMIE'S BACKYARD",
-        " MONSTER JOE'S TRUCK AND TOW",
-        " COFFEE SHOP BATHROOM",
-      ],
-      message: "success",
-      shoot_time: ["2023-06-08", "2023-06-27"],
-      status_code: 200,
-    };
-    setResponseData({ locationData });
-    // Make the POST request to the API endpoint
-    fetch("http://127.0.0.1:3000/location", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData.current),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the API
-        console.log(data);
-        setResponseData({ locationData: data });
-        // Perform any additional actions based on the response
+
+    axios
+      .post("https://f441-115-98-2-149.ngrok.io/location", formData.current, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        console.log("success");
+        const locationData = response.data;
+        setResponseData({ locationData });
+        onSubmit("locationInput");
       })
       .catch((error) => {
-        // Handle any errors that occur during the request
-        console.error(error);
-        // Perform any error handling
+        // handle errors
+        console.log(error);
       });
-    onSubmit("locationInput");
+    //onSubmit("locationInput");
   };
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
