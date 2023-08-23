@@ -102,6 +102,23 @@ const LocationInputComponent = ({ onSubmit }) => {
     event.preventDefault();
     const data = formData.current;
     console.log(data);
+    axios
+      .post("https://f441-115-98-2-149.ngrok.io/duration", formData.current, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        console.log("success");
+        const locationData = response.data;
+        setResponseData({ locationData });
+        onSubmit("locationInput");
+      })
+      .catch((error) => {
+        // handle errors
+        console.log(error);
+      });
   };
 
   return (
