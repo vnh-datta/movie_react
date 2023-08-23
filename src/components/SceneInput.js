@@ -140,14 +140,7 @@ const SceneInputComponent = ({ onSubmit }) => {
   const { setResponseData, responseData } = useContext(ResponseContext);
   const [expanded, setExpanded] = useState(true);
   const [formData, setFormData] = useState([]);
-  const data = [];
-
-  for (let i = 1; i <= 100; i++) {
-    const obj = {
-      name: `panel${i}`,
-    };
-    data.push(obj);
-  }
+  const [data, setData] = useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -356,18 +349,24 @@ const SceneInputComponent = ({ onSubmit }) => {
 
   const handleFileInput = (e) => {
     const file = e.target.files[0];
+    setSelectedFile(file);
 
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("productname", "pulpfiction");
 
     axios
-      .post("http://localhost:7789/upload", formData, {
+      .post("https://5261-115-98-2-149.ngrok.io/scene", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
-        console.log(response);
+        const responseData = response?.data?.scene_numbers?.map(scene_number => ({
+          name: `panel${scene_number}`,
+        })) || [];
+
+        setData(responseData)
       })
       .catch((error) => {
         // handle errors
@@ -395,7 +394,7 @@ const SceneInputComponent = ({ onSubmit }) => {
                     Upload your Script here
                   </Typography>
                   <input
-                    accept="image/*"
+                    accept="*"
                     className={classes.input}
                     id="contained-button-file"
                     type="file"
