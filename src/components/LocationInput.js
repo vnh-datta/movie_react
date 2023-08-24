@@ -2,6 +2,7 @@ import React, { useContext, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -111,9 +112,9 @@ const LocationInputComponent = ({ onSubmit }) => {
       .then((response) => {
         console.log(response);
         console.log("success");
-        const locationData = response.data;
-        setResponseData({ locationData });
-        onSubmit("locationInput");
+        //const locationData = response.data;
+        //setResponseData({ locationData });
+        onSubmit("shootDuration");
       })
       .catch((error) => {
         // handle errors
