@@ -52,6 +52,22 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontWeight: theme.typography.fontWeightBold,
   },
+  accordianDetails: {
+    display: "block",
+    width: "100%",
+  },
+  accordionContainer: {
+    display: "block",
+    alignItems: "center",
+  },
+  details: {
+    padding: "0px",
+    display: "block",
+    alignItems: "center",
+  },
+  datePicker: {
+    overflow: "unset",
+  },
 }));
 
 const LocationInputComponent = ({ onSubmit }) => {

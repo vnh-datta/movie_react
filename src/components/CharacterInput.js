@@ -142,7 +142,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
               <Box sx={{ mt: 2 }}>
                 <div className={styles.accordianDetails}>
                   {responseContexts.responseData?.charData?.characters
-                    .filter((character, index) => index <= 10)
+                    .filter((character, index) => index <= 50)
                     .map((character, index) => {
                       // index <= 5 &&
                       const scenes =
