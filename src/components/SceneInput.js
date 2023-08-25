@@ -225,8 +225,10 @@ const SceneInputComponent = ({ onSubmit }) => {
       })
       .then((response) => {
         const responseData =
-          response?.data?.scene_numbers?.map((scene_number) => ({
+          response?.data?.scene_numbers?.map((scene_number, index) => ({
             name: `panel${scene_number}`,
+            script:
+              response?.data?.scene_script[index] || "No script available",
           })) || [];
 
         setData(responseData);
@@ -389,7 +391,7 @@ const SceneInputComponent = ({ onSubmit }) => {
                                       minRows={4}
                                       aria-label="Screen script"
                                       placeholder="Script"
-                                      defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                                      defaultValue={item.script}
                                     />
                                   </Typography>
                                 </Grid>
