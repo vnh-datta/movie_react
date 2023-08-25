@@ -170,7 +170,7 @@ const SceneInputComponent = ({ onSubmit }) => {
     //responseContext.setResponseData(sceneData);
 
     axios
-      .post("https://f441-115-98-2-149.ngrok.io/character", sceneData, {
+      .post("  https://1522-115-98-2-149.ngrok.io/character", sceneData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -218,7 +218,7 @@ const SceneInputComponent = ({ onSubmit }) => {
     formData.append("productname", "pulpfiction");
 
     axios
-      .post("https://f441-115-98-2-149.ngrok.io/scene", formData, {
+      .post("  https://1522-115-98-2-149.ngrok.io/scene", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -34,14 +34,19 @@ const ShootDurationComponent = ({ onSubmit }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const istOffsetMinutes = 330; // IST is GMT+5:30
+    const gmtDate = new Date(startDate.toLocaleString());
+
+    // Calculate the time in IST by adding the offset
+    const istDate = new Date(gmtDate.getTime() + istOffsetMinutes * 60000);
     const shootData = {
-      startDate: startDate?.toISOString(),
+      fromDate: istDate?.toLocaleString(),
     };
     console.log("Duration Prateek Changes");
     console.log(shootData);
     //setResponseData({ shootData });
     axios
-      .post("https://f441-115-98-2-149.ngrok.io/pymo_driver", shootData, {
+      .post("  https://1522-115-98-2-149.ngrok.io/pymo_driver", shootData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -50,7 +55,7 @@ const ShootDurationComponent = ({ onSubmit }) => {
         console.log(response);
         console.log("success get pymo");
         axios
-          .get("https://f441-115-98-2-149.ngrok.io/loader", {
+          .get("  https://1522-115-98-2-149.ngrok.io/loader", {
             headers: {
               "Content-Type": "application/json",
             },

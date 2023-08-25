@@ -91,167 +91,152 @@ function createData(
   };
 }
 
-const rows = [
-  createData(
-    "1",
-    "1",
-    "Ramoji",
-    "5",
-    "Ramoji",
-    "Gopi",
-    "2023-06-09",
-    "1",
-    "2023-06-09",
-    "2023-06-09"
-  ),
-  createData(
-    "2",
-    "1",
-    "Ramoji",
-    "50",
-    "Ramoji",
-    "Vijay",
-    "2023-06-09",
-    "1",
-    "2023-06-09",
-    "2023-06-09"
-  ),
-  createData(
-    "3",
-    "1",
-    "Ramoji",
-    "97",
-    "Ramoji",
-    "Gopi",
-    "2023-06-09",
-    "1",
-    "2023-06-09",
-    "2023-06-09"
-  ),
-  createData(
-    "4",
-    "2",
-    "Ramoji",
-    "76",
-    "Ramoji",
-    "Gopi",
-    "2023-06-09",
-    "4",
-    "2023-06-09",
-    "2023-06-09"
-  ),
-  createData(
-    "5",
-    "3",
-    "S.R.Nagar",
-    "87",
-    "Bhashyam",
-    "Suresh",
-    "2023-06-09",
-    "16",
-    "2023-06-09",
-    "2023-06-09"
-  ),
-  createData(
-    "6",
-    "4",
-    "Vizag",
-    "4",
-    "Bhashyam",
-    "Ramu",
-    "2023-06-09",
-    "16",
-    "2023-06-09",
-    "2023-06-09"
-  ),
-  createData(
-    "7",
-    "4",
-    "Vizag",
-    "34",
-    "Lotus Pound",
-    "Ramu",
-    "2023-06-09",
-    "4",
-    "2023-06-09",
-    "2023-06-09"
-  ),
-  createData(
-    "8",
-    "4",
-    "Madhapur",
-    "54",
-    "Lotus Pound",
-    "Suresh",
-    "2023-06-09",
-    "8",
-    "2023-06-09",
-    "2023-06-09"
-  ),
-  createData(
-    "9",
-    "5",
-    "Vizag",
-    "96",
-    "Lotus Pound",
-    "Ravi",
-    "2023-06-09",
-    "7",
-    "2023-06-09",
-    "2023-06-09"
-  ),
-  createData(
-    "10",
-    "6",
-    "Vizag",
-    "107",
-    "Ikea",
-    "Sundar",
-    "2023-06-09",
-    "9",
-    "2023-06-09",
-    "2023-06-09"
-  ),
-  createData(
-    "11",
-    "7",
-    "Kukatpally",
-    "106",
-    "Ikea",
-    "Gopi",
-    "2023-06-09",
-    "5",
-    "2023-06-09",
-    "2023-06-09"
-  ),
-  createData(
-    "12",
-    "7",
-    "Kukatpally",
-    "105",
-    "Sarath City",
-    "Gopi",
-    "2023-06-09",
-    "5",
-    "2023-06-09",
-    "2023-06-09"
-  ),
-];
-
-// const rows = apiData.map(item => {
-//     return createData(
-//       item.D_ID.toString(),
-//       item.Schedule.toString(),
-//       item.Location,
-//       item.Scene_Num.toString(),
-//       item.Shoot_Town,
-//       item.Actor,
-//       item.DATE,
-//       item.From_Date,
-//       item.From_Date,
-//       item.To_Date
-//     );
-//   });
+// const rows = [
+//   createData(
+//     "1",
+//     "1",
+//     "Ramoji",
+//     "5",
+//     "Ramoji",
+//     "Gopi",
+//     "2023-06-09",
+//     "1",
+//     "2023-06-09",
+//     "2023-06-09"
+//   ),
+//   createData(
+//     "2",
+//     "1",
+//     "Ramoji",
+//     "50",
+//     "Ramoji",
+//     "Vijay",
+//     "2023-06-09",
+//     "1",
+//     "2023-06-09",
+//     "2023-06-09"
+//   ),
+//   createData(
+//     "3",
+//     "1",
+//     "Ramoji",
+//     "97",
+//     "Ramoji",
+//     "Gopi",
+//     "2023-06-09",
+//     "1",
+//     "2023-06-09",
+//     "2023-06-09"
+//   ),
+//   createData(
+//     "4",
+//     "2",
+//     "Ramoji",
+//     "76",
+//     "Ramoji",
+//     "Gopi",
+//     "2023-06-09",
+//     "4",
+//     "2023-06-09",
+//     "2023-06-09"
+//   ),
+//   createData(
+//     "5",
+//     "3",
+//     "S.R.Nagar",
+//     "87",
+//     "Bhashyam",
+//     "Suresh",
+//     "2023-06-09",
+//     "16",
+//     "2023-06-09",
+//     "2023-06-09"
+//   ),
+//   createData(
+//     "6",
+//     "4",
+//     "Vizag",
+//     "4",
+//     "Bhashyam",
+//     "Ramu",
+//     "2023-06-09",
+//     "16",
+//     "2023-06-09",
+//     "2023-06-09"
+//   ),
+//   createData(
+//     "7",
+//     "4",
+//     "Vizag",
+//     "34",
+//     "Lotus Pound",
+//     "Ramu",
+//     "2023-06-09",
+//     "4",
+//     "2023-06-09",
+//     "2023-06-09"
+//   ),
+//   createData(
+//     "8",
+//     "4",
+//     "Madhapur",
+//     "54",
+//     "Lotus Pound",
+//     "Suresh",
+//     "2023-06-09",
+//     "8",
+//     "2023-06-09",
+//     "2023-06-09"
+//   ),
+//   createData(
+//     "9",
+//     "5",
+//     "Vizag",
+//     "96",
+//     "Lotus Pound",
+//     "Ravi",
+//     "2023-06-09",
+//     "7",
+//     "2023-06-09",
+//     "2023-06-09"
+//   ),
+//   createData(
+//     "10",
+//     "6",
+//     "Vizag",
+//     "107",
+//     "Ikea",
+//     "Sundar",
+//     "2023-06-09",
+//     "9",
+//     "2023-06-09",
+//     "2023-06-09"
+//   ),
+//   createData(
+//     "11",
+//     "7",
+//     "Kukatpally",
+//     "106",
+//     "Ikea",
+//     "Gopi",
+//     "2023-06-09",
+//     "5",
+//     "2023-06-09",
+//     "2023-06-09"
+//   ),
+//   createData(
+//     "12",
+//     "7",
+//     "Kukatpally",
+//     "105",
+//     "Sarath City",
+//     "Gopi",
+//     "2023-06-09",
+//     "5",
+//     "2023-06-09",
+//     "2023-06-09"
+//   ),
+// ];
 
 const ScheduleOutputComponent = () => {
   const styles = useStyles();
@@ -261,7 +246,7 @@ const ScheduleOutputComponent = () => {
 
   useEffect(() => {
     axios
-      .get("https://f441-115-98-2-149.ngrok.io/schedule", {
+      .get("  https://1522-115-98-2-149.ngrok.io/schedule", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -280,6 +265,23 @@ const ScheduleOutputComponent = () => {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  const rows =
+    apiData?.data?.length > 0
+      ? apiData.data.map((item) => {
+          return createData(
+            item.D_ID.toString(),
+            item.Schedule.toString(),
+            item.Location,
+            item.Scene_Num.toString(),
+            item.Shoot_Town,
+            item.Actor,
+            item.DATE,
+            item.From_Date,
+            item.From_Date,
+            item.To_Date
+          );
+        })
+      : [];
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);

@@ -108,7 +108,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
     console.log(formData.current);
 
     axios
-      .post("https://f441-115-98-2-149.ngrok.io/location", formData.current, {
+      .post("https://1522-115-98-2-149.ngrok.io/location", formData.current, {
         headers: {
           "Content-Type": "application/json",
         },

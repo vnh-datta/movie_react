@@ -104,7 +104,7 @@ const LocationInputComponent = ({ onSubmit }) => {
     const data = formData.current;
     console.log(data);
     axios
-      .post("https://f441-115-98-2-149.ngrok.io/duration", formData.current, {
+      .post("  https://1522-115-98-2-149.ngrok.io/duration", formData.current, {
         headers: {
           "Content-Type": "application/json",
         },
