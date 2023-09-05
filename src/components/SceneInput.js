@@ -404,6 +404,7 @@ const SceneInputComponent = ({ onSubmit }) => {
           className={classes.button}
           //disabled={(scenesDataList.length != data.length)}
           type="submit"
+          onClick={handleSubmit}
         >
           Submit
         </Button>

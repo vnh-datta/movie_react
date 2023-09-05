@@ -33,6 +33,8 @@ const timeSlots = [
 
 const LocationItem = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
+  margin: '1rem',
+  boxShadow: '3px 3px 25px -10px rgba(0,0,0,0.75)'
 }));
 
 const Item = styled(Box)(({ theme }) => ({
