@@ -1,6 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
-import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Container from "@material-ui/core/Container";
@@ -17,27 +16,29 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import Link from "@material-ui/core/Link";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import ResponseContext from "./ResponseContext";
 import { makeStyles } from "@material-ui/core/styles";
+import { serverURL, loremIpsum } from "../constants";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
+const flexColumn = {
+  display: "flex",
+  flexDirection: "column",
 }
+
+const centeredContent = {
+  alignItems: "center",
+  justifyContent: "center",
+}
+
+const roundedCorners = (borderRadius) => ({
+  borderRadius: `${borderRadius}%`
+})
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    height: "100%",
   },
   //file upload css start
   input: {
@@ -47,11 +48,32 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   uploadContainer: {
+    height: "50%",
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+    ...centeredContent,
     padding: theme.spacing(2),
+  },
+  sceneForm: {
+    flexGrow: 1,
+    overflow: "auto",
+    maxHeight: "45%",
+  },
+  scriptUpload: {
+    width: "50%",
+    height: "100%",
+    background: "#e0f9ff",
+    ...flexColumn,
+    ...centeredContent,
+    ...roundedCorners(5),
+    marginRight: '2rem'
+  },
+  scriptPreview: {
+    width: "50%",
+    height: "100%",
+    background: "#e0f9ff",
+    overflow: "auto",
+    padding: theme.spacing(1),
+    ...roundedCorners(5),
   },
   heading: {
     marginBottom: theme.spacing(2),
@@ -114,8 +136,12 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
   container: {
-    paddingTop: theme.spacing(4),
+    paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(4),
+    height: "100%",
+    overflow: "hidden",
+    display: "flex",
+    flexDirection: "column"
   },
   textArea: {
     margin: "1rem 0",
@@ -144,33 +170,15 @@ const SceneInputComponent = ({ onSubmit }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Prepare the data to be sent in the request body
     const sceneData = formData.map((item, index) => ({
       sceneNo: index + 1,
       shootTown: item.shootTown,
       shootTime: item.shootTime,
     }));
-    console.log(sceneData);
-    //const sceneData = {responseData:requestBody};
-    console.log("sceneData");
-    const sceneConvertedData = sceneData.reduce((result, item) => {
-      Object.entries(item).forEach(([key, value]) => {
-        if (!result[key]) {
-          result[key] = [];
-        }
-        result[key].push(value);
-      });
-      return result;
-    }, {});
-    console.log(sceneConvertedData);
-
-    //the mainone to next container
-    //setResponseData({ sceneConvertedData });
-
-    //responseContext.setResponseData(sceneData);
+    console.log({ sceneData });
 
     axios
-      .post("  https://1522-115-98-2-149.ngrok.io/character", sceneData, {
+      .post(`${serverURL}/character`, sceneData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -186,13 +194,6 @@ const SceneInputComponent = ({ onSubmit }) => {
         // handle errors
         console.log(error);
       });
-  };
-  const handleTownChange = (event) => {
-    setState({
-      ...state,
-      shootTown: event.target.value,
-    });
-    setScenesDataList([...scenesDataList, state]);
   };
   const handleDataChange = (index) => (event) => {
     const { name, value } = event.target;
@@ -218,7 +219,7 @@ const SceneInputComponent = ({ onSubmit }) => {
     formData.append("productname", "pulpfiction");
 
     axios
-      .post("  https://1522-115-98-2-149.ngrok.io/scene", formData, {
+      .post(`${serverURL}/scene`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -240,197 +241,174 @@ const SceneInputComponent = ({ onSubmit }) => {
   };
 
   return (
-    <div>
-      <div className={classes.appBarSpacer} />
-      <Container maxWidth="xl" className={classes.container}>
-        {/* <Content /> */}
-        <Grid spacing={1}>
-          <form onSubmit={handleSubmit}>
-            {/* Chart */}
-            <Grid item xs={12} md={12} lg={12}>
-              <Paper>
-                {/* <Chart /> */}
-                <div className={classes.uploadContainer}>
-                  <Typography
-                    variant="h5"
-                    component="h2"
-                    className={classes.heading}
-                  >
-                    Upload your Script here
-                  </Typography>
-                  <input
-                    accept="*"
-                    className={classes.input}
-                    id="contained-button-file"
-                    type="file"
-                    onChange={handleFileInput}
-                  />
-                  <label htmlFor="contained-button-file">
-                    <Button
-                      variant="contained"
-                      color="default"
-                      startIcon={<CloudUploadIcon />}
-                      className={classes.button}
-                      component="span"
-                    >
-                      Upload
-                    </Button>
-                  </label>
-                  {selectedFile && (
-                    <>
-                      <span className={classes.fileName}>
-                        {selectedFile.name}
-                      </span>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        className={classes.button}
-                        startIcon={<DeleteIcon />}
-                        onClick={handleRemoveFile}
-                      >
-                        Remove
-                      </Button>
-                    </>
-                  )}
-                  {selectedFile && (
-                    <>
-                      <div className={classes.accordionContainer}>
-                        {data.map((item, index) => (
-                          <Accordion
-                            key={item.name}
-                            expanded={expanded === item.name}
-                            onChange={handleChange(item.name)}
-                          >
-                            <AccordionSummary
-                              expandIcon={<ExpandMoreIcon />}
-                              aria-controls={`${item.name}-content`}
-                              id={`${item.name}-header`}
-                              overlap="rectangular"
-                            >
-                              <div className={classes.column}>
-                                <Typography className={classes.heading}>
-                                  Scene{index + 1}
-                                </Typography>
-                              </div>
-                            </AccordionSummary>
-                            <AccordionDetails className={classes.details}>
-                              <Grid container direction="row">
-                                <Grid item sm={3}>
-                                  <Typography>
-                                    Shoot Town
-                                    <br />
-                                    <TextField
-                                      label="Town"
-                                      variant="outlined"
-                                      inputProps={{
-                                        name: "shootTown",
-                                        id: item.name + "Town",
-                                      }}
-                                      fullWidth
-                                      className={classes.selectEmpty}
-                                      onChange={handleDataChange(index)}
-                                    />
-                                  </Typography>
-                                </Grid>
-                                <Grid item sx={1}>
-                                  <Divider
-                                    orientation="vertical"
-                                    variant="middle"
-                                    fullWidth
-                                  />
-                                </Grid>
-                                <Grid item sm={2}>
-                                  <Typography>
-                                    EST Shoot Time:
-                                    <br />
-                                    <FormControl
-                                      variant="outlined"
-                                      fullWidth
-                                      className={classes.selectEmpty}
-                                    >
-                                      <InputLabel htmlFor="outlined-age-native-simple">
-                                        Shoot Time
-                                      </InputLabel>
-                                      <Select
-                                        native
-                                        label={`${item.name}-ShootTime`}
-                                        autoWidth
-                                        inputProps={{
-                                          name: "shootTime",
-                                          id:
-                                            item.name +
-                                            "outlined-age-native-simple",
-                                        }}
-                                        onChange={handleDataChange(index)}
-                                      >
-                                        <option aria-label="None" value="" />
-                                        <option value={1}>1</option>
-                                        <option value={2}>2</option>
-                                        <option value={3}>3</option>
-                                        <option value={4}>4</option>
-                                        <option value={5}>5</option>
-                                        <option value={6}>6</option>
-                                      </Select>
-                                    </FormControl>
-                                  </Typography>
-                                </Grid>
-                                <Grid item sx={1}>
-                                  <Divider
-                                    orientation="vertical"
-                                    variant="middle"
-                                    fullWidth
-                                  />
-                                </Grid>
-                                <Grid item sm={3}>
-                                  <Typography>
-                                    Scene Script:
-                                    <br />
-                                    <TextareaAutosize
-                                      className={classes.textArea}
-                                      maxRows={4}
-                                      minRows={4}
-                                      aria-label="Screen script"
-                                      placeholder="Script"
-                                      defaultValue={item.script}
-                                    />
-                                  </Typography>
-                                </Grid>
-                              </Grid>
-                              {/* </div> */}
-                            </AccordionDetails>
-                            {/* <Divider />
-                            <AccordionActions>
-                              <Button size="small">Cancel</Button>
-                              <Button size="small" color="primary">
-                                Save
-                              </Button>
-                            </AccordionActions> */}
-                          </Accordion>
-                        ))}
-                      </div>
-                    </>
-                  )}
-                </div>
-              </Paper>
-            </Grid>
-            <Grid>
+    <Container maxWidth="xl" className={classes.container}>
+      <div className={classes.uploadContainer}>
+        <div className={classes.scriptUpload}>
+          <Typography variant="h5" component="h2" className={classes.heading}>
+            Upload your Script here
+          </Typography>
+          <input
+            accept="*"
+            className={classes.input}
+            id="contained-button-file"
+            type="file"
+            onChange={handleFileInput}
+          />
+          <label htmlFor="contained-button-file">
+            <Button
+              variant="contained"
+              color="default"
+              startIcon={<CloudUploadIcon />}
+              className={classes.button}
+              component="span"
+            >
+              Upload
+            </Button>
+          </label>
+          {selectedFile && (
+            <>
+              <span className={classes.fileName}>{selectedFile.name}</span>
               <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
                 className={classes.button}
-                //disabled={(scenesDataList.length != data.length)}
-                type="submit"
+                startIcon={<DeleteIcon />}
+                onClick={handleRemoveFile}
               >
-                Submit
+                Remove
               </Button>
-            </Grid>
-          </form>
+            </>
+          )}
+        </div>
+        <div className={classes.scriptPreview}>
+            {selectedFile && loremIpsum}
+        </div>
+      </div>
+      <form onSubmit={handleSubmit} className={classes.sceneForm}>
+        {/* Chart */}
+        <Grid item xs={12} md={12} lg={12}>
+          <Paper>
+            {selectedFile && (
+              <div className={classes.accordionContainer}>
+                {data.map((item, index) => (
+                  <Accordion
+                    key={item.name}
+                    expanded={expanded === item.name}
+                    onChange={handleChange(item.name)}
+                  >
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls={`${item.name}-content`}
+                      id={`${item.name}-header`}
+                      overlap="rectangular"
+                    >
+                      <div className={classes.column}>
+                        <Typography className={classes.heading}>
+                          Scene{index + 1}
+                        </Typography>
+                      </div>
+                    </AccordionSummary>
+                    <AccordionDetails className={classes.details}>
+                      <Grid container direction="row">
+                        <Grid item sm={3}>
+                          <Typography>
+                            Shoot Town
+                            <br />
+                            <TextField
+                              label="Town"
+                              variant="outlined"
+                              inputProps={{
+                                name: "shootTown",
+                                id: item.name + "Town",
+                              }}
+                              fullWidth
+                              className={classes.selectEmpty}
+                              onChange={handleDataChange(index)}
+                            />
+                          </Typography>
+                        </Grid>
+                        <Grid item sx={1}>
+                          <Divider
+                            orientation="vertical"
+                            variant="middle"
+                            fullWidth
+                          />
+                        </Grid>
+                        <Grid item sm={2}>
+                          <Typography>
+                            EST Shoot Time:
+                            <br />
+                            <FormControl
+                              variant="outlined"
+                              fullWidth
+                              className={classes.selectEmpty}
+                            >
+                              <InputLabel htmlFor="outlined-age-native-simple">
+                                Shoot Time
+                              </InputLabel>
+                              <Select
+                                native
+                                label={`${item.name}-ShootTime`}
+                                autoWidth
+                                inputProps={{
+                                  name: "shootTime",
+                                  id: item.name + "outlined-age-native-simple",
+                                }}
+                                onChange={handleDataChange(index)}
+                              >
+                                <option aria-label="None" value="" />
+                                <option value={1}>1</option>
+                                <option value={2}>2</option>
+                                <option value={3}>3</option>
+                                <option value={4}>4</option>
+                                <option value={5}>5</option>
+                                <option value={6}>6</option>
+                              </Select>
+                            </FormControl>
+                          </Typography>
+                        </Grid>
+                        <Grid item sx={1}>
+                          <Divider
+                            orientation="vertical"
+                            variant="middle"
+                            fullWidth
+                          />
+                        </Grid>
+                        <Grid item sm={3}>
+                          <Typography>
+                            Scene Script:
+                            <br />
+                            <TextareaAutosize
+                              className={classes.textArea}
+                              maxRows={4}
+                              minRows={4}
+                              aria-label="Screen script"
+                              placeholder="Script"
+                              defaultValue={item.script}
+                            />
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              </div>
+            )}
+          </Paper>
         </Grid>
-        <Box pt={4}>
-          <Copyright />
-        </Box>
-      </Container>
-    </div>
+      </form>
+      <Grid>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          //disabled={(scenesDataList.length != data.length)}
+          type="submit"
+        >
+          Submit
+        </Button>
+      </Grid>
+    </Container>
   );
 };
 

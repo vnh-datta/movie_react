@@ -10,6 +10,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { serverURL } from "../constants";
 
 const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
@@ -246,7 +247,7 @@ const ScheduleOutputComponent = () => {
 
   useEffect(() => {
     axios
-      .get("  https://1522-115-98-2-149.ngrok.io/schedule", {
+      .get(`${serverURL}/schedule`, {
         headers: {
           "Content-Type": "application/json",
         },

@@ -10,6 +10,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import ResponseContext from "./ResponseContext";
+import { serverURL } from "../constants";
 
 const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
@@ -46,7 +47,7 @@ const ShootDurationComponent = ({ onSubmit }) => {
     console.log(shootData);
     //setResponseData({ shootData });
     axios
-      .post("  https://1522-115-98-2-149.ngrok.io/pymo_driver", shootData, {
+      .post(`${serverURL}/pymo_driver`, shootData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -55,7 +56,7 @@ const ShootDurationComponent = ({ onSubmit }) => {
         console.log(response);
         console.log("success get pymo");
         axios
-          .get("  https://1522-115-98-2-149.ngrok.io/loader", {
+          .get(`${serverURL}/loader`, {
             headers: {
               "Content-Type": "application/json",
             },
