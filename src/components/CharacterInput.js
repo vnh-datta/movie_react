@@ -22,6 +22,7 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ResponseContext from "./ResponseContext";
 import { serverURL } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 const CharacterItem = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -86,6 +87,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
   const [expanded, setExpanded] = React.useState(true);
   const responseContexts = useContext(ResponseContext);
   const { setResponseData, responseContext } = useContext(ResponseContext);
+  const navigate = useNavigate();
 
   const handleDateChange = (index, index1, item, key, event) => {
     const updatedData = [...formData.current];
@@ -135,7 +137,8 @@ const CharacterInputComponent = ({ onSubmit }) => {
         console.log("success");
         const locationData = response.data;
         setResponseData({ locationData });
-        onSubmit("locationInput");
+        // onSubmit("locationInput");
+        navigate("/director/locationInput");
       })
       .catch((error) => {
         // handle errors

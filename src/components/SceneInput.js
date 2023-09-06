@@ -20,6 +20,7 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import ResponseContext from "./ResponseContext";
 import { makeStyles } from "@material-ui/core/styles";
 import { serverURL, loremIpsum } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 const flexColumn = {
   display: "flex",
@@ -167,6 +168,7 @@ const SceneInputComponent = ({ onSubmit }) => {
   const [expanded, setExpanded] = useState(true);
   const [formData, setFormData] = useState([]);
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -188,7 +190,8 @@ const SceneInputComponent = ({ onSubmit }) => {
         console.log("success");
         const charData = response.data;
         setResponseData({ charData });
-        onSubmit("characterInput");
+        // onSubmit("characterInput");
+        navigate("/director/characterInput");
       })
       .catch((error) => {
         // handle errors

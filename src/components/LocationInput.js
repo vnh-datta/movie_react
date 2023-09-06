@@ -19,6 +19,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ResponseContext from "./ResponseContext";
 import { TimeSlots } from "./CharacterInput";
 import { serverURL } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 const timeSlots = [
   {
@@ -93,6 +94,7 @@ const LocationInputComponent = ({ onSubmit }) => {
   const styles = useStyles();
   const formData = useRef([]);
   const responseContexts = useContext(ResponseContext);
+  const navigate = useNavigate();
 
   const handleDateChange = (index, index1, item, key, event) => {
     const updatedData = formData.current;
@@ -149,7 +151,8 @@ const LocationInputComponent = ({ onSubmit }) => {
         console.log("success");
         //const locationData = response.data;
         //setResponseData({ locationData });
-        onSubmit("shootDuration");
+        // onSubmit("shootDuration");
+        navigate("/director/shootDuration");
       })
       .catch((error) => {
         // handle errors

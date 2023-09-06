@@ -7,3 +7,35 @@ Penatibus et magnis dis parturient montes nascetur ridiculus. Mauris pharetra et
 Dui sapien eget mi proin sed. Phasellus faucibus scelerisque eleifend donec pretium vulputate sapien nec. Pharetra magna ac placerat vestibulum lectus. Ac tortor vitae purus faucibus. Volutpat ac tincidunt vitae semper quis lectus nulla at. Senectus et netus et malesuada. Dignissim convallis aenean et tortor at. Blandit massa enim nec dui nunc mattis enim. In arcu cursus euismod quis viverra. Integer vitae justo eget magna fermentum iaculis eu non. Ut aliquam purus sit amet luctus venenatis lectus magna. In iaculis nunc sed augue lacus viverra.
 
 Mattis nunc sed blandit libero volutpat sed cras ornare. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. Mattis molestie a iaculis at erat. Faucibus pulvinar elementum integer enim. Tellus at urna condimentum mattis pellentesque id nibh tortor. Purus gravida quis blandit turpis cursus. Mauris pharetra et ultrices neque ornare aenean euismod elementum nisi. Blandit turpis cursus in hac habitasse platea. Lorem sed risus ultricies tristique nulla. Tincidunt augue interdum velit euismod in pellentesque massa placerat. Aliquam id diam maecenas ultricies mi. Tortor dignissim convallis aenean et tortor at risus viverra. Blandit aliquam etiam erat velit scelerisque in dictum. Mollis aliquam ut porttitor leo a. Mattis enim ut tellus elementum sagittis vitae et leo. Tristique et egestas quis ipsum suspendisse ultrices gravida dictum. Maecenas volutpat blandit aliquam etiam erat velit. Neque egestas congue quisque egestas diam. Feugiat sed lectus vestibulum mattis ullamcorper velit sed. Commodo elit at imperdiet dui accumsan sit amet.`;
+
+
+
+export const directorListItems = [{
+    'text': 'Director Home',
+    'icon': 'GroupIcon',
+    'route': '/director',
+},{
+    'text': 'Verify Crew',
+    'icon': 'GroupIcon',
+    'route': '/director/verifyCrew',
+}, {
+    'text': 'Scene Input',
+    'icon': 'PersonIcon',
+    'route': '/director/sceneInput',
+}, {
+    'text': 'Shoot Duration',
+    'icon': 'PersonIcon',
+    'route': '/director/shootDuration',
+}, {
+    'text': 'Character Input',
+    'icon': 'BarChartIcon',
+    'route': '/director/characterInput',
+}, {
+    'text': 'Location Input',
+    'icon': 'BarChartIcon',
+    'route': '/director/locationInput',
+}, {
+    'text': 'Schedule Output',
+    'icon': 'BarChartIcon',
+    'route': '/director/scheduleOutput',
+}];

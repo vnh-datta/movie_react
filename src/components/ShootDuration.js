@@ -11,6 +11,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import ResponseContext from "./ResponseContext";
 import { serverURL } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ShootDurationComponent = ({ onSubmit }) => {
   const styles = useStyles();
+  const navigate = useNavigate();
   // const responseContexts = useContext(ResponseContext);
   // const { setResponseData, responseContext } = useContext(ResponseContext);
   //const sceneData  = responseContext.sceneData;
@@ -64,7 +66,8 @@ const ShootDurationComponent = ({ onSubmit }) => {
           .then((response) => {
             console.log(response);
             console.log("success get loader");
-            onSubmit("scheduleOutput");
+            // onSubmit("scheduleOutput");
+            navigate("/director/scheduleOutput");
           })
           .catch((error) => {
             // handle errors

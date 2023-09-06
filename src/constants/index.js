@@ -1,2 +1,2 @@
 export * from './URLConstants';
-export * from './textConstants';
+export * from './constants';
