@@ -1,9 +1,9 @@
-import React from "react";
-import { Button, TextField, Typography, makeStyles } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import { TextField, Typography, makeStyles } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import CrewTable from "../reusable-components/CrewTable";
-import { serverURL, tempCrewData } from "../../constants";
+import { getListEditButton, serverURL } from "../../constants";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,71 +32,66 @@ const useStyles = makeStyles((theme) => ({
   },
   gridContainer: {
     flexGrow: 1,
-    width: "80%",
+    width: "95%",
     margin: "0 auto",
   },
 }));
 
-const modifyColumns = (columns) => {
-  const editButtonColumn = {
-    field: "edit",
-    headerName: "Edit",
-    width: 150,
-    renderCell: (params) => {
-      return (
-        <Button
-          variant="contained"
-          onClick={() => {
-            console.log(params.row);
-          }}
-        >
-          Edit
-        </Button>
-      );
-    },
-  };
-
-  return [...columns, editButtonColumn];
-};
-
-const VerifyCrew = (props) => {
+/**
+  * Props:
+  * editButtonConfig: string // gets edit button renderer from listEditButton.helper.js => getListEditButton()
+  * headerText: string
+  * fetchAPI: string // API path
+  * fetchType: string // GET, POST, etc.
+  * 
+  * TODO: handle body data for POST requests
+*/
+const ListData = ({editButtonConfig, headerText, fetchAPI, fetchType, searchByField}) => {
   const classes = useStyles();
-  const [rows, setRows] = React.useState([]);
-  const [columns, setColumns] = React.useState([]);
-  const [filteredRows, setFilteredRows] = React.useState([]);
+  const [rows, setRows] = useState([]);
+  const [columns, setColumns] = useState([]);
+  const [filteredRows, setFilteredRows] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(`${serverURL}/crew`);
-      const { rows, columns } = result.data;
-      setRows(rows);
-      setColumns(columns);
-    };
-    // TODO: uncomment the following line to fetch data from server
-    // fetchData();
+  // TODO: good example of how to use useEffect to fetch data
+  useEffect(() => {
+    let isCancelled = false;
+    if (isCancelled === false) setLoading(true);
+    axios({
+      method: fetchType,
+      url: `${serverURL}/${fetchAPI}`,
+    })
+      .then((result) => {
+        const { rows, columns } = result?.data || {rows: [], columns: [] };
+        const columnsWithEditButton = [...columns, getListEditButton()[editButtonConfig]];
 
-    const columnsWithEditButton = modifyColumns(tempCrewData.columns);
-
-    setRows(tempCrewData.rows);
-    setFilteredRows(tempCrewData.rows);
-    setColumns(columnsWithEditButton);
-  }, []);
+        setRows(rows);
+        setFilteredRows(rows);
+        setColumns(columnsWithEditButton);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  }, [editButtonConfig, fetchAPI, fetchType]);
 
   const handleSearchChange = (event) => {
     const searchQuery = event.target.value;
 
     const filteredRowsData = !!searchQuery
       ? rows.filter((row) =>
-          row.name.toLowerCase().includes(searchQuery.toLowerCase())
+          row[searchByField].toLowerCase().includes(searchQuery.toLowerCase())
         )
       : rows;
     setFilteredRows(filteredRowsData);
   };
+  
+  if(loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className={classes.content}>
       <Typography variant="h4" gutterBottom>
-        Crew Details
+        {headerText}
       </Typography>
       <div className={classes.searchContainer}>
         <TextField
@@ -120,4 +115,4 @@ const VerifyCrew = (props) => {
   );
 };
 
-export default VerifyCrew;
+export default ListData;
