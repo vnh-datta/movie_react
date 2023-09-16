@@ -13,7 +13,7 @@ import { PATHS } from "../constants";
 export const directorRoutes = () => (
   <Route path="/director" element={<Director />}>
     <Route
-      path="/director/verifyCrew"
+      path={PATHS.VERIFY_CREW}
       element={
         // ListData component for Verify Crew page
         <ListData
@@ -31,15 +31,15 @@ export const directorRoutes = () => (
       element={
         <SetupComponent
           paths={{
-            "Scenes Setup": "/director/scenesSetup",
-            "Character Setup": "/director/characterSetup",
-            "Location Setup": "/director/locationSetup",
+            "Scenes Setup": PATHS.SCENE_SETUP,
+            "Character Setup": PATHS.CHARACTER_SETUP,
+            "Location Setup": PATHS.LOCATION_SETUP,
           }}
         />
       }
     />
     <Route
-      path="/director/scenesSetup"
+      path={PATHS.SCENE_SETUP}
       element={
         // ListData component for Scene Setup page
         <ListData
@@ -52,7 +52,7 @@ export const directorRoutes = () => (
       }
     />
     <Route
-      path="/director/characterSetup"
+      path={PATHS.CHARACTER_SETUP}
       element={
         // ListData component for Character Setup page
         <ListData
@@ -66,7 +66,7 @@ export const directorRoutes = () => (
     />
     <Route path={PATHS.EDIT_CHARACTERS} element={<AssignCharacters />} />
     <Route
-      path="/director/locationSetup"
+      path={PATHS.LOCATION_SETUP}
       element={
         // ListData component for Location Setup page
         <ListData

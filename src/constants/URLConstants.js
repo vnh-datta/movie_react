@@ -3,4 +3,8 @@ export const serverURL = "http://localhost:7789";
 
 export const PATHS = {
   EDIT_CHARACTERS: "/director/editCharacters",
+  CHARACTER_SETUP: "/director/characterSetup",
+  SCENE_SETUP: "/director/scenesSetup",
+  LOCATION_SETUP: "/director/locationSetup",
+  VERIFY_CREW: "/director/verifyCrew",
 };

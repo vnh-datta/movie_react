@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -7,11 +7,12 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextareaAutosize,
   makeStyles,
 } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { serverURL } from "../../constants";
 
 const flexColumn = {
   display: "flex",
@@ -95,6 +96,10 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     margin: "0 1rem",
   },
+  formInputSingleItem: {
+    flex: 1,
+    margin: "0 1rem",
+  },
   textArea: {
     flex: 1,
     margin: "0 1rem",
@@ -126,10 +131,37 @@ const useStyles = makeStyles((theme) => ({
 
 const AssignCharacters = (props) => {
   const classes = useStyles();
+  const [selectedCharacter, setSelectedCharacter] = useState({});
   const {
     state: { rows: characters, id },
   } = useLocation();
-  const selectedCharacter = characters.find((row) => row.id === id);
+
+  useEffect(() => {
+    const currentCharacter = characters?.find((row) => row.id === id) || {};
+    setSelectedCharacter(currentCharacter);
+  }, [characters, id]);
+
+  const handleCharacterDataUpdate = (e) => {
+    const { value, name } = e.target;
+    const updatedCharacter = { ...selectedCharacter, [name]: value };
+    setSelectedCharacter(updatedCharacter);
+  };
+
+  const saveCharacter = () => {
+    axios
+      .post(`${serverURL}/saveCharacter`, selectedCharacter, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log("🚀 ~ response:", response);
+      })
+      .catch((error) => {
+        // handle errors
+        console.log(error);
+      });
+  };
 
   return (
     <div className={classes.container}>
@@ -156,54 +188,84 @@ const AssignCharacters = (props) => {
             <div className={classes.formRow}>
               <TextField
                 InputLabelProps={{ shrink: true }}
+                inputProps={{
+                  name: "name",
+                }}
                 className={classes.formInput}
                 label="Name"
                 variant="outlined"
                 value={selectedCharacter?.name || ""}
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  handleCharacterDataUpdate(e);
+                }}
               />
               <TextField
                 InputLabelProps={{ shrink: true }}
+                inputProps={{
+                  name: "characterName",
+                }}
                 className={classes.formInput}
                 label="Full Name"
                 variant="outlined"
                 value={selectedCharacter?.characterName || ""}
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  handleCharacterDataUpdate(e);
+                }}
               />
             </div>
             <div className={classes.formRow}>
               <TextField
                 InputLabelProps={{ shrink: true }}
+                inputProps={{
+                  name: "height",
+                }}
                 className={classes.formInput}
                 label="Height"
                 variant="outlined"
                 value={selectedCharacter?.height || ""}
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  handleCharacterDataUpdate(e);
+                }}
               />
               <TextField
                 InputLabelProps={{ shrink: true }}
+                inputProps={{
+                  name: "weight",
+                }}
                 className={classes.formInput}
                 label="Weight"
                 variant="outlined"
                 value={selectedCharacter?.weight || ""}
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  handleCharacterDataUpdate(e);
+                }}
               />
               <TextField
                 InputLabelProps={{ shrink: true }}
+                inputProps={{
+                  name: "age",
+                }}
                 className={classes.formInput}
                 label="Age"
                 variant="outlined"
                 value={selectedCharacter?.age || ""}
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  handleCharacterDataUpdate(e);
+                }}
               />
               <FormControl className={classes.formInput}>
                 <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
+                  inputProps={{
+                    name: "gender",
+                  }}
                   value={selectedCharacter?.gender || ""}
                   variant="outlined"
                   label="Gender"
-                  onChange={(e) => {}}
+                  onChange={(e) => {
+                    handleCharacterDataUpdate(e);
+                  }}
                 >
                   <MenuItem value={"male"}>Male</MenuItem>
                   <MenuItem value={"female"}>Female</MenuItem>
@@ -211,41 +273,67 @@ const AssignCharacters = (props) => {
               </FormControl>
             </div>
             <div className={classes.formRow}>
-              <TextareaAutosize
-                className={classes.textArea}
-                maxRows={10}
-                minRows={10}
-                aria-label="Description"
-                placeholder="Description"
-                defaultValue={selectedCharacter?.description || ""}
+              <TextField
+                InputLabelProps={{ shrink: true }}
+                inputProps={{
+                  name: "description",
+                }}
+                variant="outlined"
+                multiline
+                label="Description"
+                className={classes.formInputSingleItem}
+                maxRows={6}
+                minRows={6}
+                value={selectedCharacter?.description || ""}
+                onChange={(e) => {
+                  handleCharacterDataUpdate(e);
+                }}
               />
             </div>
             <div className={classes.formRow}>
               <TextField
                 InputLabelProps={{ shrink: true }}
+                inputProps={{
+                  name: "hairColor",
+                }}
                 className={classes.formInput}
                 label="Hair colour"
                 variant="outlined"
                 value={selectedCharacter?.hairColor || ""}
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  handleCharacterDataUpdate(e);
+                }}
               />
               <TextField
                 InputLabelProps={{ shrink: true }}
+                inputProps={{
+                  name: "eyesColor",
+                }}
                 className={classes.formInput}
                 label="Eyes color"
                 variant="outlined"
                 value={selectedCharacter?.eyesColor || ""}
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  handleCharacterDataUpdate(e);
+                }}
               />
             </div>
             <div className={classes.formRow}>
-              <TextareaAutosize
-                className={classes.textArea}
-                maxRows={10}
-                minRows={10}
-                aria-label="Key Features"
-                placeholder="Key Features"
-                defaultValue={selectedCharacter?.keyFeatures || ""}
+              <TextField
+                InputLabelProps={{ shrink: true }}
+                inputProps={{
+                  name: "keyFeatures",
+                }}
+                className={classes.formInputSingleItem}
+                label="Key Features"
+                variant="outlined"
+                multiline
+                maxRows={6}
+                minRows={6}
+                value={selectedCharacter?.keyFeatures || ""}
+                onChange={(e) => {
+                  handleCharacterDataUpdate(e);
+                }}
               />
             </div>
           </CardContent>
@@ -260,11 +348,16 @@ const AssignCharacters = (props) => {
                 <FormControl className={classes.assignedAD}>
                   <InputLabel id="assign-to-AD">Assign to AD</InputLabel>
                   <Select
+                    inputProps={{
+                      name: "assignedAD",
+                    }}
                     labelId="assign-to-AD"
                     value={selectedCharacter?.assignedAD || ""}
                     variant="outlined"
                     label="Assign to AD"
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                      handleCharacterDataUpdate(e);
+                    }}
                   >
                     <MenuItem value={"ad1"}>AD1</MenuItem>
                     <MenuItem value={"ad2"}>AD2</MenuItem>
@@ -276,6 +369,7 @@ const AssignCharacters = (props) => {
                 className={classes.footerButton}
                 variant="contained"
                 color="primary"
+                onClick={saveCharacter}
               >
                 Save
               </Button>
