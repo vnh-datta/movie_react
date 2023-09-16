@@ -7,6 +7,8 @@ import ShootDurationComponent from "../components/ShootDuration";
 import LocationInputComponent from "../components/LocationInput";
 import CharacterInputComponent from "../components/CharacterInput";
 import ScheduleOutputComponent from "../components/ScheduleOutput";
+import AssignCharacters from "../components/director/AssignCharacters";
+import { PATHS } from "../constants";
 
 export const directorRoutes = () => (
   <Route path="/director" element={<Director />}>
@@ -62,6 +64,7 @@ export const directorRoutes = () => (
         />
       }
     />
+    <Route path={PATHS.EDIT_CHARACTERS} element={<AssignCharacters />} />
     <Route
       path="/director/locationSetup"
       element={

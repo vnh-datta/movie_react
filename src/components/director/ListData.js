@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Typography, makeStyles } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
@@ -38,15 +38,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /**
-  * Props:
-  * editButtonConfig: string // gets edit button renderer from listEditButton.helper.js => getListEditButton()
-  * headerText: string
-  * fetchAPI: string // API path
-  * fetchType: string // GET, POST, etc.
-  * 
-  * TODO: handle body data for POST requests
-*/
-const ListData = ({editButtonConfig, headerText, fetchAPI, fetchType, searchByField}) => {
+ * Props:
+ * editButtonConfig: string // gets edit button renderer from listEditButton.helper.js => getListEditButton()
+ * headerText: string
+ * fetchAPI: string // API path
+ * fetchType: string // GET, POST, etc.
+ *
+ * TODO: handle body data for POST requests
+ */
+const ListData = ({
+  editButtonConfig,
+  headerText,
+  fetchAPI,
+  fetchType,
+  searchByField,
+}) => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
@@ -62,8 +68,11 @@ const ListData = ({editButtonConfig, headerText, fetchAPI, fetchType, searchByFi
       url: `${serverURL}/${fetchAPI}`,
     })
       .then((result) => {
-        const { rows, columns } = result?.data || {rows: [], columns: [] };
-        const columnsWithEditButton = [...columns, getListEditButton()[editButtonConfig]];
+        const { rows, columns } = result?.data || { rows: [], columns: [] };
+        const columnsWithEditButton = [
+          ...columns,
+          getListEditButton(rows)[editButtonConfig],
+        ];
 
         setRows(rows);
         setFilteredRows(rows);
@@ -83,9 +92,9 @@ const ListData = ({editButtonConfig, headerText, fetchAPI, fetchType, searchByFi
       : rows;
     setFilteredRows(filteredRowsData);
   };
-  
-  if(loading) {
-    return <div>Loading...</div>
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
   return (
