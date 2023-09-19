@@ -8,6 +8,8 @@ import LocationInputComponent from "../components/LocationInput";
 import CharacterInputComponent from "../components/CharacterInput";
 import ScheduleOutputComponent from "../components/ScheduleOutput";
 import AssignCharacters from "../components/director/AssignCharacters";
+import SceneDetails from "../components/director/SceneDetails";
+import Assign from "../components/director/Assign";
 import { PATHS } from "../constants";
 
 export const directorRoutes = () => (
@@ -65,6 +67,8 @@ export const directorRoutes = () => (
       }
     />
     <Route path={PATHS.EDIT_CHARACTERS} element={<AssignCharacters />} />
+    <Route path={PATHS.ASSIGN} element={<Assign />} />
+    <Route path={PATHS.SCENE_DETAILS} element={<SceneDetails />} />
     <Route
       path={PATHS.LOCATION_SETUP}
       element={

@@ -42,6 +42,11 @@ export const directorListItems = [
     route: "/director/Setup",
   },
   {
+    text: "Assign",
+    icon: "AssignmentIcon",
+    route: PATHS.ASSIGN,
+  },
+  {
     text: "Schedule Output",
     icon: "ScheduleIcon",
     route: "/director/scheduleOutput",
