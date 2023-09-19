@@ -9,6 +9,9 @@ import ResponseContext from "./components/ResponseContext";
 import AssistantDirector from "./components/AssistantDirector";
 import ListData from "./components/director/ListData";
 import { directorRoutes } from "./routes/director.routes";
+import Department from "./components/Departments";
+import {Dep1,Dep2AndDep3,Dep4AndDep5} from "./components/Departments";
+import Designations from "./components/Designations";
 
 function App() {
   const [sceneshootData, setsceneshootData] = useState({});
@@ -33,6 +36,22 @@ function App() {
               />
             </Route>
             <Route path="/dashboard/ad" element={<AssistantDirector />} />
+            <Route path="/dashboard/departments" element={
+                 <>
+                <div className='grid'>
+                  <div className='grid1'>
+                  <Department/>
+                  <Dep1/>
+                  </div>
+                  <div className='grid2'> 
+                  <Dep2AndDep3/>
+                  </div>
+                  <div className='grid3'>
+                  <Dep4AndDep5/>
+                  </div>
+                  </div>
+                </>}/>
+                <Route path="/dashboard/designations" element={<Designations/>}/>
           </Route>
           {directorRoutes()}
         </Routes>

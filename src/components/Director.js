@@ -20,6 +20,7 @@ import BuildIcon from '@material-ui/icons/Build';
 import MovieCreationIcon from "@material-ui/icons/MovieCreation";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import FullPageContainer from "./FullPageContainer";
+import {Link} from "react-router-dom";
 import {
   ListItem,
   ListItemIcon,
@@ -207,6 +208,8 @@ const Director = (props) => {
             );
           })}
         </List>
+        <List><Link to="/dashboard/departments"><Typography variant="body1">Departments</Typography></Link></List>
+        <List><Link to="/dashboard/designations"><Typography variant="body1">Designations</Typography></Link></List>
       </Drawer>
       <FullPageContainer>
         <main className={classes.content}>
