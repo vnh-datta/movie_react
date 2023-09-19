@@ -14,9 +14,7 @@
 
 ### /director/setupScreen [Get]
 
-```
- Payload goes here
-```
+[demo data](https://github.com/viswanathprateek/movie_react/blob/scratch/directorSetup/mock-server/constants/tempDirectorSetupData.js)
 
 ### /director/scenesSetup [Get]
 
