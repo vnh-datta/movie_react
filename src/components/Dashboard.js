@@ -1,52 +1,36 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import clsx from 'clsx';
-import { BrowserRouter as Routes, Route, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Director from './Director';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import {mainListItems} from './listItems';
 import SceneInputComponent from './SceneInput';
 import ShootDurationComponent from './ShootDuration';
 import CharacterInputComponent from './CharacterInput';
 import ScheduleOutputComponent from './ScheduleOutput';
 import LocationInputComponent from './LocationInput';
-import ResponseContext from './ResponseContext';
-
-function Content() {
-  return (
-    <Routes>
-      <Route path="/director" element={<Director />} />
-    </Routes>
-  );
-}
+import FullPageContainer from './FullPageContainer';
 
 const drawerWidth = 240;
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    background: '#5840bb',
+    boxSizing: 'border-box',
+    height: '100vh',
   },
-  //priority dropdown end 
-  //File upload css end 
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
   },
   toolbarIcon: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
     padding: '0 8px',
     ...theme.mixins.toolbar,
   },
@@ -75,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   drawerPaper: {
+    background: 'transparent',
+    boxShadow: 'none',
+    border: 'none',
     position: 'relative',
     whiteSpace: 'nowrap',
     width: drawerWidth,
@@ -98,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     height: '100vh',
-    overflow: 'auto'
+    overflow: 'hidden'
   },
   container: {
     paddingTop: theme.spacing(4),
@@ -114,12 +101,14 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  IconButton: {
+    color: '#fff'
+  }
 }));
 
 export default function Dashboard() {
   const classes = useStyles();
   const location = useLocation();
-  const {responseData} = useContext(ResponseContext)
   const [selectedItem, setSelectedItem] = React.useState('sceneInput');
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
@@ -136,33 +125,8 @@ export default function Dashboard() {
     setSelectedItem(data);
   };
 
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
-          </Typography>
-          <IconButton color="inherit">
-            <Badge overlap="rectangular" badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
       <Drawer
         variant="permanent"
         classes={{
@@ -171,30 +135,40 @@ export default function Dashboard() {
         open={open}
       >
         <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
+          {
+            open &&
+            <IconButton onClick={handleDrawerClose} className={classes.IconButton}>
+              <ChevronLeftIcon />
+            </IconButton>
+          }
+          {
+            !open &&
+            <IconButton onClick={handleDrawerOpen} className={classes.IconButton}>
+              <MenuIcon />
+            </IconButton>
+          }
         </div>
         <Divider />
-        <List onClick={handleClick}>{mainListItems}</List>
-
-        {/* <Divider />
-        <List>{secondaryListItems}</List> */}
+        <List onClick={handleClick}>
+          {mainListItems}
+        </List>
       </Drawer>
-      <main className={classes.content}>
-        {
-          location.pathname === '/dashboard' && 
-          <Fragment>
-            {selectedItem === 'sceneInput' && <SceneInputComponent onSubmit={handleFormSubmit} />}
-            {selectedItem === 'shootDuration' && <ShootDurationComponent  onSubmit={handleFormSubmit} />}
-            {selectedItem === 'characterInput' && <CharacterInputComponent  onSubmit={handleFormSubmit} />}
-            {selectedItem === 'locationInput' && <LocationInputComponent  onSubmit={handleFormSubmit} />}
-            {selectedItem === 'scheduleOutput' && <ScheduleOutputComponent />}
-          </Fragment>
-        
-        }
-        {location.pathname !== '/dashboard' && <Outlet />}
-      </main>
+      <FullPageContainer>
+        <main className={classes.content}>
+          {
+            location.pathname === '/dashboard' && 
+            <Fragment>
+              {selectedItem === 'sceneInput' && <SceneInputComponent onSubmit={handleFormSubmit} />}
+              {selectedItem === 'shootDuration' && <ShootDurationComponent onSubmit={handleFormSubmit} />}
+              {selectedItem === 'characterInput' && <CharacterInputComponent onSubmit={handleFormSubmit} />}
+              {selectedItem === 'locationInput' && <LocationInputComponent onSubmit={handleFormSubmit} />}
+              {selectedItem === 'scheduleOutput' && <ScheduleOutputComponent />}
+            </Fragment>
+          
+          }
+          {location.pathname !== '/dashboard' && <Outlet />}
+        </main>
+      </FullPageContainer>
     </div>
   );
 }

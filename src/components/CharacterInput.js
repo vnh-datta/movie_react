@@ -21,6 +21,8 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ResponseContext from "./ResponseContext";
+import { serverURL } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 const CharacterItem = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -31,15 +33,31 @@ const Item = styled(Box)(({ theme }) => ({
 }));
 
 const useStyles = makeStyles((theme) => ({
-  appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    height: "100vh",
+    height: "100%",
     overflow: "auto",
   },
   container: {
-    paddingTop: theme.spacing(10),
+    paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(4),
+    height: '100%',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  containerForm: {
+    flexGrow: 1,
+    overflow: 'hidden',
+    display: 'flex',
+    height: '100%',
+    flexDirection: 'column'
+  },
+  containerFormBox: {
+    flexGrow: 1,
+    height: '100%',
+    overflow: 'auto',
+    padding: `${theme.spacing(3)} ${theme.spacing(1)}`,
   },
   heading: {
     fontWeight: theme.typography.fontWeightBold,
@@ -69,6 +87,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
   const [expanded, setExpanded] = React.useState(true);
   const responseContexts = useContext(ResponseContext);
   const { setResponseData, responseContext } = useContext(ResponseContext);
+  const navigate = useNavigate();
 
   const handleDateChange = (index, index1, item, key, event) => {
     const updatedData = [...formData.current];
@@ -108,7 +127,7 @@ const CharacterInputComponent = ({ onSubmit }) => {
     console.log(formData.current);
 
     axios
-      .post("https://1522-115-98-2-149.ngrok.io/location", formData.current, {
+      .post(`${serverURL}/location`, formData.current, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -118,7 +137,8 @@ const CharacterInputComponent = ({ onSubmit }) => {
         console.log("success");
         const locationData = response.data;
         setResponseData({ locationData });
-        onSubmit("locationInput");
+        // onSubmit("locationInput");
+        navigate("/director/locationInput");
       })
       .catch((error) => {
         // handle errors
@@ -131,216 +151,210 @@ const CharacterInputComponent = ({ onSubmit }) => {
   };
 
   return (
-    <div>
-      <div className={styles.appBarSpacer}>
-        <Container maxWidth="xl" className={styles.container}>
-          <Typography component="h1" variant="h6" color="inherit" noWrap>
-            Character Inputs
-          </Typography>
-          <form onSubmit={handleSubmit}>
-            <Stack spacing={2}>
-              <Box sx={{ mt: 2 }}>
-                <div className={styles.accordianDetails}>
-                  {responseContexts.responseData?.charData?.characters
-                    .filter((character, index) => index <= 50)
-                    .map((character, index) => {
-                      // index <= 5 &&
-                      const scenes =
-                        responseContexts.responseData?.charData?.char_dict[
-                          character
-                        ];
-                      const item = {
-                        name: character,
-                        noOfScenes: scenes.length.toString(),
-                        scenes: scenes,
-                      };
+    <Container maxWidth="xl" className={styles.container}>
+      <Typography component="h1" variant="h6" color="inherit" noWrap>
+        Character Inputs
+      </Typography>
+      <form onSubmit={handleSubmit} className={styles.containerForm}>
+          <Box sx={{ mt: 2 }} className={styles.containerFormBox}>
+            <div className={styles.accordianDetails}>
+              {responseContexts.responseData?.charData?.characters
+                .filter((character, index) => index <= 50)
+                .map((character, index) => {
+                  // index <= 5 &&
+                  const scenes =
+                    responseContexts.responseData?.charData?.char_dict[
+                      character
+                    ];
+                  const item = {
+                    name: character,
+                    noOfScenes: scenes.length.toString(),
+                    scenes: scenes,
+                  };
 
-                      return (
-                        <Accordion
-                          key={index}
-                          expanded={expanded === item.name}
-                          onChange={handleChange(item.name)}
-                        >
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls={`${item.name}-content`}
-                            id={`${item.name}-header`}
+                  return (
+                    <Accordion
+                      key={index}
+                      expanded={expanded === item.name}
+                      onChange={handleChange(item.name)}
+                    >
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls={`${item.name}-content`}
+                        id={`${item.name}-header`}
+                      >
+                        <div>
+                          <Typography>{item.name}</Typography>
+                        </div>
+                      </AccordionSummary>
+                      <AccordionDetails
+                        className={styles.accordionContainer}
+                      >
+                        <CharacterItem>
+                          <Typography
+                            variant="body1"
+                            className={styles.heading}
                           >
-                            <div>
-                              <Typography>{item.name}</Typography>
-                            </div>
-                          </AccordionSummary>
-                          <AccordionDetails
-                            className={styles.accordionContainer}
-                          >
-                            <CharacterItem>
-                              <Typography
-                                variant="body1"
-                                className={styles.heading}
-                              >
-                                Character Details
-                              </Typography>
-                              <Stack>
-                                <Item>
-                                  <Grid container direction="row">
-                                    <Grid item sm={2}>
-                                      <Typography variant="body2">
-                                        Character:
-                                      </Typography>
-                                    </Grid>
-                                    <Grid item sm={4}>
-                                      <Typography variant="body1">
-                                        <b>{item.name}</b>
-                                      </Typography>
-                                    </Grid>
-                                  </Grid>
-                                </Item>
-                                <Item>
-                                  <Grid container direction="row">
-                                    <Grid item sm={2}>
-                                      <Typography variant="body2">
-                                        Character Name:
-                                      </Typography>
-                                    </Grid>
-                                    <Grid item sm={0} />
-                                    <Grid item sm={4}>
-                                      <TextField
-                                        inputProps={{
-                                          name: "characterName",
-                                          id: item.name + "characterName",
-                                        }}
-                                        label="Name"
-                                        variant="outlined"
-                                        fullWidth
-                                        onChange={handleDataChange(index, item)}
-                                      />
-                                    </Grid>
-                                  </Grid>
-                                </Item>
-                                <Item>
-                                  <Grid container direction="row">
-                                    <Grid item sm={2}>
-                                      <Typography variant="body2">
-                                        Number of scenes:
-                                      </Typography>
-                                    </Grid>
-                                    <Grid item sm={4}>
-                                      <Typography variant="body1">
-                                        <b>{item.noOfScenes}</b>
-                                      </Typography>
-                                    </Grid>
-                                  </Grid>
-                                </Item>
-                                <Item>
-                                  <Grid container direction="row">
-                                    <Grid item sm={2}>
-                                      <Typography variant="body2">
-                                        Scene list:
-                                      </Typography>
-                                    </Grid>
-                                    <Grid item sm={0} />
-                                    <Grid item sm={2}>
-                                      <FormControl variant="outlined">
-                                        <Select
-                                          native
-                                          inputProps={{
-                                            name: "sceneNo",
-                                            id: item.name + "sceneNo",
-                                          }}
-                                          onChange={handleDataChange(index)}
-                                        >
-                                          <option aria-label="None" value="" />
-                                          {item.scenes.map((value) => (
-                                            <option key={value} value={value}>
-                                              {value}
-                                            </option>
-                                          ))}
-                                        </Select>
-                                      </FormControl>
-                                    </Grid>
-                                  </Grid>
-                                </Item>
-                                <Item>
+                            Character Details
+                          </Typography>
+                          <Stack>
+                            <Item>
+                              <Grid container direction="row">
+                                <Grid item sm={2}>
                                   <Typography variant="body2">
-                                    Available Dates:
+                                    Character:
                                   </Typography>
-                                  <Box sx={{ mt: 1 }} fullWidth>
-                                    <Accordion>
-                                      <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
-                                      >
-                                        <div>
-                                          <Typography variant="body2">
-                                            Time Slots
-                                          </Typography>
-                                        </div>
-                                      </AccordionSummary>
-                                      <AccordionDetails
-                                        className={styles.details}
-                                      >
-                                        <TimeSlots
-                                          index={index}
-                                          timeSlots={timeSlots}
-                                          handleDateChange={handleDateChange}
-                                        />
-                                      </AccordionDetails>
-                                    </Accordion>
-                                  </Box>
-                                </Item>
-                                <Item>
-                                  <Grid container direction="row">
-                                    <Grid item sm={2}>
+                                </Grid>
+                                <Grid item sm={4}>
+                                  <Typography variant="body1">
+                                    <b>{item.name}</b>
+                                  </Typography>
+                                </Grid>
+                              </Grid>
+                            </Item>
+                            <Item>
+                              <Grid container direction="row">
+                                <Grid item sm={2}>
+                                  <Typography variant="body2">
+                                    Character Name:
+                                  </Typography>
+                                </Grid>
+                                <Grid item sm={0} />
+                                <Grid item sm={4}>
+                                  <TextField
+                                    inputProps={{
+                                      name: "characterName",
+                                      id: item.name + "characterName",
+                                    }}
+                                    label="Name"
+                                    variant="outlined"
+                                    fullWidth
+                                    onChange={handleDataChange(index, item)}
+                                  />
+                                </Grid>
+                              </Grid>
+                            </Item>
+                            <Item>
+                              <Grid container direction="row">
+                                <Grid item sm={2}>
+                                  <Typography variant="body2">
+                                    Number of scenes:
+                                  </Typography>
+                                </Grid>
+                                <Grid item sm={4}>
+                                  <Typography variant="body1">
+                                    <b>{item.noOfScenes}</b>
+                                  </Typography>
+                                </Grid>
+                              </Grid>
+                            </Item>
+                            <Item>
+                              <Grid container direction="row">
+                                <Grid item sm={2}>
+                                  <Typography variant="body2">
+                                    Scene list:
+                                  </Typography>
+                                </Grid>
+                                <Grid item sm={0} />
+                                <Grid item sm={2}>
+                                  <FormControl variant="outlined">
+                                    <Select
+                                      native
+                                      inputProps={{
+                                        name: "sceneNo",
+                                        id: item.name + "sceneNo",
+                                      }}
+                                      onChange={handleDataChange(index)}
+                                    >
+                                      <option aria-label="None" value="" />
+                                      {item.scenes.map((value) => (
+                                        <option key={value} value={value}>
+                                          {value}
+                                        </option>
+                                      ))}
+                                    </Select>
+                                  </FormControl>
+                                </Grid>
+                              </Grid>
+                            </Item>
+                            <Item>
+                              <Typography variant="body2">
+                                Available Dates:
+                              </Typography>
+                              <Box sx={{ mt: 1 }} fullWidth>
+                                <Accordion>
+                                  <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                  >
+                                    <div>
                                       <Typography variant="body2">
-                                        Criticality:
+                                        Time Slots
                                       </Typography>
-                                    </Grid>
-                                    <Grid item sm={0} />
-                                    <Grid item sm={2}>
-                                      <FormControl variant="outlined">
-                                        <Select
-                                          native
-                                          label={`${item.name}-Criticality`}
-                                          inputProps={{
-                                            name: "criticality",
-                                            id:
-                                              item.name +
-                                              "outlined-age-native-simple",
-                                          }}
-                                          onChange={handleDataChange(
-                                            index,
-                                            item
-                                          )}
-                                        >
-                                          <option aria-label="None" value="" />
-                                          <option value={1}>1</option>
-                                          <option value={2}>2</option>
-                                          <option value={3}>3</option>
-                                          <option value={4}>4</option>
-                                          <option value={5}>5</option>
-                                          <option value={6}>6</option>
-                                        </Select>
-                                      </FormControl>
-                                    </Grid>
-                                  </Grid>
-                                </Item>
-                              </Stack>
-                            </CharacterItem>
-                          </AccordionDetails>
-                        </Accordion>
-                      );
-                    })}
-                </div>
-              </Box>
-              <Item>
-                <Button variant="contained" type="submit" color="primary">
-                  Submit
-                </Button>
-              </Item>
-            </Stack>
-          </form>
-        </Container>
-      </div>
-    </div>
+                                    </div>
+                                  </AccordionSummary>
+                                  <AccordionDetails
+                                    className={styles.details}
+                                  >
+                                    <TimeSlots
+                                      index={index}
+                                      timeSlots={timeSlots}
+                                      handleDateChange={handleDateChange}
+                                    />
+                                  </AccordionDetails>
+                                </Accordion>
+                              </Box>
+                            </Item>
+                            <Item>
+                              <Grid container direction="row">
+                                <Grid item sm={2}>
+                                  <Typography variant="body2">
+                                    Criticality:
+                                  </Typography>
+                                </Grid>
+                                <Grid item sm={0} />
+                                <Grid item sm={2}>
+                                  <FormControl variant="outlined">
+                                    <Select
+                                      native
+                                      label={`${item.name}-Criticality`}
+                                      inputProps={{
+                                        name: "criticality",
+                                        id:
+                                          item.name +
+                                          "outlined-age-native-simple",
+                                      }}
+                                      onChange={handleDataChange(
+                                        index,
+                                        item
+                                      )}
+                                    >
+                                      <option aria-label="None" value="" />
+                                      <option value={1}>1</option>
+                                      <option value={2}>2</option>
+                                      <option value={3}>3</option>
+                                      <option value={4}>4</option>
+                                      <option value={5}>5</option>
+                                      <option value={6}>6</option>
+                                    </Select>
+                                  </FormControl>
+                                </Grid>
+                              </Grid>
+                            </Item>
+                          </Stack>
+                        </CharacterItem>
+                      </AccordionDetails>
+                    </Accordion>
+                  );
+                })}
+            </div>
+          </Box>
+          <Item>
+            <Button variant="contained" type="submit" color="primary">
+              Submit
+            </Button>
+          </Item>
+      </form>
+    </Container>
   );
 };
 

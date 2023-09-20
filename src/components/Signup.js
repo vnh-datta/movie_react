@@ -8,18 +8,6 @@ import { Avatar, Grid, FormControlLabel, Checkbox, Link, Divider } from '@materi
 import Typography from '@material-ui/core/Typography';
 import { useTheme } from '@material-ui/core/styles';
 
-function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
   const styles = {
     textField: {
       margin: '10px 0px 10px 0px',

@@ -10,52 +10,67 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 
 export const mainListItems = (
-  <div>
-    <ListItem
-      button
-      onClick={() => {
-        console.log("Button clicked director");
-      }}
-    >
-      <ListItemIcon>
-        <GroupIcon />
-      </ListItemIcon>
-      <ListItemText primary="Director" />
-    </ListItem>
-    <ListItem
-      button
-      onClick={() => {
-        console.log("Button clicked assistant director route");
-      }}
-    >
-      <ListItemIcon>
-        <PersonIcon />
-      </ListItemIcon>
-      <ListItemText primary="Assistant Director" />
-    </ListItem>
-    <ListItem
-      button
-      onClick={() => {
-        console.log("Button clicked User");
-      }}
-    >
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="User" />
-    </ListItem>
-    <ListItem
-      button
-      onClick={() => {
-        console.log("Button clicked actors");
-      }}
-    >
-      <ListItemIcon>
-        <ExitToAppIcon />
-      </ListItemIcon>
-      <ListItemText primary="Log Out" />
-    </ListItem>
-  </div>
+    <div
+      style={{
+        color: "#fff",
+      }}>
+      <ListItem
+        button
+        onClick={() => {
+          console.log("Button clicked director");
+        }}
+      >
+        <ListItemIcon>
+          <GroupIcon
+            style={{
+              color: "#fff",
+            }}/>
+        </ListItemIcon>
+        <ListItemText primary="Director" />
+      </ListItem>
+      <ListItem
+        button
+        onClick={() => {
+          console.log("Button clicked assistant director route");
+        }}
+      >
+        <ListItemIcon>
+          <PersonIcon
+            style={{
+              color: "#fff",
+            }} />
+        </ListItemIcon>
+        <ListItemText primary="Assistant Director" />
+      </ListItem>
+      <ListItem
+        button
+        onClick={() => {
+          console.log("Button clicked User");
+        }}
+      >
+        <ListItemIcon>
+          <BarChartIcon
+            style={{
+              color: "#fff",
+            }} />
+        </ListItemIcon>
+        <ListItemText primary="User" />
+      </ListItem>
+      <ListItem
+        button
+        onClick={() => {
+          console.log("Button clicked actors");
+        }}
+      >
+        <ListItemIcon>
+          <ExitToAppIcon
+            style={{
+              color: "#fff",
+            }} />
+        </ListItemIcon>
+        <ListItemText primary="Log Out" />
+      </ListItem>
+    </div>
 );
 
 export const secondaryListItems = (
@@ -63,19 +78,28 @@ export const secondaryListItems = (
     <ListSubheader inset>Saved reports</ListSubheader>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <AssignmentIcon
+            style={{
+              color: "#fff",
+            }} />
       </ListItemIcon>
       <ListItemText primary="Current month" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <AssignmentIcon
+            style={{
+              color: "#fff",
+            }} />
       </ListItemIcon>
       <ListItemText primary="Last quarter" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <AssignmentIcon
+            style={{
+              color: "#fff",
+            }} />
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
     </ListItem>
