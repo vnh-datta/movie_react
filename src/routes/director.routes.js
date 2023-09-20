@@ -11,6 +11,7 @@ import AssignCharacters from "../components/director/AssignCharacters";
 import SceneDetails from "../components/director/SceneDetails";
 import Assign from "../components/director/Assign";
 import { PATHS } from "../constants";
+import AssignedLocations from "../components/director/AssignedLocations";
 
 export const directorRoutes = () => (
   <Route path="/director" element={<Director />}>
@@ -67,6 +68,7 @@ export const directorRoutes = () => (
       }
     />
     <Route path={PATHS.EDIT_CHARACTERS} element={<AssignCharacters />} />
+    <Route path={PATHS.EDIT_LOCATIONS} element={<AssignedLocations />} />
     <Route path={PATHS.ASSIGN} element={<Assign />} />
     <Route path={PATHS.SCENE_DETAILS} element={<SceneDetails />} />
     <Route

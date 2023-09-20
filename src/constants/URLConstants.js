@@ -9,4 +9,5 @@ export const PATHS = {
   VERIFY_CREW: "/director/verifyCrew",
   ASSIGN: "/director/assign",
   SCENE_DETAILS: "/director/scenesDetails",
+  EDIT_LOCATIONS : "/director/editLocations",
 };
