@@ -52,3 +52,27 @@ export const directorListItems = [
     route: "/director/scheduleOutput",
   },
 ];
+export const AssistantdirectorListItems = [
+  {
+    text: "AD Home",
+    icon: "VideocamIcon",
+    route: "/assistantdirector",
+  },
+  {
+    text: "Verify Crew",
+    icon: "GroupIcon",
+    route: PATHS.VERIFY_CREWAD,
+  },
+  {
+    text: "Upload Script",
+    icon: "MovieCreationIcon",
+    // route: "/director/sceneInput",
+  },
+  {
+    text: "Setup",
+    icon: "BuildIcon",
+    // route: "/director/Setup",
+  },
+ 
+];
+
