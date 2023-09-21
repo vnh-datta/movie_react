@@ -44,15 +44,18 @@ export const getListEditButton = (rows) => {
     locationSetup: {
       field: "edit",
       headerName: "Edit",
-      renderCell: (params) => {
+      renderCell: ({ row: { id } }) => {
         return (
-          <IconButton aria-label="edit">
-            <EditIcon />
-          </IconButton>
+          <Link to={PATHS.EDIT_LOCATIONS} state={{ rows, id }}>
+            <IconButton aria-label="edit">
+              <EditIcon />
+            </IconButton>
+          </Link>
         );
       },
     },
   };
+  
 
   return editButtonConfigs;
 };

@@ -8,7 +8,10 @@ import LocationInputComponent from "../components/LocationInput";
 import CharacterInputComponent from "../components/CharacterInput";
 import ScheduleOutputComponent from "../components/ScheduleOutput";
 import AssignCharacters from "../components/director/AssignCharacters";
+import SceneDetails from "../components/director/SceneDetails";
+import Assign from "../components/director/Assign";
 import { PATHS } from "../constants";
+import AssignedLocations from "../components/director/AssignedLocations";
 
 export const directorRoutes = () => (
   <Route path="/director" element={<Director />}>
@@ -60,11 +63,14 @@ export const directorRoutes = () => (
           headerText="Character Setup"
           fetchAPI="getCharacterSetup"
           fetchType="GET"
-          searchByField="sceneLocation"
+          searchByField="characterName"
         />
       }
     />
     <Route path={PATHS.EDIT_CHARACTERS} element={<AssignCharacters />} />
+    <Route path={PATHS.EDIT_LOCATIONS} element={<AssignedLocations />} />
+    <Route path={PATHS.ASSIGN} element={<Assign />} />
+    <Route path={PATHS.SCENE_DETAILS} element={<SceneDetails />} />
     <Route
       path={PATHS.LOCATION_SETUP}
       element={

@@ -1,9 +1,45 @@
 ## API Payloads
 
-### /saveCharacter [POST]
+## Director Module
+
+### /director/verifyCrew [Get]
+
+[demo data](https://github.com/viswanathprateek/movie_react/blob/scratch/directorSetup/mock-server/constants/tempCrewData.js)
+
+### /director/uploadScript [POST]
 
 ```
-{
+ Payload goes here
+```
+
+### /director/setupScreen [Get]
+
+[demo data](https://github.com/viswanathprateek/movie_react/blob/scratch/directorSetup/mock-server/constants/tempDirectorSetupData.js)
+
+### /director/scenesSetup [Get]
+
+[demo data](https://github.com/viswanathprateek/movie_react/blob/scratch/directorSetup/mock-server/constants/tempSceneSetupData.js)
+
+### /director/sceneDetails [Get]
+
+```
+Payload goes here
+```
+
+### /director/saveScene [Post]
+
+```
+ Payload goes here
+```
+
+### /director/characterSetup [Get]
+
+[demo data](https://github.com/viswanathprateek/movie_react/blob/scratch/directorSetup/mock-server/constants/tempCharacterSetupData.js)
+
+### /director/saveCharacter [Post]
+
+```
+ {
   id: 1,
   characterName: 'Tony Stark',
   description: 'He is Iron Man',
@@ -24,4 +60,20 @@
   eyesColor: 'Black',
   keyFeatures: 'Iron Man'
 }
+```
+
+### /director/locationSetup [Get]
+
+[demo data](https://github.com/viswanathprateek/movie_react/blob/scratch/directorSetup/mock-server/constants/tempLocationSetupData.js)
+
+### /director/saveLocation [Post]
+
+```
+ Payload goes here
+```
+
+### /director/assignData [Get]
+
+```
+ Payload goes here
 ```

@@ -42,8 +42,37 @@ export const directorListItems = [
     route: "/director/Setup",
   },
   {
+    text: "Assign",
+    icon: "AssignmentIcon",
+    route: PATHS.ASSIGN,
+  },
+  {
     text: "Schedule Output",
     icon: "ScheduleIcon",
     route: "/director/scheduleOutput",
   },
 ];
+export const AssistantdirectorListItems = [
+  {
+    text: "AD Home",
+    icon: "VideocamIcon",
+    route: "/assistantdirector",
+  },
+  {
+    text: "Verify Crew",
+    icon: "GroupIcon",
+    route: PATHS.VERIFY_CREWAD,
+  },
+  {
+    text: "Upload Script",
+    icon: "MovieCreationIcon",
+    // route: "/director/sceneInput",
+  },
+  {
+    text: "Setup",
+    icon: "BuildIcon",
+    // route: "/director/Setup",
+  },
+ 
+];
+

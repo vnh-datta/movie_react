@@ -16,7 +16,8 @@ import VideoCallIcon from "@material-ui/icons/VideoCall";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import PinDropIcon from "@material-ui/icons/PinDrop";
-import BuildIcon from '@material-ui/icons/Build';
+import BuildIcon from "@material-ui/icons/Build";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 import MovieCreationIcon from "@material-ui/icons/MovieCreation";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import FullPageContainer from "./FullPageContainer";
@@ -146,6 +147,8 @@ const getIcon = (icon) => {
       return <BarChartIcon style={{ color: "#fff" }} />;
     case "BuildIcon":
       return <BuildIcon style={{ color: "#fff" }} />;
+    case "AssignmentIcon":
+      return <AssignmentIcon style={{ color: "#fff" }} />;
     default:
       return null;
   }
