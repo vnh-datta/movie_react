@@ -5,13 +5,17 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
 import Director from "./components/Director";
+import Producer from "./components/Producer";
 import ResponseContext from "./components/ResponseContext";
 import AssistantDirector from "./components/AssistantDirector";
 import ListData from "./components/director/ListData";
 import { directorRoutes } from "./routes/director.routes";
-import Department from "./components/Departments";
-import {Dep1,Dep2AndDep3,Dep4AndDep5} from "./components/Departments";
-import Designations from "./components/Designations";
+import Department from "./components/Producer/Departments";
+import {Dep1,Dep2AndDep3,Dep4AndDep5} from "./components/Producer/Departments";
+import Designations from "./components/Producer/Designations";
+import AddProduction from "./components/Producer/Add Production";
+import { Card } from "@material-ui/core";
+import { CardContent } from "@mui/material";
 
 function App() {
   const [sceneshootData, setsceneshootData] = useState({});
@@ -28,17 +32,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />}>
-            <Route path="/dashboard/director" element={<Director />}>
-              <Route
-                path="/dashboard/director/verifyCrew"
-                element={<ListData />}
-              />
-            </Route>
-            <Route path="/dashboard/ad" element={<AssistantDirector />} />
-            <Route path="/dashboard/departments" element={
+          <Route path="/dashboard" element={<Dashboard />}/>
+          <Route path="/dashboard/Producer" element={<Producer/>}>
+                <Route path="/dashboard/Producer/Departments" element={
                  <>
-                <div className='grid'>
+                  <div className='grid'>
                   <div className='grid1'>
                   <Department/>
                   <Dep1/>
@@ -51,8 +49,16 @@ function App() {
                   </div>
                   </div>
                 </>}/>
-                <Route path="/dashboard/designations" element={<Designations/>}/>
+                <Route path="/dashboard/Producer/Designations" element={<Designations/>}/>
+                <Route path="/dashboard/Producer/AddProduction" element={<AddProduction/>}/>
           </Route>
+            <Route path="/dashboard/director" element={<Director />}>
+              <Route
+                path="/dashboard/director/verifyCrew"
+                element={<ListData />}
+              />
+            </Route>
+            <Route path="/dashboard/ad" element={<AssistantDirector />} />
           {directorRoutes()}
         </Routes>
       </Router>

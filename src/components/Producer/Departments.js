@@ -1,6 +1,6 @@
 import React,{useState} from "react";
-import {Box,Typography,TextField,Button,Radio,FormControlLabel,Select,MenuItem} from "@mui/material";
-import "../App.css";
+import {Box,Typography,TextField,Button,Radio,FormControlLabel,Select,MenuItem, Card, CardContent} from "@mui/material";
+import "./../../App.css";
 function Department(){
     const dir={
         name:"Abcd efg"
@@ -8,18 +8,12 @@ function Department(){
     return(
         <>
         <div className="g1">
-            <Box 
-            bgcolor="lightblue"
-            color="black"
-            p={3}
-            textAlign="center"
-            borderRadius={5}
-            width="200px"
-            height="auto"
-            >
+          <Card style={{ maxHeight: "100%", overflowY: "auto",width:"250px"}}>
+            <CardContent>
             <Typography variant="h5">Panoma Vol2</Typography>
             <Typography variant="body1">Director:{dir.name}</Typography>
-            </Box>
+            </CardContent>
+            </Card>
         </div>
         </>
     )
@@ -29,17 +23,12 @@ export function Dep1(){
     const dep_data=[
         "loren Ipsum","gsdgsdgsdgb","tutukmbncx","qebngjkgm"
     ];
+   
     return(
         <>
         <div className="g2">
-            <Box 
-            bgcolor="lightblue"
-            color="black"
-            p={3}
-            textAlign="center"
-            borderRadius={5}
-            height="auto"
-            >
+            <Card style={{ maxHeight: "100%", overflowY: "auto", width:"570px"}}>
+              <CardContent>
             <div className="dep1">
                 <div className="b1">
                 <Typography variant="body1">Assistant Directors</Typography>
@@ -72,7 +61,8 @@ export function Dep1(){
                 </ul>
             </div>
             </div>
-            </Box>
+            </CardContent>
+            </Card>
         </div>
         </>
     )
@@ -82,7 +72,9 @@ export function Dep2AndDep3(){
     {s_no:2.,dep:"loren Ipsum",},
     {s_no:3.,dep:"loren Ipsum",}
 ]);
+
 const [depart, setdepart] = useState("");
+const [isNewRowAdded, setIsNewRowAdded] = useState(false);
 const HandleDep1Change=()=>{
 const data={
     s_no:dep4_data.length + 1,
@@ -90,19 +82,13 @@ const data={
 }
 setdep4_data([...dep4_data,data])
 setdepart("")
+setIsNewRowAdded(true);
 }
     return(
         <>
-        <div className="g1">
-            <Box 
-            bgcolor="lightblue"
-            color="primary.contrastText"
-            p={3}
-            textAlign="center"
-            borderRadius={5}
-            width="500px"
-            height="auto"
-            >
+        <div className={ `g1 ${isNewRowAdded ? "new-box" : ""}`}>
+            <Card style={{ maxHeight: "100%", overflowY: "auto",width:"570px" }}>
+              <CardContent>
             <div className="dep2">
             <Typography variant="h5">Departments</Typography>
                 <table >
@@ -115,7 +101,7 @@ setdepart("")
                     <tbody>
                         {dep4_data.map((val,index)=>(
                             <>
-                            <tr key={index}>
+                            <tr key={index} className={isNewRowAdded && index === dep4_data.length - 1 ? "new-row" : ""}>
                             <td className="table-cell">{val.s_no}</td>
                             <td className="table-cell">{val.dep}</td>
                             <td className="table-cell">{<Button className="b" variant="outlined">Edit</Button>}</td>
@@ -126,16 +112,12 @@ setdepart("")
                 </tbody>
                 </table>
                 </div>
-            </Box>
+                </CardContent>
+            </Card>
         </div>
         <div className="g1">
-            <Box 
-            bgcolor="lightblue"
-            color="primary.contrastText"
-            p={3}
-            textAlign="center"
-            borderRadius={5}
-            >
+            <Card style={{ maxHeight: "100%", overflowY: "auto" }}>
+              <CardContent>
             <div className="dep3">
             <Typography color="black">Add New Department</Typography>
             <TextField label="Name Department" value={depart} onChange={(e)=>{setdepart(e.target.value)}}></TextField>
@@ -146,8 +128,9 @@ setdepart("")
             <TextField label="Total members"></TextField>
             <Button variant="contained" color="primary" onClick={HandleDep1Change}>Add</Button>
             </div>
-            </Box>
-        </div>
+            </CardContent>
+            </Card>
+            </div>
         </>
     )
 }
@@ -157,7 +140,6 @@ export function Dep4AndDep5() {
       { s_no: 2, dep: "loren Ipsum", sub_dep: "loren ipsum" },
       { s_no: 3, dep: "loren Ipsum", sub_dep: "loren ipsum" },
     ]);
-  
     const [dep, setdep] = useState("");
     const [subdep,setsubdep]=useState("");
     const HandleDepchange = () => {
@@ -173,13 +155,8 @@ export function Dep4AndDep5() {
     return (
       <>
         <div className="g1">
-          <Box
-            bgcolor="lightblue"
-            color="primary.contrastText"
-            p={3}
-            textAlign="center"
-            borderRadius={5}
-          >
+          <Card style={{ maxHeight: "100%", overflowY: "auto" }}>
+            <CardContent>
             <div className="dep4">
               <Typography variant="h5">Sub-Departments</Typography>
               <table>
@@ -209,18 +186,13 @@ export function Dep4AndDep5() {
                 </tbody>
               </table>
             </div>
-          </Box>
+          </CardContent>
+          </Card>
         </div>
   
         <div className="g1">
-          <Box
-            bgcolor="lightblue"
-            color="primary.contrastText"
-            p={3}
-            textAlign="center"
-            borderRadius={5}
-            width="190px"
-          >
+          <Card style={{ maxHeight: "100%", overflowY: "auto" }}>
+            <CardContent>
             <div className="dep3">
               <Typography color="black">Add Sub-Department</Typography>
               <Select label="Select Department" value={subdep} onChange={(e)=>{setsubdep(e.target.value)}}>
@@ -244,7 +216,8 @@ export function Dep4AndDep5() {
                 Add
               </Button>
             </div>
-          </Box>
+          </CardContent>
+          </Card>
         </div>
       </>
     );

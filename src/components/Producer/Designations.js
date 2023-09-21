@@ -1,6 +1,6 @@
 
-import {Typography,Box,Paper,TextField} from "@mui/material";
-import "../App.css";
+import {Typography,Box,Paper,TextField,Card,CardContent} from "@mui/material";
+import "./../../App.css";
 import { useState } from "react";
 function Designations()
 {
@@ -55,6 +55,9 @@ function Designations()
     return(
         <>
         <div className="container">
+        <Card>
+            <CardContent>
+
         <Box
         bgcolor="lightblue"
         color="black"
@@ -101,6 +104,8 @@ function Designations()
                 ) 
             }
         </Box>
+        </CardContent>
+        </Card>
         </div>
         </>
     )
