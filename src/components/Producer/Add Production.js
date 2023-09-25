@@ -64,7 +64,7 @@ function AddProduction(){
       <>
       <Card style={cardStyles}>
         <CardContent>
-        <Paper style={{width:"100%", backgroundColor:"lightblue"}}><Typography variant='body1' align='center'>ADD PRODUCTIONS</Typography></Paper>
+        <Paper style={{width:"100%", backgroundColor:"lavender"}}><Typography variant='body1' align='center'>ADD PRODUCTIONS</Typography></Paper>
       <div className='prodcontainer'>
                   <div className='Imageupload'>
                     <div className='Tile'>
@@ -83,7 +83,7 @@ function AddProduction(){
                     </div>
                     <div className='prod'>
                       <Box
-                      bgcolor="lightBlue"
+                      bgcolor="lavender"
                       padding={3}
                       color="black"
                       textAlign="center"
@@ -109,7 +109,7 @@ function AddProduction(){
                                             </MenuItem>
                                         ))
                                     )}</Select>
-                                    <Button variant='contained' color='primary'>SUBMIT</Button>
+                                    <Button variant='contained' color="primary" type='submit' >SUBMIT</Button>
                         </div>
                     </Box>
                     </div>

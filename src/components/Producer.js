@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import GroupIcon from "@material-ui/icons/Group";
 import MenuIcon from "@material-ui/icons/Menu";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import AddIcon from '@mui/icons-material/Add';
 import BarChartIcon from "@material-ui/icons/BarChart";
 import PersonIcon from "@material-ui/icons/Person";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -127,6 +128,8 @@ const getIcon = (icon) => {
         return <AttachMoneyIcon style={{ color: "#fff" }} />;  
     case "BarChartIcon":
       return <BarChartIcon style={{ color: "#fff" }} />;
+      case "AddIcon":
+        return <AddIcon style={{ color: "#fff" }} />;
     default:
       return null;
   }
@@ -163,6 +166,11 @@ const Producer = (props) => {
       text: "Designations",
       icon: "BarChartIcon",
       route: "/dashboard/Producer/Designations",
+    },
+    {
+      text: "AddCrew",
+      icon: "AddIcon",
+      route: "/dashboard/Producer/AddCrew",
     },
   ];
   

@@ -4,17 +4,17 @@ import "./../../App.css";
 import { useState } from "react";
 function Designations()
 {
-    //const [addnew,setaddnew]=useState("");
+    const [addnew,setaddnew]=useState("");
     const [dropdown,setdropdown]=useState('');
     const [subdropdown,setsubdropdown]=useState('');
     const [subdropdown1,setsubdropdown1]=useState(false);
     const [subdropdown2,setsubdropdown2]=useState(false);
     const [subsubdropdown1,setsubsubdropdown1]=useState(false);
     const [subsubdropdown2,setsubsubdropdown2]=useState(false);
-    /*const Handleaddnew=(e)=>{
-        const newval=e.target.value
-        setaddnew(newval)
-    }*/
+    const Handleaddnew=()=>
+    {
+        <TextField id="addnew" label="Addnew" value={addnew} onChange={(e)=>{setaddnew(e.target.value)}}></TextField>
+    }
     const handledropdown=(e)=>{
     const val=e.target.value;
     setdropdown(val)
@@ -59,13 +59,13 @@ function Designations()
             <CardContent>
 
         <Box
-        bgcolor="lightblue"
+        bgcolor="lavender"
         color="black"
         p={3}
         textAlign="center"
         borderRadius={5}
         >
-        <Paper elevation={3} color="blue"><Typography variant="h5">Select Designations</Typography></Paper>
+        <Paper elevation={3} color="blue"><Typography variant="h5">SELECT DESIGNATIONS</Typography></Paper>
         <select className="Dropdown" value={dropdown} onChange={handledropdown}>
             <option>Select an option</option>
             <option>Direction</option>
@@ -76,12 +76,14 @@ function Designations()
               <option>Select a sub-option</option>
               <option>Direction Team</option>
               <option>Location</option>
+              <option>{addnew}</option>
             </select>)}
             {subdropdown2 && dropdown==="Camera and Lighting" && (
             <select className="SubDropdown" value={subdropdown} onChange={HandleSubdropdown}>
               <option>Select a sub-option</option>
               <option>Photography</option>
               <option>Lighting</option>
+              <option>{addnew}</option>
             </select>)}
             {
                 subsubdropdown1 &&  dropdown==="Direction" && subdropdown==="Direction Team" &&(
@@ -89,7 +91,8 @@ function Designations()
                 <option>Select a sub-sub-option</option>
                 <option>Director</option>
                 <option>First AD</option>
-                <option>Second AD</option> 
+                <option>Second AD</option>
+                <option>{addnew}</option> 
                 </select>
                 )
             }
@@ -99,7 +102,7 @@ function Designations()
                 <option>Select a sub-sub-option</option>
                 <option>DOP</option>
                 <option>Camera Operator</option>
-                <option>Add new</option>
+                <option onClick={Handleaddnew}>Add new</option>
                 </select>
                 ) 
             }

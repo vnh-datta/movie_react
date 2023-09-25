@@ -10,21 +10,15 @@ import ResponseContext from "./components/ResponseContext";
 // import AssistantDirector from "./components/AssistantDirectorbefore";
 import ListData from "./components/director/ListData";
 import { directorRoutes } from "./routes/director.routes";
-<<<<<<< HEAD
 import Department from "./components/Producer/Departments";
 import {Dep1,Dep2AndDep3,Dep4AndDep5} from "./components/Producer/Departments";
 import Designations from "./components/Producer/Designations";
 import AddProduction from "./components/Producer/Add Production";
-import { Card } from "@material-ui/core";
-import { CardContent } from "@mui/material";
-=======
+import AddCrew from "./components/Producer/AddCrew"
 import { AssistantdirectorRoutes } from "./routes/Assistantdirector.routes";
 import AssistantDirector from "./components/AssistantDirector";
 import ListDataAD from "./components/assistantdirector/ListDataAD";
-
-
->>>>>>> acf273eefd4963f41c93b6a693b123d08090cab5
-
+import UploadScript from "./components/assistantdirector/UploadScript"
 function App() {
   const [sceneshootData, setsceneshootData] = useState({});
   return (
@@ -59,6 +53,7 @@ function App() {
                 </>}/>
                 <Route path="/dashboard/Producer/Designations" element={<Designations/>}/>
                 <Route path="/dashboard/Producer/AddProduction" element={<AddProduction/>}/>
+                <Route path="/dashboard/Producer/AddCrew" element={<AddCrew/>}/>
           </Route>
             <Route path="/dashboard/director" element={<Director />}>
               <Route
@@ -66,19 +61,21 @@ function App() {
                 element={<ListData />}
               />
             </Route>
-<<<<<<< HEAD
+
             <Route path="/dashboard/ad" element={<AssistantDirector />} />
-=======
+
             {/* <Route path="/dashboard/ad" element={<AssistantDirector />} /> */}
             <Route path="/dashboard/assistantdirector" element={<AssistantDirector />}>
               <Route
                 path="/dashboard/assistantdirector/verifyCrew"
                 element={<ListDataAD />}
               />
+              <Route
+                path="/dashboard/assistantdirector/UploadScript"
+                element={<UploadScript />}
+              />
             </Route>
-          </Route>
           {AssistantdirectorRoutes()}
->>>>>>> acf273eefd4963f41c93b6a693b123d08090cab5
           {directorRoutes()}
         </Routes>
       </Router>
