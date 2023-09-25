@@ -7,8 +7,12 @@ export const PATHS = {
   SCENE_SETUP: "/director/scenesSetup",
   LOCATION_SETUP: "/director/locationSetup",
   VERIFY_CREW: "/director/verifyCrew",
-  VERIFY_CREWAD: "/assistantdirector/verifyCrew",
+ 
   ASSIGN: "/director/assign",
   SCENE_DETAILS: "/director/scenesDetails",
   EDIT_LOCATIONS : "/director/editLocations",
+  VERIFY_CREWAD: "/assistantdirector/verifyCrew",
+  CHARACTER_SETUPAD: "/assistantdirector/characterSetup",
+  SCENE_SETUPAD: "/assistantdirector/scenesSetup",
+  LOCATION_SETUPAD: "/assistantdirector/locationSetup",
 };

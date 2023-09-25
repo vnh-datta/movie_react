@@ -66,12 +66,12 @@ export const AssistantdirectorListItems = [
   {
     text: "Upload Script",
     icon: "MovieCreationIcon",
-    // route: "/director/sceneInput",
+    route: "/director/sceneInput",
   },
   {
     text: "Setup",
     icon: "BuildIcon",
-    // route: "/director/Setup",
+    route: "/assistantdirector/SetupAD",
   },
  
 ];

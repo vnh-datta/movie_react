@@ -3,7 +3,7 @@ import { TextField, Typography, makeStyles } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import CrewTable from "../reusable-components/CrewTable";
-import { serverURL } from "../../constants";
+import { getListEditButton,serverURL } from "../../constants";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
  * TODO: handle body data for POST requests
  */
 const ListDataAD = ({
-//   editButtonConfig,
+  editButtonConfig,
   headerText,
   fetchAPI,
   fetchType,
@@ -71,7 +71,7 @@ const ListDataAD = ({
         const { rows, columns } = result?.data || { rows: [], columns: [] };
         const columnsWithEditButton = [
           ...columns,
-        //   getListEditButton(rows)[editButtonConfig],
+          getListEditButton(rows)[editButtonConfig],
         ];
 
         setRows(rows);
@@ -80,7 +80,7 @@ const ListDataAD = ({
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
-  }, [fetchAPI, fetchType]);
+  }, [editButtonConfig,fetchAPI, fetchType]);
 
   const handleSearchChange = (event) => {
     const searchQuery = event.target.value;
