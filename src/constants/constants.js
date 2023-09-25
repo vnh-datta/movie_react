@@ -65,13 +65,18 @@ export const AssistantdirectorListItems = [
   },
   {
     text: "Upload Script",
+
     icon: "CloudUploadIcon",
     route: "/assistantdirector/UploadScript",
+
+    icon: "MovieCreationIcon",
+    route: "/director/sceneInput",
+
   },
   {
     text: "Setup",
     icon: "BuildIcon",
-    // route: "/director/Setup",
+    route: "/assistantdirector/SetupAD",
   },
  
 ];

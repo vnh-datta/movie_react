@@ -19,6 +19,11 @@ import { AssistantdirectorRoutes } from "./routes/Assistantdirector.routes";
 import AssistantDirector from "./components/AssistantDirector";
 import ListDataAD from "./components/assistantdirector/ListDataAD";
 import UploadScript from "./components/assistantdirector/UploadScript"
+import { Card } from "@material-ui/core";
+import { CardContent } from "@mui/material";
+//import { AssistantdirectorRoutes } from "./routes/Assistantdirector.routes";
+//import AssistantDirector from "./components/AssistantDirector";
+//import ListDataAD from "./components/assistantdirector/ListDataAD";
 function App() {
   const [sceneshootData, setsceneshootData] = useState({});
   return (
@@ -62,19 +67,25 @@ function App() {
               />
             </Route>
 
+
             <Route path="/dashboard/ad" element={<AssistantDirector />} />
 
+
+            <Route path="/dashboard/ad" element={<AssistantDirector />} />
             {/* <Route path="/dashboard/ad" element={<AssistantDirector />} /> */}
             <Route path="/dashboard/assistantdirector" element={<AssistantDirector />}>
               <Route
                 path="/dashboard/assistantdirector/verifyCrew"
                 element={<ListDataAD />}
               />
+
               <Route
                 path="/dashboard/assistantdirector/UploadScript"
                 element={<UploadScript />}
               />
             </Route>
+              
+
           {AssistantdirectorRoutes()}
           {directorRoutes()}
         </Routes>
