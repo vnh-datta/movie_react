@@ -18,6 +18,7 @@ export const AssistantdirectorRoutes = () => (
           fetchAPI="crew"
           fetchType="GET"
           searchByField="name"
+
         />
         
       }
@@ -44,6 +45,7 @@ export const AssistantdirectorRoutes = () => (
           fetchAPI="getSceneSetup"
           fetchType="GET"
           searchByField="sceneLocation"
+          showEditButton={true}
         />
       }
     />
@@ -57,6 +59,7 @@ export const AssistantdirectorRoutes = () => (
           fetchAPI="getCharacterSetup"
           fetchType="GET"
           searchByField="characterName"
+          showEditButton={true}
         />
       }
     />
@@ -70,6 +73,7 @@ export const AssistantdirectorRoutes = () => (
           fetchAPI="getLocationSetup"
           fetchType="GET"
           searchByField="locationName"
+          showEditButton={true}
         />
       }
     />

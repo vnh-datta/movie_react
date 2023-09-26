@@ -3,7 +3,7 @@ import { TextField, Typography, makeStyles } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import CrewTable from "../reusable-components/CrewTable";
-import {serverURL } from "../../constants";
+import {getListEditButton,serverURL } from "../../constants";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -52,6 +52,7 @@ const ListDataAD = ({
   fetchAPI,
   fetchType,
   searchByField,
+  showEditButton = false
 }) => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
@@ -71,7 +72,7 @@ const ListDataAD = ({
         const { rows, columns } = result?.data || { rows: [], columns: [] };
         const columnsWithEditButton = [
           ...columns,
-          //getListEditButton(rows)[editButtonConfig],
+          getListEditButton(rows)[editButtonConfig],
         ];
 
         setRows(rows);
@@ -118,7 +119,7 @@ const ListDataAD = ({
         />
       </div>
       <div className={classes.gridContainer}>
-        <CrewTable rows={filteredRows} columns={columns} />
+        <CrewTable rows={filteredRows} columns={showEditButton ? columns : columns.slice(0, -1)} />
       </div>
     </div>
   );
