@@ -22,7 +22,7 @@ import {
   Typography,
 } from "@material-ui/core";
 
-
+import { ProducerListItems } from "../constants";
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -146,34 +146,6 @@ const Producer = (props) => {
   };
   const navigate = useNavigate();
   const outlet = useOutlet();
-  const ProducerListItems = [
-    {
-      text: "Producer",
-      icon: "PersonIcon",
-      route: "/dashboard/Producer",
-    },
-    {
-      text: "Add Production",
-      icon: "AttachMoneyIcon",
-      route: "/dashboard/Producer/AddProduction",
-    },
-    {
-      text: "Departments",
-      icon: "GroupIcon",
-      route: "/dashboard/Producer/Departments",
-    },
-    {
-      text: "Designations",
-      icon: "BarChartIcon",
-      route: "/dashboard/Producer/Designations",
-    },
-    {
-      text: "AddCrew",
-      icon: "AddIcon",
-      route: "/dashboard/Producer/AddCrew",
-    },
-  ];
-  
   return (
     <div className={classes.root}>
       <Drawer

@@ -1,140 +1,142 @@
-import React,{useState} from "react";
-import {Box,Typography,TextField,Button,Radio,FormControlLabel,Select,MenuItem, Card, CardContent} from "@mui/material";
-import "./../../App.css";
-function Department(){
-    const dir={
-        name:"Abcd efg"
-    }
-    return(
-        <>
-        <div className="g1">
-          <Card style={{ maxHeight: "100%", overflowY: "auto",width:"250px"}}>
-            <CardContent>
-            <Typography variant="h5">Panoma Vol2</Typography>
-            <Typography variant="body1">Director:{dir.name}</Typography>
-            </CardContent>
-            </Card>
-        </div>
-        </>
-    )
-}
-export default Department;
-export function Dep1(){
-    const dep_data=[
-        "loren Ipsum","gsdgsdgsdgb","tutukmbncx","qebngjkgm"
-    ];
-   
-    return(
-        <>
-        <div className="g2">
-            <Card style={{ maxHeight: "100%", overflowY: "auto", width:"570px"}}>
-              <CardContent>
-            <div className="dep1">
-                <div className="b1">
-                <Typography variant="body1">Assistant Directors</Typography>
-                <ul >
-                    {dep_data.map((people,index)=>(
-                    <>
-                    <li key={index}>{people}</li>
-                    </>
-                    ))}
-                </ul>
-            </div>
-            <div className="b1">
-            <Typography variant="body1">Music Directors</Typography>
-            <ul >
-                    {dep_data.map((people,index)=>(
-                    <>
-                    <li key={index}>{people}</li>
-                    </>
-                    ))}
-                </ul>
-            </div>
-            <div className="b1">
-            <Typography variant="body1">Costume Department</Typography>
-            <ul >
-                    {dep_data.map((people,index)=>(
-                    <>
-                    <li key={index}>{people}</li>
-                    </>
-                    ))}
-                </ul>
-            </div>
-            </div>
-            </CardContent>
-            </Card>
-        </div>
-        </>
-    )
-}
-export function Dep2AndDep3(){
-    const [dep4_data,setdep4_data]=useState([{s_no:1.,dep:"loren Ipsum",},
-    {s_no:2.,dep:"loren Ipsum",},
-    {s_no:3.,dep:"loren Ipsum",}
-]);
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  MenuItem,
+  Select,
+  makeStyles,
+} from "@material-ui/core";
+import {Box,Typography,Radio,FormControlLabel} from "@mui/material"
+import TextField from "@material-ui/core/TextField";
 
-const [depart, setdepart] = useState("");
-const [isNewRowAdded, setIsNewRowAdded] = useState(false);
-const HandleDep1Change=()=>{
-const data={
-    s_no:dep4_data.length + 1,
-    dep:depart
+const flexColumn = {
+  display: "flex",
+  flexDirection: "column",
+};
+const flexRow={
+  display: "flex",
+  flexDirection: "row", 
 }
-setdep4_data([...dep4_data,data])
-setdepart("")
-setIsNewRowAdded(true);
-}
-    return(
-        <>
-        <div className={ `g1 ${isNewRowAdded ? "new-box" : ""}`}>
-            <Card style={{ maxHeight: "100%", overflowY: "auto",width:"570px" }}>
-              <CardContent>
-            <div className="dep2">
-            <Typography variant="h5">Departments</Typography>
-                <table >
-                <thead>
-                    <tr>
-                        <th className="table-cell">S.NO</th>
-                        <th className="table-cell">Department</th>
-                    </tr>
-                </thead>
-                    <tbody>
-                        {dep4_data.map((val,index)=>(
-                            <>
-                            <tr key={index} className={isNewRowAdded && index === dep4_data.length - 1 ? "new-row" : ""}>
-                            <td className="table-cell">{val.s_no}</td>
-                            <td className="table-cell">{val.dep}</td>
-                            <td className="table-cell">{<Button className="b" variant="outlined">Edit</Button>}</td>
-                            <td className="table-cell">{<Button className="but" variant="outlined">Details</Button>}</td>
-                            </tr>
-                            </>
-                        ))}
-                </tbody>
-                </table>
-                </div>
-                </CardContent>
-            </Card>
-        </div>
-        <div className="g1">
-            <Card style={{ maxHeight: "100%", overflowY: "auto" }}>
-              <CardContent>
-            <div className="dep3">
-            <Typography color="black">Add New Department</Typography>
-            <TextField label="Name Department" value={depart} onChange={(e)=>{setdepart(e.target.value)}}></TextField>
-            <form className="form">
-            <FormControlLabel label="Main" value="Main" control={<Radio/>}/>
-            <FormControlLabel label="sub" value="sub" control={<Radio/>}/>
-            </form>
-            <TextField label="Total members"></TextField>
-            <Button variant="contained" color="primary" onClick={HandleDep1Change}>Add</Button>
-            </div>
-            </CardContent>
-            </Card>
-            </div>
-        </>
-    )
-}
-export function Dep4AndDep5() {
+const borderBox = {
+  boxSizing: "border-box",
+};
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    ...borderBox,
+  },
+  heading: {
+    ...borderBox,
+    padding: "0",
+    widtn: "100%",
+    textAlign: "center",
+  },
+  container: {
+    ...borderBox,
+    width: "100%",
+    height: "100%",
+    padding: ".5rem",
+    overflow: "hidden",
+    justifyContent: "space-around",
+  },
+  containerBody: {
+    ...borderBox,
+    display: "flex",
+    height: "100%",
+    width: "100%",
+    padding: ".5rem",
+    overflow: "hidden",
+    justifyContent: "space-around",
+  },
+  containerFooter: {
+    padding: ".5rem",
+    width: "100%",
+    height: "10%",
+    display: "flex",
+  },
+  assigndeps: {
+    ...borderBox,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "white",
+  },
+  assigndepsContent: {
+    ...flexColumn,
+    padding: "0 .5rem",
+    height: "100%",
+    overflow: "hidden",
+  },
+  card: {
+    ...borderBox,
+    width: "100%",
+    margin: ".5rem 0",
+  },
+  DepForm: {
+    ...flexColumn,
+    ...borderBox,
+    width: "70%",
+    height: "100%",
+    padding: "1rem",
+    overflow: "auto",
+    backgroundColor: "#e0f9ff",
+  },
+  dep3:{
+    ...flexColumn,
+  },
+  dep1:{
+    ...flexRow,
+  },
+  Row:{
+    ...flexRow, 
+    justifyContent: "space-between", 
+    width:"100%",
+    gap:"1%",
+  },
+  Depcard:{
+    maxHeight:"150px",
+    overflowY:"auto",
+    maxWidth:"400px",
+    overflowX:"auto",
+  },
+  Depcard1:{
+    maxHeight:"200px",
+    overflowY:"auto",
+    maxWidth:"460px",
+    overflowX:"auto",
+  },
+  cardHeader: {
+    height:"3px",
+    background: "#d8e8ee",
+  },
+  //DirectorCard:{
+  // height:"150px",
+   //textAlign:"center",
+  //},
+}));
+function Department(){
+        const dir={
+            name:"Abcd efg"
+        }
+        const dep_data=[
+          "loren Ipsum","gsdgsdgsdgb","tutukmbncx","qebngjkgm"
+      ];
+      const [dep4_data,setdep4_data]=useState([{s_no:1.,dep:"loren Ipsum",},
+      {s_no:2.,dep:"loren Ipsum",},
+      {s_no:3.,dep:"loren Ipsum",}
+    ]);
+    const [depart, setdepart] = useState("");
+    const [isNewRowAdded, setIsNewRowAdded] = useState(false);
+    const HandleDep1Change=()=>{
+    const data={
+        s_no:dep4_data.length + 1,
+        dep:depart
+    }
+    setdep4_data([...dep4_data,data])
+    setdepart("")
+    setIsNewRowAdded(true);
+    }
     const [dep4Data, setDep4Data] = useState([
       { s_no: 1, dep: "loren Ipsum", sub_dep: "loren ipsum" },
       { s_no: 2, dep: "loren Ipsum", sub_dep: "loren ipsum" },
@@ -151,14 +153,132 @@ export function Dep4AndDep5() {
       setDep4Data([...dep4Data, newData]);
       setdep("");
     };
-  
-    return (
-      <>
+    const classes = useStyles();
+return(
+    <div className={classes.container}>
+    <div className={classes.containerBody}>
+      <Card className={classes.DepForm}>
+        <CardContent>
+        <div className={classes.Row}>
+          
+          <div className={classes.DirectorCard}>
+            <Card>
+              <CardContent className={classes.assigndepsContent}>
+              <CardHeader title="Panoma Vol2" className={classes.cardHeader}/>
+          <Card className={`${classes.assigndeps} ${classes.card}`} style={{ flex: 1 }}>
+            <CardContent className={classes.assigndepsContent}>
+            <Typography variant="body1">Director:{dir.name}</Typography>
+            </CardContent>
+            </Card>
+            </CardContent>
+            </Card>
+            </div>
+        <div className="g2">
+            <Card className={`${classes.assigndeps} ${classes.card}`} style={{ flex: 1 }}>
+              <CardContent className={classes.assigndepsContent}>
+            <div className={classes.dep1}>
+                <div className="b1">
+                <h3>Assistant Directors</h3>
+                <ul >
+                    {dep_data.map((people,index)=>(
+                    <>
+                    <li key={index}>{people}</li>
+                    </>
+                    ))}
+                </ul>
+            </div>
+            <div className="b1">
+            <h3>Music Directors</h3>
+            <ul >
+                    {dep_data.map((people,index)=>(
+                    <>
+                    <li key={index}>{people}</li>
+                    </>
+                    ))}
+                </ul>
+            </div>
+            <div className="b1">
+            <h3>Costume Department</h3>
+            <ul >
+                    {dep_data.map((people,index)=>(
+                    <>
+                    <li key={index}>{people}</li>
+                    </>
+                    ))}
+                </ul>
+            </div>
+            </div>
+            </CardContent>
+            </Card>
+        </div>
+        
+      </div>
+      <div className={classes.Row}>
+       
+          <div className="dep3">
+            <Card>
+              <CardContent>
+                <CardHeader title="Departments" className={classes.cardHeader}/>
+            <Card className={`${classes.assigndeps} ${classes.card}`} style={{ flex: 1 }}>
+            <CardContent className={classes.assigndepsContent}>
+              <div className={classes.Depcard}>
+                <table >
+                <thead>
+                    <tr>
+                        <th className="table-cell">S.NO</th>
+                        <th className="table-cell">Department</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        {dep4_data.map((val,index)=>(
+                            <>
+                            <tr key={index}>
+                            <td className="table-cell">{val.s_no}</td>
+                            <td className="table-cell">{val.dep}</td>
+                            <td className="table-cell">{<Button className="b" variant="outlined">Edit</Button>}</td>
+                            <td className="table-cell">{<Button className="but" variant="outlined">Details</Button>}</td>
+                            </tr>
+                           </>
+                        ))}
+                </tbody>
+                </table>
+                </div>
+                </CardContent>
+            </Card>
+            </CardContent>
+            </Card>
+            </div>
         <div className="g1">
-          <Card style={{ maxHeight: "100%", overflowY: "auto" }}>
+          <Card>
             <CardContent>
-            <div className="dep4">
-              <Typography variant="h5">Sub-Departments</Typography>
+              <CardHeader title="Add New Department"  className={classes.cardHeader}/>
+            <Card className={`${classes.assigndeps} ${classes.card}`} style={{ flex: 1 }}>
+              <CardContent className={classes.assigndepsContent}>
+            <div className={classes.dep3}>
+            <TextField label="Name Department" value={depart} onChange={(e)=>{setdepart(e.target.value)}}></TextField>
+            <form className="form">
+            <FormControlLabel label="Main" value="Main" control={<Radio/>}/>
+            <FormControlLabel label="sub" value="sub" control={<Radio/>}/>
+            </form>
+            <TextField label="Total members"></TextField>
+            <Button variant="contained" color="primary" onClick={HandleDep1Change}>ADD</Button>
+            </div>
+            </CardContent>
+            </Card>
+            </CardContent>
+            </Card>
+            </div>
+            
+       </div>
+       <div className={classes.Row}>
+        
+        <div className="dep4">
+          <Card>
+            <CardContent>
+              <CardHeader title="Sub-Departments" className={classes.cardHeader}/>
+          <Card className={`${classes.assigndeps} ${classes.card}`} style={{ flex: 1 }}>
+            <CardContent className={classes.assigndepsContent}>
+            <div className={classes.Depcard}>
               <table>
                 <thead>
                   <tr>
@@ -188,13 +308,16 @@ export function Dep4AndDep5() {
             </div>
           </CardContent>
           </Card>
+          </CardContent>
+          </Card>
         </div>
-  
         <div className="g1">
-          <Card style={{ maxHeight: "100%", overflowY: "auto" }}>
+        <Card>
             <CardContent>
-            <div className="dep3">
-              <Typography color="black">Add Sub-Department</Typography>
+              <CardHeader title="Add Sub Department"  className={classes.cardHeader}/>
+          <Card className={`${classes.assigndeps} ${classes.card}`} style={{ flex: 1 }}>
+            <CardContent className={classes.assigndepsContent}>
+            <div className={classes.dep3}>
               <Select label="Select Department" value={subdep} onChange={(e)=>{setsubdep(e.target.value)}}>
                 <MenuItem disabled value="">
                   <em>Select Department</em>
@@ -212,13 +335,19 @@ export function Dep4AndDep5() {
                 variant="contained"
                 color="primary"
                 onClick={HandleDepchange}
-              >
-                Add
-              </Button>
+              >Add</Button>
             </div>
           </CardContent>
           </Card>
+          </CardContent>
+          </Card>
         </div>
-      </>
+       
+       </div>
+      </CardContent>
+      </Card>
+      </div>
+      </div>
     );
   }
+  export default Department;

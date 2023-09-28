@@ -3,7 +3,7 @@ import { TextField, Typography, makeStyles } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import CrewTable from "../reusable-components/CrewTable";
-import {getListEditButton,serverURL } from "../../constants";
+import {getListEditButtonAD,serverURL } from "../../constants";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -72,7 +72,7 @@ const ListDataAD = ({
         const { rows, columns } = result?.data || { rows: [], columns: [] };
         const columnsWithEditButton = [
           ...columns,
-          getListEditButton(rows)[editButtonConfig],
+          getListEditButtonAD(rows)[editButtonConfig],
         ];
 
         setRows(rows);

@@ -1,7 +1,96 @@
 
-import {Typography,Box,Paper,TextField,Card,CardContent} from "@mui/material";
-import "./../../App.css";
-import { useState } from "react";
+import React, {useState } from "react";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  MenuItem,
+  Select,
+  makeStyles,
+  Paper,
+} from "@material-ui/core";
+import {Box,Typography,Radio,FormControlLabel} from "@mui/material"
+import TextField from "@material-ui/core/TextField";
+
+const flexColumn = {
+  display: "flex",
+  flexDirection: "column",
+};
+const flexRow={
+  display: "flex",
+  flexDirection: "row", 
+}
+const borderBox = {
+  boxSizing: "border-box",
+};
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    ...borderBox,
+  },
+  containerdes: {
+    ...borderBox,
+    width: "100%",
+    height: "100%",
+    padding: ".5rem",
+    overflow: "hidden",
+    justifyContent: "space-around",
+  },
+  containerBodydes: {
+    ...borderBox,
+    display: "flex",
+    height: "100%",
+    width: "100%",
+    padding: ".5rem",
+    overflow: "hidden",
+    justifyContent: "space-around",
+  },
+  card: {
+    ...borderBox,
+    width: "100%",
+    margin: ".5rem 0",
+  },
+  DeignForm: {
+    ...flexColumn,
+    ...borderBox,
+    width: "90%",
+    height: "100%",
+    padding: "1rem",
+    overflow: "auto",
+    backgroundColor: "#e0f9ff",
+  },
+  row:{
+    ...flexColumn,
+  },
+  Dropdown:{
+    width: "100%",
+    //border-radius: 5px,
+    padding: "10px",
+    cursor: "pointer",
+    fontSize: "large",
+  },
+  SubDropdown:{
+    width: "95%",
+    //border-radius: 5px,
+    padding: "10px",
+    cursor: "pointer",
+    marginLeft: "30px",
+    fontSize: "large",
+  },
+  SubDropdown1:{
+    width: "90%",
+    //border-radius: 5px;
+    padding: "10px",
+    cursor: "pointer",
+    marginLeft: "30px",
+    fontSize: "large",
+  }
+  //DirectorCard:{
+  // height:"150px",
+   //textAlign:"center",
+  //},
+}));
 function Designations()
 {
     const [addnew,setaddnew]=useState("");
@@ -52,34 +141,32 @@ function Designations()
             setsubsubdropdown2(false)
         }*/
     }
+    const classes = useStyles();
     return(
         <>
-        <div className="container">
-        <Card>
-            <CardContent>
-
-        <Box
-        bgcolor="lavender"
-        color="black"
-        p={3}
-        textAlign="center"
-        borderRadius={5}
-        >
-        <Paper elevation={3} color="blue"><Typography variant="h5">SELECT DESIGNATIONS</Typography></Paper>
-        <select className="Dropdown" value={dropdown} onChange={handledropdown}>
+        <div className={classes.containerdes}>
+        <div className={classes.containerBodydes}>
+        <Card className={classes.DeignForm}>
+        <CardContent>
+        <div className={classes.row}>
+        <div>
+        <Paper style={{textAlign:"center"}}><h2>SELECT DESIGNATIONS</h2></Paper>
+        </div>
+        <div>
+        <select className={classes.Dropdown} value={dropdown} onChange={handledropdown}>
             <option>Select an option</option>
             <option>Direction</option>
             <option>Camera and Lighting</option>
         </select>
             {subdropdown1 && dropdown==="Direction" && (
-            <select className="SubDropdown" value={subdropdown} onChange={HandleSubdropdown}>
+            <select className={classes.SubDropdown} value={subdropdown} onChange={HandleSubdropdown}>
               <option>Select a sub-option</option>
               <option>Direction Team</option>
               <option>Location</option>
               <option>{addnew}</option>
             </select>)}
             {subdropdown2 && dropdown==="Camera and Lighting" && (
-            <select className="SubDropdown" value={subdropdown} onChange={HandleSubdropdown}>
+            <select className={classes.SubDropdown} value={subdropdown} onChange={HandleSubdropdown}>
               <option>Select a sub-option</option>
               <option>Photography</option>
               <option>Lighting</option>
@@ -87,7 +174,7 @@ function Designations()
             </select>)}
             {
                 subsubdropdown1 &&  dropdown==="Direction" && subdropdown==="Direction Team" &&(
-                <select className="SubDropdown1">
+                <select className={classes.SubDropdown1}>
                 <option>Select a sub-sub-option</option>
                 <option>Director</option>
                 <option>First AD</option>
@@ -98,7 +185,7 @@ function Designations()
             }
             {
                subsubdropdown2 && dropdown==="Camera and Lighting" && subdropdown==="Photography" &&(
-                <select className="SubDropdown1">
+                <select className={classes.SubDropdown1}>
                 <option>Select a sub-sub-option</option>
                 <option>DOP</option>
                 <option>Camera Operator</option>
@@ -106,9 +193,11 @@ function Designations()
                 </select>
                 ) 
             }
-        </Box>
+            </div>
+            </div>
         </CardContent>
         </Card>
+        </div>
         </div>
         </>
     )

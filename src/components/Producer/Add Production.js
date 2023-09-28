@@ -1,16 +1,95 @@
+import React from "react";
+import {
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    MenuItem,
+    Select,
+    Paper,
+    makeStyles,
+  } from "@material-ui/core";
+  import TextField from "@material-ui/core/TextField";
+  import { useState } from "react";
+  //import "./../../App.css";
 
-import './../../App.css';
-import React from 'react';
-import { Typography,Button,TextField,Box,Paper, Select, MenuItem} from '@mui/material';
-import  { useState } from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-
-const cardStyles = {
-  maxWidth:"50%",
-  margin: '0 auto',
-  marginTop:"5%", 
-};
+  const flexColumn = {
+    display: "flex",
+    flexDirection: "column",
+  };
+  const flexRow = {
+    display: "flex",
+    flexDirection: "row",
+  };
+  const borderBox = {
+    boxSizing: "border-box",
+  };
+  
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      ...borderBox,
+    },
+    containerpros: {
+      ...borderBox,
+      width: "90%",
+      height: "100%",
+      padding: ".5rem",
+      marginLeft:"5%",
+      //marginTop:"2%",
+    },
+    heading: {
+      ...borderBox,
+      padding: "0",
+      width: "100%",
+      textAlign: "center",
+    },
+    containerprosBody: {
+      ...borderBox,
+      height: "90%",
+      width: "100%",
+      padding: ".5rem",
+    },
+      card: {
+      ...borderBox,
+      flex: "1",
+      margin: ".5rem 0",
+    },
+    ProsForm: {
+      ...borderBox,
+      width: "100%",
+      height: "100%",
+      padding: "1rem",
+      overflow: "auto",
+      backgroundColor: "#d8e8ee",
+    },
+    assignpros: {
+      ...borderBox,
+      width:"100%",
+      height: "100%",
+      backgroundColor: "white",
+    },
+    assignprosContent: {
+      padding: "0 .5rem",
+      height: "100%",
+      overflow: "hidden",
+    },
+    cardHeader: {
+      height:"3px",
+      background: "#d8e8ee",
+    },
+    prodcontainer:{
+      textAlign:"center",
+    },
+    Maincontainer:{
+      ...flexRow,
+      justifyContent:"center",
+      textAlign:"center",
+      gap:"10%",
+    },
+    productionType:{
+      ...flexColumn,
+    }
+  }));
 function AddProduction(){
     const [image, setImage] = useState(null);
 
@@ -59,41 +138,38 @@ function AddProduction(){
      const handleRadioChange = (e) => {
        setInputValue2(e.target.value);
      };
+     const classes = useStyles();
     return(
 
       <>
-      <Card style={cardStyles}>
-        <CardContent>
-        <Paper style={{width:"100%", backgroundColor:"lavender"}}><Typography variant='body1' align='center'>ADD PRODUCTIONS</Typography></Paper>
-      <div className='prodcontainer'>
-                  <div className='Imageupload'>
-                    <div className='Tile'>
-                    <div className='tile'>
-                        <input type="file" accept="image/*" onChange={handleImageChange}/>
+      <div className={classes.containerpros}>
+        <div className={classes.containerprosBody}>
+          <Card className={classes.ProsForm}>
+                <CardContent >
+                <Paper style={{width:"100%", textAlign:"center"}}><h2>ADD PRODUCTIONS</h2></Paper>
+                <div className={classes.Maincontainer}>
+                <div className={classes.prodcontainer}>
+                  <Card className={`${classes.assignpros} ${classes.card}`} style={{ flex: 1 }}>
+                    <CardContent className={classes.assignprosContent}>
+                  <input type="file" accept="image/*" onChange={handleImageChange}/>
                         {image && (
-                        <div>
                         <img
                             src={image}
                             alt="Uploaded"
-                            style={{ maxWidth: '100%', height: '100%' }}
-                        />
-                        </div>)}
-                    </div>
-                    </div>
-                    </div>
+                            className={classes.imagePreview}
+                        />)} 
+                  </CardContent>
+                  </Card>
+                </div>
+
+
                     <div className='prod'>
-                      <Box
-                      bgcolor="lavender"
-                      padding={3}
-                      color="black"
-                      textAlign="center"
-                      borderRadius={5}
-                      width="fit-content"
-                      >
-                        <Typography variant='body1' align='center'>Production Name</Typography>
+                      <Card className={`${classes.assignpros} ${classes.card}`} style={{ flex: 1 }}>
+                        <CardContent className={classes.assignprosContent}>
+                        <h3>Production Name</h3>
                             <TextField value={inputValue1} onChange={handleInputChange1} label="Production Name"></TextField>
-                        <div className='production-type'>
-                            <Typography variant='body1' align='center'>Type Of Production</Typography>
+                        <div className={classes.productionType}>
+                            <h3>Type Of Production</h3>
                             <Select
                                 label="Type of Production"
                                 onFocus={handleInput2Focus}
@@ -111,11 +187,14 @@ function AddProduction(){
                                     )}</Select>
                                     <Button variant='contained' color="primary" type='submit' >SUBMIT</Button>
                         </div>
-                    </Box>
+                    </CardContent>
+                    </Card>
                     </div>
                     </div>
                     </CardContent>
                     </Card>
+                    </div>
+                    </div>
         </>
     )
 }

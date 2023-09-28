@@ -73,6 +73,37 @@ export const AssistantdirectorListItems = [
     icon: "BuildIcon",
     route: "/assistantdirector/SetupAD",
   },
- 
+  {
+    text: "Assign",
+    icon: "AssignmentIcon",
+    route: PATHS.ASSIGNAD,
+  },
 ];
+export const ProducerListItems = [
+  {
+    text: "Producer",
+    icon: "PersonIcon",
+    route: "/Producer",
+  },
+  {
+    text: "Add Production",
+    icon: "AttachMoneyIcon",
+    route: "/Producer/AddProduction",
+  },
+  {
+    text: "Departments",
+    icon: "GroupIcon",
+    route: "/Producer/Departments",
+  },
+  {
+    text: "Designations",
+    icon: "BarChartIcon",
+    route: "/Producer/Designations",
+  },
+  {
+    text: "AddCrew",
+    icon: "AddIcon",
+    route: "/Producer/AddCrew",
+  },
+]
 
