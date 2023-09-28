@@ -7,6 +7,7 @@ import SetupComponentAD from "../components/assistantdirector/SetupAD";
 import AssignCharactersAD from "../components/assistantdirector/AssignedCharactersAD";
 import AssignedLocationsAD from "../components/assistantdirector/AssignedLocationsAD";
 import AssignAD from "../components/assistantdirector/AssignAD";
+import SceneDetailsAD from "../components/assistantdirector/SceneDetailsAD";
 import ListData from "../components/director/ListData";
 export const AssistantdirectorRoutes = () => (
     <Route path="/assistantdirector" element={<AssistantDirector />}>
@@ -69,6 +70,7 @@ export const AssistantdirectorRoutes = () => (
       <Route path={PATHS.EDIT_CHARACTERSAD} element={<AssignCharactersAD />} />
     <Route path={PATHS.EDIT_LOCATIONSAD} element={<AssignedLocationsAD />} />
     <Route path={PATHS.ASSIGNAD} element={<AssignAD />} />
+    <Route path={PATHS.SCENE_DETAILSAD} element={<SceneDetailsAD />} />
      <Route
       path={PATHS.LOCATION_SETUPAD}
       element={

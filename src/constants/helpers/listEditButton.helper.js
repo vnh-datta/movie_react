@@ -77,11 +77,13 @@ export const getListEditButtonAD = (rows) => {
     sceneSetup: {
       field: "edit",
       headerName: "Edit",
-      renderCell: (params) => {
+      renderCell: ({ row: { id } }) => {
         return (
+          <Link to={PATHS.SCENE_DETAILSAD} state={{ rows, id }}>
           <IconButton aria-label="edit">
             <EditIcon />
           </IconButton>
+          </Link>
         );
       },
     },

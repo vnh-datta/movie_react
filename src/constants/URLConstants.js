@@ -12,6 +12,7 @@ export const PATHS = {
   SCENE_DETAILS: "/director/scenesDetails",
   EDIT_LOCATIONS : "/director/editLocations",
   ASSIGNAD: "/assistantdirector/assignAD",
+  SCENE_DETAILSAD: "/assistantdirector/scenesDetailsAD",
   EDIT_LOCATIONSAD:"/assistantdirector/editLocationsAD",
   EDIT_CHARACTERSAD:"/assistantdirector/editCharactersAD",
   VERIFY_CREWAD: "/assistantdirector/verifyCrew",
