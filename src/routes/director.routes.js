@@ -22,7 +22,7 @@ export const directorRoutes = () => (
         <ListData
           editButtonConfig="verifyCrew"
           headerText="Crew Details"
-          fetchAPI="crew"
+          fetchAPI="crew_lists"
           fetchType="GET"
           searchByField="name"
         />
