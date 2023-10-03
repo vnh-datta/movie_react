@@ -10,18 +10,11 @@ import ResponseContext from "./components/ResponseContext";
 // import AssistantDirector from "./components/AssistantDirectorbefore";
 import ListData from "./components/director/ListData";
 import { directorRoutes } from "./routes/director.routes";
-/*import Department from "./components/Producer/Departments";
-import {Dep1,Dep2AndDep3,Dep4AndDep5} from "./components/Producer/Departments";
-import Designations from "./components/Producer/Designations";
-import AddProduction from "./components/Producer/Add Production";
-import AddCrew from "./components/Producer/AddCrew"*/
 import { ProducerRoutes } from "./routes/Producer.routes";
 import { AssistantdirectorRoutes } from "./routes/Assistantdirector.routes";
 import AssistantDirector from "./components/AssistantDirector";
 import ListDataAD from "./components/assistantdirector/ListDataAD";
 import UploadScript from "./components/assistantdirector/UploadScript"
-import { Card } from "@material-ui/core";
-import { CardContent } from "@mui/material";
 //import { AssistantdirectorRoutes } from "./routes/Assistantdirector.routes";
 //import AssistantDirector from "./components/AssistantDirector";
 //import ListDataAD from "./components/assistantdirector/ListDataAD";

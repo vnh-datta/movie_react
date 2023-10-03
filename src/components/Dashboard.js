@@ -120,9 +120,9 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const handleClick = () => {
     //navigate('/director');
-    //navigate('/Producer');
+    navigate('/Producer');
     
-    navigate('/assistantdirector');
+    //navigate('/assistantdirector');
   };
   const handleFormSubmit = (data) => {
     setSelectedItem(data);

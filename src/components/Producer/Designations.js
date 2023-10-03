@@ -6,13 +6,11 @@ import {
   CardContent,
   CardHeader,
   MenuItem,
+  TextField,
   Select,
   makeStyles,
   Paper,
 } from "@material-ui/core";
-import {Box,Typography,Radio,FormControlLabel} from "@mui/material"
-import TextField from "@material-ui/core/TextField";
-
 const flexColumn = {
   display: "flex",
   flexDirection: "column",
@@ -58,89 +56,118 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     padding: "1rem",
     overflow: "auto",
-    backgroundColor: "#e0f9ff",
+    backgroundColor: "#d8e8ee",
+    flex:"1",
+  },
+  cardHeader: {
+    height:"3px",
+    background: "#d8e8ee",
   },
   row:{
-    ...flexColumn,
+    ...flexRow,
+    flexGrow:"1",
+    justifyContent:"space-around",
+    width:"100%",
   },
-  Dropdown:{
-    width: "100%",
-    //border-radius: 5px,
-    padding: "10px",
-    cursor: "pointer",
-    fontSize: "large",
-  },
-  SubDropdown:{
-    width: "95%",
-    //border-radius: 5px,
-    padding: "10px",
-    cursor: "pointer",
-    marginLeft: "30px",
-    fontSize: "large",
-  },
-  SubDropdown1:{
-    width: "90%",
-    //border-radius: 5px;
-    padding: "10px",
-    cursor: "pointer",
-    marginLeft: "30px",
-    fontSize: "large",
-  }
-  //DirectorCard:{
-  // height:"150px",
-   //textAlign:"center",
-  //},
 }));
+const departments = {
+  "Direction": {
+    "Sub-Departments": ["Direction Team", "Location"],
+    "Designations": {
+      "Direction Team": ["First AD", "Second AD"],
+      "Location":["dsd","ddcc"]
+    },
+  },
+
+  "Camera & Lighting": {
+    "Sub-Departments": ["Photography", "Lighting"],
+    "Designations": {
+      "Photography": ["DOP", "camera operator", "camera assistant", "sec cam assistant", "steadicam operator", "Focus Puller"],
+      "Lighting":["rwrr","fqws"]
+    },
+  },
+};
+
 function Designations()
 {
-    const [addnew,setaddnew]=useState("");
-    const [dropdown,setdropdown]=useState('');
-    const [subdropdown,setsubdropdown]=useState('');
-    const [subdropdown1,setsubdropdown1]=useState(false);
-    const [subdropdown2,setsubdropdown2]=useState(false);
-    const [subsubdropdown1,setsubsubdropdown1]=useState(false);
-    const [subsubdropdown2,setsubsubdropdown2]=useState(false);
-    const Handleaddnew=()=>
-    {
-        <TextField id="addnew" label="Addnew" value={addnew} onChange={(e)=>{setaddnew(e.target.value)}}></TextField>
+
+    const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [selectedSubDepartment, setSelectedSubDepartment] = useState("");
+  const [selectedDesignation, setSelectedDesignation] = useState("");
+  const [showAddNewDepartment, setShowAddNewDepartment] = useState(false); 
+  const [newDepartment, setNewDepartment] = useState("");
+  const [showAddNewSubDepartment, setShowAddNewSubDepartment] = useState(false);
+  const [showAddNewDesignation, setShowAddNewDesignation] = useState(false);
+  const [newSubDepartment, setNewSubDepartment] = useState(""); 
+  const [showAddNew, setShowAddNew] = useState(false); 
+  const [newDesignation, setNewDesignation] = useState(""); 
+  const handleDepartmentChange = (e) => {
+    const department = e.target.value;
+    setSelectedDepartment(department);
+    setSelectedSubDepartment(""); 
+    setSelectedDesignation("");
+  };
+
+  const handleSubDepartmentChange = (e) => {
+    const subDepartment = e.target.value;
+    setSelectedSubDepartment(subDepartment);
+    setSelectedDesignation(""); 
+  };
+
+  const handleDesignationChange = (e) => {
+    const designation = e.target.value;
+    setSelectedDesignation(designation);
+  };
+  const handleAddNewDepartmentClick = () => {
+    setShowAddNewDepartment(true); 
+  };
+
+  const handleAddNewSubDepartmentClick = () => {
+    setShowAddNewSubDepartment(true);
+  };
+
+  const handleNewDepartmentChange = (e) => {
+    const newDepartmentValue = e.target.value;
+    setNewDepartment(newDepartmentValue);
+  };
+  const handleAddNewClick = () => {
+    setShowAddNew(true); 
+  };
+
+  const handleNewDesignationChange = (e) => {
+    const newDesignationValue = e.target.value;
+    setNewDesignation(newDesignationValue);
+  };
+
+  const addNewDesignation = () => {
+    departments[selectedDepartment]["Designations"][selectedSubDepartment].push(
+      newDesignation
+    );
+    setNewDesignation("");
+    setShowAddNew(false);
+  };
+  const handleNewSubDepartmentChange = (e) => {
+    const newSubDepartmentValue = e.target.value;
+    setNewSubDepartment(newSubDepartmentValue);
+  };
+  const addNewDepartment = () => {
+    departments[newDepartment] = {
+      "Sub-Departments": [],
+      "Designations": {},
+    };
+    setNewDepartment("");
+    setShowAddNewDepartment(false);
+  };
+
+  const addNewSubDepartment = () => {
+
+    if (selectedDepartment && departments[selectedDepartment]) {
+      departments[selectedDepartment]["Sub-Departments"].push(newSubDepartment);
     }
-    const handledropdown=(e)=>{
-    const val=e.target.value;
-    setdropdown(val)
-    if (val === "Direction"){
-        setsubdropdown2(false);
-    setsubdropdown1(true);
-    
-    }
-    else if (val === "Camera and Lighting") {
-        setsubdropdown1(false);
-    setsubdropdown2(true);
-    
-    }  
-    else {
-    setsubdropdown1(false);
-    setsubdropdown2(false);
-    }  
-    }
-    const HandleSubdropdown=(e)=>{
-        const val1=e.target.value;
-        setsubdropdown(val1);
-        if (val1 === "Direction Team" && dropdown === "Direction")
-        {
-            setsubsubdropdown2(false)
-            setsubsubdropdown1(true)
-        }
-        else if(val1 === "Photography" && dropdown === "Camera and Lighting")
-        {
-            console.log("subsubphotography")
-            setsubsubdropdown1(false)
-            setsubsubdropdown2(true)
-        }
-        /*else{
-            setsubsubdropdown1(false)
-            setsubsubdropdown2(false)
-        }*/
-    }
+    setNewSubDepartment("");
+    setShowAddNewSubDepartment(false);
+  };
+
     const classes = useStyles();
     return(
         <>
@@ -148,53 +175,111 @@ function Designations()
         <div className={classes.containerBodydes}>
         <Card className={classes.DeignForm}>
         <CardContent>
-        <div className={classes.row}>
         <div>
         <Paper style={{textAlign:"center"}}><h2>SELECT DESIGNATIONS</h2></Paper>
         </div>
+        <Card>
+          <CardContent>
+        <div className={classes.row}>
         <div>
-        <select className={classes.Dropdown} value={dropdown} onChange={handledropdown}>
-            <option>Select an option</option>
-            <option>Direction</option>
-            <option>Camera and Lighting</option>
-        </select>
-            {subdropdown1 && dropdown==="Direction" && (
-            <select className={classes.SubDropdown} value={subdropdown} onChange={HandleSubdropdown}>
-              <option>Select a sub-option</option>
-              <option>Direction Team</option>
-              <option>Location</option>
-              <option>{addnew}</option>
-            </select>)}
-            {subdropdown2 && dropdown==="Camera and Lighting" && (
-            <select className={classes.SubDropdown} value={subdropdown} onChange={HandleSubdropdown}>
-              <option>Select a sub-option</option>
-              <option>Photography</option>
-              <option>Lighting</option>
-              <option>{addnew}</option>
-            </select>)}
-            {
-                subsubdropdown1 &&  dropdown==="Direction" && subdropdown==="Direction Team" &&(
-                <select className={classes.SubDropdown1}>
-                <option>Select a sub-sub-option</option>
-                <option>Director</option>
-                <option>First AD</option>
-                <option>Second AD</option>
-                <option>{addnew}</option> 
-                </select>
-                )
-            }
-            {
-               subsubdropdown2 && dropdown==="Camera and Lighting" && subdropdown==="Photography" &&(
-                <select className={classes.SubDropdown1}>
-                <option>Select a sub-sub-option</option>
-                <option>DOP</option>
-                <option>Camera Operator</option>
-                <option onClick={Handleaddnew}>Add new</option>
-                </select>
-                ) 
-            }
+      <Card>
+          <CardContent style={{display:"flex",flexDirection:"column"}}>
+        <CardHeader title="Department" className={classes.cardHeader}/>
+    <Select className={classes.Dropdown} value={selectedDepartment} variant="outlined" color="primary" onChange={handleDepartmentChange} >
+        <em>Select a Department</em>
+      {Object.keys(departments).map((department, index) => (
+        <MenuItem key={index} value={department}>{department}</MenuItem>
+         ))}
+         <MenuItem value="Add New" onClick={handleAddNewDepartmentClick}>
+                              Add New
+                            </MenuItem>
+
+  </Select>
+  {showAddNewDepartment && (
+<TextField label="New Department"value={newDepartment}onChange={handleNewDepartmentChange}variant="outlined"/>
+ )}{showAddNewDepartment && (
+   <Button variant="contained"color="primary" onClick={addNewDepartment}>
+    Add</Button>
+    )}
+ </CardContent>
+        </Card>
+        </div>
+        <div>
+        <Card>
+      <CardContent style={{display:"flex",flexDirection:"column"}}>
+    <CardHeader title="Sub-Department" className={classes.cardHeader}/>
+    {selectedDepartment && departments[selectedDepartment] &&(
+      <Select className={classes.SubDropdown} value={selectedSubDepartment} variant="outlined" color="primary" onChange={handleSubDepartmentChange}>
+      <em>Select a Sub-Department</em>
+    {departments[selectedDepartment]["Sub-Departments"].map((subDepartment, index) => (
+     <MenuItem key={index} value={subDepartment}>{subDepartment}</MenuItem>
+       ))}
+       <MenuItem value="Add New" onClick={() => handleAddNewClick("subDepartment")}>Add New</MenuItem>
+       <MenuItem value="Add New" onClick={handleAddNewSubDepartmentClick}>
+                                  Add New
+                                </MenuItem>
+       </Select>
+       
+       )}
+           {showAddNewSubDepartment && (
+                            <TextField
+                              label="New Sub-Department"
+                              value={newSubDepartment}
+                              onChange={handleNewSubDepartmentChange}
+                              variant="outlined"
+                            />
+                          )}
+                          {showAddNewSubDepartment && (
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={addNewSubDepartment}
+                            >
+                              Add
+                            </Button>
+                          )}
+        </CardContent>
+        </Card>
+        </div>
+        <div>
+ <Card>
+<CardContent style={{display:"flex",flexDirection:"column"}}>
+  <CardHeader title="Designation" className={classes.cardHeader}/>
+  {selectedSubDepartment &&
+  departments[selectedDepartment]?.["Designations"] &&
+ departments[selectedDepartment]["Designations"][selectedSubDepartment] && (
+<Select className={classes.SubDropdown1} value={selectedDesignation}variant="outlined" color="primary" onChange={handleDesignationChange} >
+  <em>Select a Designation</em>
+{departments[selectedDepartment]["Designations"][selectedSubDepartment].map((designation, index) => (
+ <MenuItem key={index} value={designation} >{designation}</MenuItem>
+
+        ))}
+        <MenuItem value="Add New" onClick={handleAddNewClick}>Add New</MenuItem>
+  </Select>
+  )}
+     {showAddNewDesignation && (
+                            <TextField
+                              label="New Designation"
+                              value={newDesignation}
+                              onChange={handleNewDesignationChange}
+                              variant="outlined"
+                            />
+                          )}
+                          {showAddNewDesignation && (
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={addNewDesignation}
+                            >
+                              Add
+                            </Button>
+                          )}
+ </CardContent>
+ </Card>
+ </div>
             </div>
-            </div>
+            </CardContent>
+            </Card>
         </CardContent>
         </Card>
         </div>

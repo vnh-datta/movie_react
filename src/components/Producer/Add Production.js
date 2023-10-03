@@ -36,6 +36,9 @@ import {
       padding: ".5rem",
       marginLeft:"5%",
       //marginTop:"2%",
+      display: "flex",
+      justifyContent:"space-around",
+
     },
     heading: {
       ...borderBox,
@@ -45,22 +48,29 @@ import {
     },
     containerprosBody: {
       ...borderBox,
-      height: "90%",
+      height: "100%",
       width: "100%",
       padding: ".5rem",
+      display:"flex",
+      justifyContent:"space-around",
     },
       card: {
       ...borderBox,
       flex: "1",
       margin: ".5rem 0",
     },
+    cardpro:{
+      maxHeight: "350px",
+      maxWidth: "300px",
+    },
     ProsForm: {
       ...borderBox,
-      width: "100%",
+      width: "70%",
       height: "100%",
       padding: "1rem",
       overflow: "auto",
       backgroundColor: "#d8e8ee",
+      flex:"1",
     },
     assignpros: {
       ...borderBox,
@@ -73,9 +83,18 @@ import {
       height: "100%",
       overflow: "hidden",
     },
-    cardHeader: {
+    cardHeaderPro: {
       height:"3px",
       background: "#d8e8ee",
+    },
+    imagePreview: {
+      width: "100%",
+    height: "100%",
+    objectFit: "cover", 
+    },
+    imageContainer: {
+      maxWidth: "100%",
+      maxHeight: "100%",
     },
     prodcontainer:{
       textAlign:"center",
@@ -149,25 +168,31 @@ function AddProduction(){
                 <Paper style={{width:"100%", textAlign:"center"}}><h2>ADD PRODUCTIONS</h2></Paper>
                 <div className={classes.Maincontainer}>
                 <div className={classes.prodcontainer}>
-                  <Card className={`${classes.assignpros} ${classes.card}`} style={{ flex: 1 }}>
-                    <CardContent className={classes.assignprosContent}>
+                  <Card className={`${classes.assignpros} ${classes.cardpro}`}>
+                    <CardContent className={`${classes.assignprosContent} ${classes.cardpro}`}>
                   <input type="file" accept="image/*" onChange={handleImageChange}/>
                         {image && (
+                          <div className={classes.imageContainer}>
                         <img
                             src={image}
                             alt="Uploaded"
                             className={classes.imagePreview}
-                        />)} 
+                        />
+                        </div>
+                        )} 
                   </CardContent>
                   </Card>
                 </div>
 
 
                     <div className='prod'>
-                      <Card className={`${classes.assignpros} ${classes.card}`} style={{ flex: 1 }}>
+                      <Card>
+                        <CardContent>
+                          <CardHeader title="Add New Production" className={classes.cardHeaderPro}/>
+                      <Card className={`${classes.assignpros} ${classes.card}`}>
                         <CardContent className={classes.assignprosContent}>
                         <h3>Production Name</h3>
-                            <TextField value={inputValue1} onChange={handleInputChange1} label="Production Name"></TextField>
+                            <TextField value={inputValue1} onChange={handleInputChange1} label="Production Name" variant="outlined" color="primary"></TextField>
                         <div className={classes.productionType}>
                             <h3>Type Of Production</h3>
                             <Select
@@ -187,6 +212,8 @@ function AddProduction(){
                                     )}</Select>
                                     <Button variant='contained' color="primary" type='submit' >SUBMIT</Button>
                         </div>
+                    </CardContent>
+                    </Card>
                     </CardContent>
                     </Card>
                     </div>

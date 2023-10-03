@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import {
   Button,
   Card,
@@ -50,12 +50,6 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     justifyContent: "space-around",
   },
-  containerFooter: {
-    padding: ".5rem",
-    width: "100%",
-    height: "10%",
-    display: "flex",
-  },
   assigndeps: {
     ...borderBox,
     width: "100%",
@@ -70,29 +64,34 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     ...borderBox,
+    flex: "1", 
     width: "100%",
     margin: ".5rem 0",
   },
   DepForm: {
     ...flexColumn,
     ...borderBox,
-    width: "70%",
+    width: "80%",
     height: "100%",
     padding: "1rem",
     overflow: "auto",
-    backgroundColor: "#e0f9ff",
+    backgroundColor: "#d8e8ee",
+    flex:"1",
   },
   dep3:{
     ...flexColumn,
   },
   dep1:{
     ...flexRow,
+    justifyContent: "space-between",
+    width: "100%",
+    flexWrap: "wrap", 
   },
   Row:{
     ...flexRow, 
-    justifyContent: "space-between", 
+    justifyContent: "space-around", 
     width:"100%",
-    gap:"1%",
+    flex:"1",
   },
   Depcard:{
     maxHeight:"150px",
@@ -110,10 +109,10 @@ const useStyles = makeStyles((theme) => ({
     height:"3px",
     background: "#d8e8ee",
   },
-  //DirectorCard:{
-  // height:"150px",
-   //textAlign:"center",
-  //},
+  DirectorCard:{
+  height:"200px",
+   textAlign:"center",
+  },
 }));
 function Department(){
         const dir={
@@ -159,6 +158,8 @@ return(
     <div className={classes.containerBody}>
       <Card className={classes.DepForm}>
         <CardContent>
+          <Card>
+            <CardContent>
         <div className={classes.Row}>
           
           <div className={classes.DirectorCard}>
@@ -213,8 +214,12 @@ return(
         </div>
         
       </div>
+      </CardContent>
+      </Card>
+      
+          <Card>
+            <CardContent>
       <div className={classes.Row}>
-       
           <div className="dep3">
             <Card>
               <CardContent>
@@ -255,7 +260,7 @@ return(
             <Card className={`${classes.assigndeps} ${classes.card}`} style={{ flex: 1 }}>
               <CardContent className={classes.assigndepsContent}>
             <div className={classes.dep3}>
-            <TextField label="Name Department" value={depart} onChange={(e)=>{setdepart(e.target.value)}}></TextField>
+            <TextField label="Name Department" variant="outlined" color="primary" value={depart} onChange={(e)=>{setdepart(e.target.value)}}></TextField>
             <form className="form">
             <FormControlLabel label="Main" value="Main" control={<Radio/>}/>
             <FormControlLabel label="sub" value="sub" control={<Radio/>}/>
@@ -268,8 +273,12 @@ return(
             </CardContent>
             </Card>
             </div>
-            
        </div>
+       </CardContent>
+       </Card>
+       
+       <Card>
+        <CardContent>
        <div className={classes.Row}>
         
         <div className="dep4">
@@ -318,7 +327,7 @@ return(
           <Card className={`${classes.assigndeps} ${classes.card}`} style={{ flex: 1 }}>
             <CardContent className={classes.assigndepsContent}>
             <div className={classes.dep3}>
-              <Select label="Select Department" value={subdep} onChange={(e)=>{setsubdep(e.target.value)}}>
+              <Select label="Select sub-Department" value={subdep} onChange={(e)=>{setsubdep(e.target.value)}}>
                 <MenuItem disabled value="">
                   <em>Select Department</em>
                 </MenuItem>
@@ -326,8 +335,9 @@ return(
                 <MenuItem value="option2">Option 2</MenuItem>
               </Select>
               <TextField
-                label="Name Department"
+                label="Name sub-Department"
                 value={dep}
+                variant="outlined" color="primary"
                 onChange={(e) => setdep(e.target.value)}
               ></TextField>
               <TextField label="Total members"></TextField>
@@ -344,6 +354,8 @@ return(
         </div>
        
        </div>
+       </CardContent>
+       </Card>
       </CardContent>
       </Card>
       </div>

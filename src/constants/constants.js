@@ -86,6 +86,11 @@ export const ProducerListItems = [
     route: "/Producer",
   },
   {
+    text: "Existing Productions",
+    icon: "AppShortcutIcon",
+    route: "/Producer/ExistingProds",
+  },
+  {
     text: "Add Production",
     icon: "AttachMoneyIcon",
     route: "/Producer/AddProduction",

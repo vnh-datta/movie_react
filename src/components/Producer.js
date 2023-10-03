@@ -12,6 +12,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AddIcon from '@mui/icons-material/Add';
 import BarChartIcon from "@material-ui/icons/BarChart";
+import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 import PersonIcon from "@material-ui/icons/Person";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import FullPageContainer from "./FullPageContainer";
@@ -130,6 +131,8 @@ const getIcon = (icon) => {
       return <BarChartIcon style={{ color: "#fff" }} />;
       case "AddIcon":
         return <AddIcon style={{ color: "#fff" }} />;
+      case "AppShortcutIcon":
+      return <AppShortcutIcon style={{ color: "#fff" }} />;
     default:
       return null;
   }
