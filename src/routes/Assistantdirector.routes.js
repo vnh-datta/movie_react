@@ -8,11 +8,13 @@ import AssignCharactersAD from "../components/assistantdirector/AssignedCharacte
 import AssignedLocationsAD from "../components/assistantdirector/AssignedLocationsAD";
 import AssignAD from "../components/assistantdirector/AssignAD";
 import SceneDetailsAD from "../components/assistantdirector/SceneDetailsAD";
-import ListData from "../components/director/ListData";
+import LocationCardList from "../components/director/LocationCardList";
+import SelectedCharacterList from "../components/assistantdirector/SelectedCharacterList";
+import CastingCall from "../components/assistantdirector/CastingCall";
 export const AssistantdirectorRoutes = () => (
-    <Route path="/assistantdirector" element={<AssistantDirector />}>
-      <Route path="/assistantdirector/UploadScript" element={<UploadScript/>}/>
-      <Route
+  <Route path="/assistantdirector" element={<AssistantDirector />}>
+    <Route path="/assistantdirector/UploadScript" element={<UploadScript />} />
+    <Route
       path={PATHS.VERIFY_CREWAD}
       element={
         // ListData component for Verify Crew page
@@ -22,12 +24,10 @@ export const AssistantdirectorRoutes = () => (
           fetchAPI="crew"
           fetchType="GET"
           searchByField="name"
-
         />
-        
       }
     />
-       <Route
+    <Route
       path="/assistantdirector/SetupAD"
       element={
         <SetupComponentAD
@@ -38,8 +38,27 @@ export const AssistantdirectorRoutes = () => (
           }}
         />
       }
-    />
-        <Route
+    />{" "}
+    <Route
+      path="/assistantdirector/assignCharacter"
+      element={
+        <SelectedCharacterList
+          fetchAPI="ad/search/getCharacters"
+          fetchType="GET"
+        />
+      }
+    ></Route>
+    <Route
+      path="/assistantdirector/assignLocation"
+      element={
+        <LocationCardList fetchAPI="ad/search/getLocations" fetchType="GET" />
+      }
+    ></Route>
+    <Route
+      path="/assistantdirector/castingCall"
+      element={<CastingCall />}
+    ></Route>
+    <Route
       path={PATHS.SCENE_SETUPAD}
       element={
         // ListData component for Scene Setup page
@@ -67,11 +86,11 @@ export const AssistantdirectorRoutes = () => (
         />
       }
     />
-      <Route path={PATHS.EDIT_CHARACTERSAD} element={<AssignCharactersAD />} />
+    <Route path={PATHS.EDIT_CHARACTERSAD} element={<AssignCharactersAD />} />
     <Route path={PATHS.EDIT_LOCATIONSAD} element={<AssignedLocationsAD />} />
     <Route path={PATHS.ASSIGNAD} element={<AssignAD />} />
     <Route path={PATHS.SCENE_DETAILSAD} element={<SceneDetailsAD />} />
-     <Route
+    <Route
       path={PATHS.LOCATION_SETUPAD}
       element={
         // ListData component for Location Setup page
@@ -85,6 +104,5 @@ export const AssistantdirectorRoutes = () => (
         />
       }
     />
-      
-    </Route>
-  ); 
+  </Route>
+);

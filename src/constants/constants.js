@@ -41,6 +41,33 @@ export const directorListItems = [
     icon: "BuildIcon",
     route: "/director/Setup",
   },
+  /* {
+    text: "Search",
+    icon: "BuildIcon",
+    route: "/director/search",
+    subRoutes: [
+      {
+        text: "Search Characters",
+        icon: "PersonAddIcon",
+        route: "/director/assignCharacter",
+      },
+      {
+        text: "Search Locations",
+        icon: "PinDropIcon",
+        route: "/director/assignLocation",
+      },
+    ],
+  }, */
+  {
+    text: "Search Characters",
+    icon: "PersonAddIcon",
+    route: "/director/assignCharacter",
+  },
+  {
+    text: "Search Locations",
+    icon: "PinDropIcon",
+    route: "/director/assignLocation",
+  },
   {
     text: "Assign",
     icon: "AssignmentIcon",
@@ -110,5 +137,4 @@ export const ProducerListItems = [
     icon: "AddIcon",
     route: "/Producer/AddCrew",
   },
-]
-
+];

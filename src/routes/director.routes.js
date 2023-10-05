@@ -12,6 +12,8 @@ import SceneDetails from "../components/director/SceneDetails";
 import Assign from "../components/director/Assign";
 import { PATHS } from "../constants";
 import AssignedLocations from "../components/director/AssignedLocations";
+import CharacterCardList from "../components/director/CharacterCardList";
+import LocationCardList from "../components/director/LocationCardList";
 
 export const directorRoutes = () => (
   <Route path="/director" element={<Director />}>
@@ -84,6 +86,24 @@ export const directorRoutes = () => (
         />
       }
     />
+    <Route
+      path="/director/assignCharacter"
+      element={
+        <CharacterCardList
+          fetchAPI="director/search/getCharacters"
+          fetchType="GET"
+        />
+      }
+    ></Route>
+    <Route
+      path="/director/assignLocation"
+      element={
+        <LocationCardList
+          fetchAPI="director/search/getLocations"
+          fetchType="GET"
+        />
+      }
+    ></Route>
     <Route
       path="/director/shootDuration"
       element={<ShootDurationComponent />}
