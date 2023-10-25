@@ -8,9 +8,13 @@ import AssignCharactersAD from "../components/assistantdirector/AssignedCharacte
 import AssignedLocationsAD from "../components/assistantdirector/AssignedLocationsAD";
 import AssignAD from "../components/assistantdirector/AssignAD";
 import SceneDetailsAD from "../components/assistantdirector/SceneDetailsAD";
-import LocationCardList from "../components/director/LocationCardList";
 import SelectedCharacterList from "../components/assistantdirector/SelectedCharacterList";
 import CastingCall from "../components/assistantdirector/CastingCall";
+import SearchDatabase from "../components/assistantdirector/SearchDatabase";
+import AddActor from "../components/reusable-components/AddActor";
+import SelectedLocationsList from "../components/assistantdirector/SelectedLocationsList";
+import SearchLocationDatabase from "../components/assistantdirector/SearchLocationDatabase";
+import AddLocation from "../components/reusable-components/AddLocation";
 export const AssistantdirectorRoutes = () => (
   <Route path="/assistantdirector" element={<AssistantDirector />}>
     <Route path="/assistantdirector/UploadScript" element={<UploadScript />} />
@@ -47,17 +51,22 @@ export const AssistantdirectorRoutes = () => (
           fetchType="GET"
         />
       }
-    ></Route>
+    />
     <Route
       path="/assistantdirector/assignLocation"
-      element={
-        <LocationCardList fetchAPI="ad/search/getLocations" fetchType="GET" />
-      }
-    ></Route>
+      element={<SelectedLocationsList />}
+    />
+    <Route path="/assistantdirector/castingCall" element={<CastingCall />} />
     <Route
-      path="/assistantdirector/castingCall"
-      element={<CastingCall />}
-    ></Route>
+      path="/assistantdirector/searchDatabase"
+      element={<SearchDatabase />}
+    />
+    <Route
+      path="/assistantdirector/searchLocationDatabase"
+      element={<SearchLocationDatabase />}
+    />
+    <Route path="/assistantdirector/addActor" element={<AddActor />} />
+    <Route path="/assistantdirector/addLocation" element={<AddLocation />} />
     <Route
       path={PATHS.SCENE_SETUPAD}
       element={

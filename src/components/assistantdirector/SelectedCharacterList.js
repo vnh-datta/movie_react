@@ -76,10 +76,6 @@ const SelectedCharacterList = ({ fetchAPI, fetchType }) => {
     );
   };
 
-  const castingCall = () => {
-    console.log("Casting Call", selectedCharacter);
-  };
-
   function isEmpty(obj) {
     return Object.keys(obj).length === 0;
   }
@@ -120,10 +116,32 @@ const SelectedCharacterList = ({ fetchAPI, fetchType }) => {
             className={classes.footerButton}
             variant="contained"
             color="primary"
-            onClick={castingCall}
             disabled={!selectedCharacter?.id}
           >
             Casting Call
+          </Button>
+        </Link>
+        <Link
+          to={"/assistantdirector/searchDatabase"}
+          state={{ characters, id: selectedCharacter.id }}
+        >
+          <Button
+            className={classes.footerButton}
+            variant="contained"
+            color="primary"
+            disabled={!selectedCharacter?.id}
+          >
+            Search Database
+          </Button>
+        </Link>
+        <Link to={"/assistantdirector/addActor"}>
+          <Button
+            className={classes.footerButton}
+            variant="contained"
+            color="primary"
+            disabled={!selectedCharacter?.id}
+          >
+            Add Actor
           </Button>
         </Link>
       </div>

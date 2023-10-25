@@ -12,6 +12,10 @@ const { tempLocationSetupData } = require("./constants/tempLocationSetupData");
 const tempDirectorSetupData = require("./constants/tempdirectorSetupData");
 const tempSearchCharacterData = require("./constants/tempSearchCharacterData");
 const tempSearchLocationData = require("./constants/tempSearchLocationData");
+const tempArtistsData = require("./constants/tempArtistsData");
+const {
+  tempSceneLocationsData,
+} = require("./constants/tempSceneLocationsData");
 
 const app = express();
 app.use(cors());
@@ -89,6 +93,21 @@ app.get("/ad/search/getCharacters", (req, res) => {
 
 app.get("/ad/search/getLocations", (req, res) => {
   res.send(tempSearchLocationData);
+});
+
+app.get("/getArtists", (req, res) => {
+  res.send(tempArtistsData);
+});
+
+app.get("/getSceneLocations", (req, res) => {
+  res.send(tempSceneLocationsData);
+});
+
+app.post("/setSceneLocation", (req, res) => {
+  res.send({
+    sceneLocationID: req?.body?.sceneLocationID,
+    locationID: req?.body?.locationID,
+  });
 });
 
 app.listen(port, () => {
