@@ -110,6 +110,20 @@ app.post("/setSceneLocation", (req, res) => {
   });
 });
 
+app.post("/addActor", (req, res) => {
+  const reqBody = req?.body || {};
+  res.send(reqBody);
+});
+
+app.post("/addLocation", (req, res) => {
+  const reqBody = req?.body || {};
+  res.send(reqBody);
+});
+
+app.get("/director/search/getCharactersForApproval", (req, res) => {
+  res.send(tempSearchCharacterData);
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

@@ -1,12 +1,16 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from "@material-ui/core";
+import Person from "@material-ui/icons/Person";
+import axios from "axios";
+import { serverURL } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,13 +20,13 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   header: {
-    height: "100px",
+    height: "150px",
     width: "100%",
     display: "flex",
-    justifyContent: "space-between",
     borderBottom: "1px solid #ccc",
     padding: "0 4rem",
     boxSizing: "border-box",
+    alignItems: "center",
   },
   container: {
     flex: 1,
@@ -37,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     borderTop: "1px solid #ccc",
     padding: "0 4rem",
     boxSizing: "border-box",
@@ -46,17 +50,78 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     width: "25%",
   },
+  heading: {
+    margin: theme.spacing(1),
+    width: "100%",
+    textAlign: "center",
+  },
+  nameField: {
+    margin: theme.spacing(1),
+    flex: 1,
+  },
+  addPhoto: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "15%",
+  },
+  personIcon: {
+    fontSize: "3rem",
+    marginRight: theme.spacing(1),
+  },
+  addPhotoInput: {
+    width: "100px",
+  },
 }));
 
 const AddActor = () => {
   const classes = useStyles();
+  const [formData, setFormData] = React.useState({});
+
+  const handleDataChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const addActor = () => {
+    axios({
+      method: "POST",
+      url: `${serverURL}/addActor`,
+      data: formData,
+    })
+      .then((result) => console.log(result))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className={classes.root}>
-      <h1>Add Actor</h1>
-      <div className={classes.header}></div>
+      <h1 className={classes.heading}>Add Actor</h1>
+      <div className={classes.header}>
+        <div className={classes.addPhoto}>
+          <Person className={classes.personIcon} />
+          <TextField
+            className={classes.addPhotoInput}
+            id="photo"
+            label="Photo"
+            type="file"
+          />
+        </div>
+        <TextField
+          inputProps={{
+            id: "name",
+          }}
+          onChange={handleDataChange}
+          className={classes.nameField}
+          id="name"
+          label="Name"
+        />
+      </div>
       <div className={classes.container}>
         <TextField
+          inputProps={{
+            id: "actingAge",
+          }}
+          onChange={handleDataChange}
           className={classes.textField}
           id="actingAge"
           label="Acting Age"
@@ -65,9 +130,10 @@ const AddActor = () => {
         <FormControl className={classes.textField}>
           <InputLabel id="demo-simple-select-label">Gender</InputLabel>
           <Select
+            onChange={handleDataChange}
             labelId="demo-simple-select-label"
             inputProps={{
-              name: "gender",
+              id: "gender",
             }}
             variant="outlined"
             label="Gender"
@@ -77,49 +143,108 @@ const AddActor = () => {
           </Select>
         </FormControl>
         <TextField
+          inputProps={{
+            id: "hairColor",
+          }}
+          onChange={handleDataChange}
           className={classes.textField}
           id="hairColor"
           label="Hair Color"
         />
         <TextField
+          inputProps={{
+            id: "eyeColor",
+          }}
+          onChange={handleDataChange}
           className={classes.textField}
           id="eyeColor"
           label="Eye Color"
         />
         <TextField
+          inputProps={{
+            id: "languages",
+          }}
+          onChange={handleDataChange}
           className={classes.textField}
           id="languages"
           label="Languages"
         />
-        <TextField className={classes.textField} id="email" label="Email" />
         <TextField
+          inputProps={{
+            id: "email",
+          }}
+          onChange={handleDataChange}
+          className={classes.textField}
+          id="email"
+          label="Email"
+        />
+        <TextField
+          inputProps={{
+            id: "phone",
+          }}
+          onChange={handleDataChange}
           className={classes.textField}
           id="phone"
           label="Phone Number"
         />
         <TextField
+          inputProps={{
+            id: "performingArts",
+          }}
+          onChange={handleDataChange}
           className={classes.textField}
           id="performingArts"
           label="Performing Arts"
         />
         <TextField
+          inputProps={{
+            id: "atheletics",
+          }}
+          onChange={handleDataChange}
           className={classes.textField}
           id="atheletics"
           label="Atheletics"
         />
         <TextField
+          inputProps={{
+            id: "danceAndMusic",
+          }}
+          onChange={handleDataChange}
           className={classes.textField}
           id="danceAndMusic"
           label="Dance and Music"
         />
-        <TextField className={classes.textField} id="address" label="Address" />
         <TextField
+          inputProps={{
+            id: "address",
+          }}
+          onChange={handleDataChange}
+          className={classes.textField}
+          id="address"
+          label="Address"
+        />
+        <TextField
+          inputProps={{
+            id: "filmExperience",
+          }}
+          onChange={handleDataChange}
           className={classes.textField}
           id="filmExperience"
           label="Film Experience"
         />
       </div>
-      <div className={classes.footer}></div>
+      <div className={classes.footer}>
+        <div>
+          <Button
+            variant="contained"
+            type="submit"
+            color="primary"
+            onClick={addActor}
+          >
+            Submit
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };

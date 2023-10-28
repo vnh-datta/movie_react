@@ -41,23 +41,6 @@ export const directorListItems = [
     icon: "BuildIcon",
     route: "/director/Setup",
   },
-  /* {
-    text: "Search",
-    icon: "BuildIcon",
-    route: "/director/search",
-    subRoutes: [
-      {
-        text: "Search Characters",
-        icon: "PersonAddIcon",
-        route: "/director/assignCharacter",
-      },
-      {
-        text: "Search Locations",
-        icon: "PinDropIcon",
-        route: "/director/assignLocation",
-      },
-    ],
-  }, */
   {
     text: "Search Characters",
     icon: "PersonAddIcon",
@@ -67,6 +50,11 @@ export const directorListItems = [
     text: "Search Locations",
     icon: "PinDropIcon",
     route: "/director/assignLocation",
+  },
+  {
+    text: "Approve Characters",
+    icon: "PinDropIcon",
+    route: "/director/approveCharacter",
   },
   {
     text: "Assign",
@@ -99,6 +87,16 @@ export const AssistantdirectorListItems = [
     text: "Setup",
     icon: "BuildIcon",
     route: "/assistantdirector/SetupAD",
+  },
+  {
+    text: "Search Characters",
+    icon: "PersonAddIcon",
+    route: "/assistantdirector/assignCharacter",
+  },
+  {
+    text: "Search Locations",
+    icon: "PinDropIcon",
+    route: "/assistantdirector/assignLocation",
   },
   {
     text: "Assign",

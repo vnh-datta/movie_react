@@ -139,7 +139,6 @@ const SelectedCharacterList = ({ fetchAPI, fetchType }) => {
             className={classes.footerButton}
             variant="contained"
             color="primary"
-            disabled={!selectedCharacter?.id}
           >
             Add Actor
           </Button>

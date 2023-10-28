@@ -14,6 +14,7 @@ import { PATHS } from "../constants";
 import AssignedLocations from "../components/director/AssignedLocations";
 import CharacterCardList from "../components/director/CharacterCardList";
 import LocationCardList from "../components/director/LocationCardList";
+import ApproveCharacterList from "../components/director/ApproveCharacterList";
 
 export const directorRoutes = () => (
   <Route path="/director" element={<Director />}>
@@ -24,7 +25,7 @@ export const directorRoutes = () => (
         <ListData
           editButtonConfig="verifyCrew"
           headerText="Crew Details"
-          fetchAPI="crew_lists"
+          fetchAPI="crew"
           fetchType="GET"
           searchByField="name"
         />
@@ -95,6 +96,15 @@ export const directorRoutes = () => (
         />
       }
     ></Route>
+    <Route
+      path="/director/approveCharacter"
+      element={
+        <ApproveCharacterList
+          fetchAPI="director/search/getCharactersForApproval"
+          fetchType="GET"
+        />
+      }
+    />
     <Route
       path="/director/assignLocation"
       element={
