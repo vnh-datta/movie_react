@@ -3,7 +3,7 @@ import { TextField, Typography, makeStyles } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import CrewTable from "../reusable-components/CrewTable";
-import { getListEditButton, serverURL } from "../../constants";
+import {getListEditButtonAD,serverURL } from "../../constants";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,12 +46,13 @@ const useStyles = makeStyles((theme) => ({
  *
  * TODO: handle body data for POST requests
  */
-const ListData = ({
+const ListDataAD = ({
   editButtonConfig,
   headerText,
   fetchAPI,
   fetchType,
   searchByField,
+  showEditButton = false
 }) => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
@@ -63,22 +64,15 @@ const ListData = ({
   useEffect(() => {
     let isCancelled = false;
     if (isCancelled === false) setLoading(true);
-    const storedData = localStorage.getItem("myData");
-    console.log(storedData);
     axios({
       method: fetchType,
       url: `${serverURL}/${fetchAPI}`,
-      headers: {
-        Authorization: "Bearer " + storedData,
-      },
     })
       .then((result) => {
-        console.log(result);
-        console.log("Verify crew");
         const { rows, columns } = result?.data || { rows: [], columns: [] };
         const columnsWithEditButton = [
           ...columns,
-          getListEditButton(rows)[editButtonConfig],
+          getListEditButtonAD(rows)[editButtonConfig],
         ];
 
         setRows(rows);
@@ -87,7 +81,7 @@ const ListData = ({
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
-  }, [editButtonConfig, fetchAPI, fetchType]);
+  }, [editButtonConfig,fetchAPI, fetchType]);
 
   const handleSearchChange = (event) => {
     const searchQuery = event.target.value;
@@ -125,10 +119,10 @@ const ListData = ({
         />
       </div>
       <div className={classes.gridContainer}>
-        <CrewTable rows={filteredRows} columns={columns} />
+        <CrewTable rows={filteredRows} columns={showEditButton ? columns : columns.slice(0, -1)} />
       </div>
     </div>
   );
 };
 
-export default ListData;
+export default ListDataAD;

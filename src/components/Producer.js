@@ -7,19 +7,13 @@ import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import GroupIcon from "@material-ui/icons/Group";
+import MenuIcon from "@material-ui/icons/Menu";
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import AddIcon from '@mui/icons-material/Add';
 import BarChartIcon from "@material-ui/icons/BarChart";
+import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 import PersonIcon from "@material-ui/icons/Person";
-import VideocamIcon from "@material-ui/icons/Videocam";
-import VideoCallIcon from "@material-ui/icons/VideoCall";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import ScheduleIcon from "@material-ui/icons/Schedule";
-import PinDropIcon from "@material-ui/icons/PinDrop";
-import BuildIcon from "@material-ui/icons/Build";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import MovieCreationIcon from "@material-ui/icons/MovieCreation";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import FullPageContainer from "./FullPageContainer";
 import {
@@ -28,8 +22,8 @@ import {
   ListItemText,
   Typography,
 } from "@material-ui/core";
-import { AssistantdirectorListItems } from "../constants";
 
+import { ProducerListItems } from "../constants";
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,9 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },
   navList: {},
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24,
   },
-  directorHome: {
+  ProducerHome: {
     height: "100%",
     width: "100%",
     display: "flex",
@@ -125,39 +119,26 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
   },
 }));
-
 const getIcon = (icon) => {
   switch (icon) {
-    case "GroupIcon":
-      return <GroupIcon style={{ color: "#fff" }} />;
-    case "ScheduleIcon":
-      return <ScheduleIcon style={{ color: "#fff" }} />;
-    case "PinDropIcon":
-      return <PinDropIcon style={{ color: "#fff" }} />;
-    case "VideoCallIcon":
-      return <VideoCallIcon style={{ color: "#fff" }} />;
-    case "PersonAddIcon":
-      return <PersonAddIcon style={{ color: "#fff" }} />;
-    case "MovieCreationIcon":
-      return <MovieCreationIcon style={{ color: "#fff" }} />;
-    case "VideocamIcon":
-      return <VideocamIcon style={{ color: "#fff" }} />;
     case "PersonIcon":
       return <PersonIcon style={{ color: "#fff" }} />;
+    case "GroupIcon":
+        return <GroupIcon style={{ color: "#fff" }} />;
+    case "AttachMoneyIcon":
+        return <AttachMoneyIcon style={{ color: "#fff" }} />;  
     case "BarChartIcon":
       return <BarChartIcon style={{ color: "#fff" }} />;
-    case "BuildIcon":
-      return <BuildIcon style={{ color: "#fff" }} />;
-    case "AssignmentIcon":
-      return <AssignmentIcon style={{ color: "#fff" }} />;
-    case "CloudUploadIcon":
-      return <CloudUploadIcon style={{ color: "#fff" }} />;
+      case "AddIcon":
+        return <AddIcon style={{ color: "#fff" }} />;
+      case "AppShortcutIcon":
+      return <AppShortcutIcon style={{ color: "#fff" }} />;
     default:
       return null;
   }
 };
 
-const AssistantDirector = (props) => {
+const Producer = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
@@ -168,7 +149,6 @@ const AssistantDirector = (props) => {
   };
   const navigate = useNavigate();
   const outlet = useOutlet();
-
   return (
     <div className={classes.root}>
       <Drawer
@@ -198,7 +178,7 @@ const AssistantDirector = (props) => {
         </div>
         <Divider />
         <List className={classes.navList}>
-          {AssistantdirectorListItems.map((item, index) => {
+          {ProducerListItems.map((item, index) => {
             return (
               <ListItem
                 button
@@ -217,9 +197,9 @@ const AssistantDirector = (props) => {
       <FullPageContainer>
         <main className={classes.content}>
           {outlet || (
-            <div className={classes.directorHome}>
+            <div className={classes.ProducerHome}>
               <Typography component="h1" variant="h6" color="inherit" noWrap>
-                 Assistant Director Home
+                Producer Home
               </Typography>
             </div>
           )}
@@ -229,4 +209,4 @@ const AssistantDirector = (props) => {
   );
 };
 
-export default AssistantDirector;
+export default Producer;

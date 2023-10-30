@@ -11,6 +11,10 @@ import AssignCharacters from "../components/director/AssignCharacters";
 import SceneDetails from "../components/director/SceneDetails";
 import Assign from "../components/director/Assign";
 import { PATHS } from "../constants";
+import AssignedLocations from "../components/director/AssignedLocations";
+import CharacterCardList from "../components/director/CharacterCardList";
+import LocationCardList from "../components/director/LocationCardList";
+import ApproveCharacterList from "../components/director/ApproveCharacterList";
 
 export const directorRoutes = () => (
   <Route path="/director" element={<Director />}>
@@ -67,6 +71,7 @@ export const directorRoutes = () => (
       }
     />
     <Route path={PATHS.EDIT_CHARACTERS} element={<AssignCharacters />} />
+    <Route path={PATHS.EDIT_LOCATIONS} element={<AssignedLocations />} />
     <Route path={PATHS.ASSIGN} element={<Assign />} />
     <Route path={PATHS.SCENE_DETAILS} element={<SceneDetails />} />
     <Route
@@ -82,6 +87,33 @@ export const directorRoutes = () => (
         />
       }
     />
+    <Route
+      path="/director/assignCharacter"
+      element={
+        <CharacterCardList
+          fetchAPI="director/search/getCharacters"
+          fetchType="GET"
+        />
+      }
+    ></Route>
+    <Route
+      path="/director/approveCharacter"
+      element={
+        <ApproveCharacterList
+          fetchAPI="director/search/getCharactersForApproval"
+          fetchType="GET"
+        />
+      }
+    />
+    <Route
+      path="/director/assignLocation"
+      element={
+        <LocationCardList
+          fetchAPI="director/search/getLocations"
+          fetchType="GET"
+        />
+      }
+    ></Route>
     <Route
       path="/director/shootDuration"
       element={<ShootDurationComponent />}
